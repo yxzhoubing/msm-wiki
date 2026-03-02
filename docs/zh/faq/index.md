@@ -20,3 +20,13 @@
 
 - 默认路径：`/root/.msm/logs`
 - 使用 systemd 可通过 `journalctl -u msm` 查看
+
+## 5. 有哪些推荐的参考项目和教程？
+
+::: tip 推荐按这个顺序阅读
+1. [MSSB（逗猫佬）](https://github.com/baozaodetudou/mssb)：先理解旁路由分流整体设计思路
+2. [MosDNS 相关实践（PH 佬）](https://github.com/yyysuo/mosdns)：再看 MosDNS 侧配置与实战经验
+3. [Mihomo 官方核心](https://github.com/MetaCubeX/mihomo)：核对内核能力与官方参数说明
+4. [FakeIP 分流大法总教程](https://drive.google.com/drive/u/1/folders/1ldD2XqIrREPgr_CKMSgvYomXgwknpApi)：系统化学习 FakeIP 分流
+5. [原版 MosDNS 知识库](https://irine-sistiana.gitbook.io/mosdns-wiki/) 与 [StoreHouse 脚本合集](https://github.com/herozmy/StoreHouse/tree/latest)：用于进阶查阅与脚本实践
+:::

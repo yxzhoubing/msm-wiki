@@ -159,6 +159,24 @@ wget -qO- https://msm.19930520.xyz/dl/install.sh | bash
 
 安装完成后访问 `http://your-server-ip:7777`
 
+## 致谢与引用
+
+::: info 社区致谢
+MSM 的设计与落地过程中，参考了许多社区前辈的公开方案与经验，在此致谢：
+
+- [MSSB（逗猫佬）](https://github.com/baozaodetudou/mssb)：旁路由与分流整体思路的重要参考项目
+- [MosDNS 相关实践（PH 佬）](https://github.com/yyysuo/mosdns)：MosDNS 配置与实战经验参考
+- [Mihomo 官方核心](https://github.com/MetaCubeX/mihomo)：MSM 当前使用的代理核心之一
+:::
+
+### 延伸教程与资料
+
+| 类型 | 资源 | 用途 |
+| --- | --- | --- |
+| 分流教程 | [FakeIP 分流大法总教程](https://drive.google.com/drive/u/1/folders/1ldD2XqIrREPgr_CKMSgvYomXgwknpApi) | 系统理解 FakeIP 分流原理与落地方法 |
+| 官方知识库 | [原版 MosDNS 知识库](https://irine-sistiana.gitbook.io/mosdns-wiki/) | 查询 MosDNS 规则、插件与高级配置 |
+| 开源脚本 | [StoreHouse 脚本合集](https://github.com/herozmy/StoreHouse/tree/latest) | 获取实用脚本与部署辅助工具 |
+
 ## 快速安装
 
 1. 选择你的系统与部署方式：
