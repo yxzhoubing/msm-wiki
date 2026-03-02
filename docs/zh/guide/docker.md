@@ -114,6 +114,55 @@ docker run -d \
    - 如不需要这些功能，可移除 `--privileged` 和 `--device /dev/net/tun` 参数
    - 建议在可信环境中运行，或使用网络隔离
 
+## RouterOS Container
+
+1.为容器添加veth接口，为其分配一个内网专用 IP
+```bash
+/interface veth
+add address=192.168.88.2/24,fd88::2/64 dhcp=no gateway=192.168.88.1 gateway6=fd88::1 name=veth-msm
+```
+
+2.将veth 添加到网桥
+```bash
+/interface bridge port
+add bridge=bridge1 interface=veth-msm
+```
+
+3.设置“Docker注册表 URL”，并为镜像设置目录
+```bash
+/container config
+set registry-url=https://registry-1.docker.io tmpdir=/pull
+```
+
+4.定义配置文件的挂载点
+```bash
+/file
+add name=docker/msm/config type=directory
+
+/container mounts
+add list=msm_mount dst=/opt/msm src=docker/msm/config
+```
+
+5.创建环境变量
+```bash
+/container envs
+add list=msm_envs key=MSM_CONFIG_DIR value=/opt/msm
+add list=msm_envs key=MSM_PORT value=7777
+add list=msm_envs key=PATH value=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+add list=msm_envs key=TZ value=Asia/Shanghai
+```
+
+6.拉取 MSM 镜像并等待其提取，创建容器完成
+```bash
+/container
+add name=msm remote-image=msmbox/msm:latest interface=veth-msm envlists=msm_envs mountlists=msm_mount logging=yes start-on-boot=yes
+```
+
+7.启动容器 （！！！MSM 初始化向导，Linux 透明代理必须选择TUN模式！！！）
+```bash
+/container start [find interface=veth-msm]
+```
+
 ## 版本标签
 
 - `latest` - 最新稳定版本（每日自动构建）
