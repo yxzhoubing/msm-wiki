@@ -391,17 +391,16 @@ jobs:
             runs_on: ubuntu-24.04
             goos: linux
             goarch: arm64
-          # 暂停发布以下架构（后续可恢复）
-          # - target: linux-armv7
-          #   runs_on: ubuntu-24.04
-          #   goos: linux
-          #   goarch: arm
-          #   goarm: "7"
-          # - target: linux-armv6
-          #   runs_on: ubuntu-24.04
-          #   goos: linux
-          #   goarch: arm
-          #   goarm: "6"
+          - target: linux-armv7
+            runs_on: ubuntu-24.04
+            goos: linux
+            goarch: arm
+            goarm: "7"
+          - target: linux-armv6
+            runs_on: ubuntu-24.04
+            goos: linux
+            goarch: arm
+            goarm: "6"
           # - target: linux-386
           #   runs_on: ubuntu-24.04
           #   goos: linux
@@ -625,8 +624,8 @@ jobs:
             | **amd64-musl-v3** | [`msm-${{ needs.prepare.outputs.version }}-linux-amd64-musl-v3.tar.gz`](https://github.com/msm9527/msm-wiki/releases/download/${{ needs.prepare.outputs.version }}/msm-${{ needs.prepare.outputs.version }}-linux-amd64-musl-v3.tar.gz) | Alpine 优化版 |
             | **arm64** | [`msm-${{ needs.prepare.outputs.version }}-linux-arm64.tar.gz`](https://github.com/msm9527/msm-wiki/releases/download/${{ needs.prepare.outputs.version }}/msm-${{ needs.prepare.outputs.version }}-linux-arm64.tar.gz) | ARM 64位 |
             | **arm64-musl** | [`msm-${{ needs.prepare.outputs.version }}-linux-arm64-musl.tar.gz`](https://github.com/msm9527/msm-wiki/releases/download/${{ needs.prepare.outputs.version }}/msm-${{ needs.prepare.outputs.version }}-linux-arm64-musl.tar.gz) | ARM Alpine |
-
-            > **📌 说明：** `armv7`、`armv6`、`386` 架构当前已暂时暂停发布。
+            | **armv7** | [`msm-${{ needs.prepare.outputs.version }}-linux-armv7.tar.gz`](https://github.com/msm9527/msm-wiki/releases/download/${{ needs.prepare.outputs.version }}/msm-${{ needs.prepare.outputs.version }}-linux-armv7.tar.gz) | ARM 32位 (v7) |
+            | **armv6** | [`msm-${{ needs.prepare.outputs.version }}-linux-armv6.tar.gz`](https://github.com/msm9527/msm-wiki/releases/download/${{ needs.prepare.outputs.version }}/msm-${{ needs.prepare.outputs.version }}-linux-armv6.tar.gz) | ARM 32位 (v6) |
 
             > **💡 提示：** amd64-v3 版本针对较新的 CPU 进行了优化（需要支持 AVX、AVX2 等指令集），性能更好但兼容性较低。如果不确定，请使用标准的 amd64 版本。
 
