@@ -294,7 +294,7 @@ jobs:
 
             // 调用 ModelScope API 生成总结（OpenAI 兼容格式）
             try {
-              const modelCandidates = ['ZhipuAI/GLM-5', 'Qwen/Qwen3.5-35B-A3B'];
+              const modelCandidates = ['Qwen/Qwen3.5-35B-A3B', 'ZhipuAI/GLM-5'];
               let summary = '';
               let lastError = null;
 
