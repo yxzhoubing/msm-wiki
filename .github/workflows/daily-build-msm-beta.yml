@@ -131,9 +131,9 @@ jobs:
 
           if command -v jq >/dev/null 2>&1; then
             if [ "${CHANNEL}" = "beta" ]; then
-              PREVIOUS_RELEASE_PUBLISHED_AT="$(echo "${RELEASES_JSON}" | jq -r '[.[] | select(.draft == false and .prerelease == true and (.tag_name | startswith("beta-")) and .published_at != null)] | sort_by(.published_at) | last | .published_at // empty' || true)"
+              PREVIOUS_RELEASE_PUBLISHED_AT="$(echo "${RELEASES_JSON}" | jq -r --arg current_tag "${RELEASE_VERSION}" '[.[] | select(.draft == false and .prerelease == true and (.tag_name | startswith("beta-")) and .tag_name != $current_tag and .published_at != null)] | sort_by(.published_at) | last | .published_at // empty' || true)"
             else
-              PREVIOUS_RELEASE_PUBLISHED_AT="$(echo "${RELEASES_JSON}" | jq -r '[.[] | select(.draft == false and .prerelease == false and ((.tag_name | startswith("beta-")) | not) and .published_at != null)] | sort_by(.published_at) | last | .published_at // empty' || true)"
+              PREVIOUS_RELEASE_PUBLISHED_AT="$(echo "${RELEASES_JSON}" | jq -r --arg current_tag "${RELEASE_VERSION}" '[.[] | select(.draft == false and .prerelease == false and ((.tag_name | startswith("beta-")) | not) and .tag_name != $current_tag and .published_at != null)] | sort_by(.published_at) | last | .published_at // empty' || true)"
             fi
           else
             echo "warning: jq 不可用，无法按发布时间窗口筛选发布记录" >&2
