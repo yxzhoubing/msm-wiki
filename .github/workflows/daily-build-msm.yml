@@ -2,7 +2,7 @@ name: 每日构建 MSM（稳定版）
 
 on:
   schedule:
-    # 每天凌晨 4 点（UTC 时间 20:00）
+    # 每天北京时间凌晨 4 点（UTC 时间 20:00）
     - cron: '0 20 * * *'
   workflow_dispatch:
     inputs:
@@ -20,6 +20,9 @@ permissions:
 concurrency:
   group: daily-build-stable-${{ github.ref }}
   cancel-in-progress: false
+
+env:
+  TZ: Asia/Shanghai
 
 jobs:
   prepare:
@@ -46,6 +49,7 @@ jobs:
       commit_message: ${{ steps.meta.outputs.commit_message }}
       commit_author: ${{ steps.meta.outputs.commit_author }}
       commit_date: ${{ steps.meta.outputs.commit_date }}
+      build_time: ${{ steps.meta.outputs.build_time }}
       previous_release_published_at: ${{ steps.meta.outputs.previous_release_published_at }}
       log_since_epoch: ${{ steps.meta.outputs.log_since_epoch }}
       log_until_epoch: ${{ steps.meta.outputs.log_until_epoch }}
@@ -110,15 +114,17 @@ jobs:
           # 获取最新提交信息
           COMMIT_MESSAGE="$(git log -1 --pretty=format:'%s')"
           COMMIT_AUTHOR="$(git log -1 --pretty=format:'%an')"
-          COMMIT_DATE="$(git log -1 --pretty=format:'%ci')"
+          COMMIT_EPOCH="$(git log -1 --format=%ct HEAD)"
+          COMMIT_DATE="$(date -d "@${COMMIT_EPOCH}" +'%Y-%m-%d %H:%M:%S CST')"
+          BUILD_TIME="$(date +'%Y-%m-%d %H:%M:%S CST')"
 
           # 按“上一版发布时间 -> 当前发布时间”统计提交范围
           PREVIOUS_VERSION=""
           PREVIOUS_VERSION_COMMIT=""
           PREVIOUS_RELEASE_PUBLISHED_AT=""
           LOG_SINCE_EPOCH=""
-          LOG_UNTIL_EPOCH="$(git log -1 --format=%ct HEAD)"
-          CURRENT_RELEASE_TIME="$(date -u -d "@${LOG_UNTIL_EPOCH}" +'%Y-%m-%dT%H:%M:%SZ')"
+          LOG_UNTIL_EPOCH="${COMMIT_EPOCH}"
+          CURRENT_RELEASE_TIME="$(date -d "@${LOG_UNTIL_EPOCH}" +'%Y-%m-%d %H:%M:%S CST')"
 
           RELEASES_API="https://api.github.com/repos/msm9527/msm-wiki/releases?per_page=100"
           RELEASES_JSON="$(curl -fsSL "${RELEASES_API}" 2>/dev/null || echo '[]')"
@@ -175,6 +181,7 @@ jobs:
           echo "commit_message=${COMMIT_MESSAGE}" >> "$GITHUB_OUTPUT"
           echo "commit_author=${COMMIT_AUTHOR}" >> "$GITHUB_OUTPUT"
           echo "commit_date=${COMMIT_DATE}" >> "$GITHUB_OUTPUT"
+          echo "build_time=${BUILD_TIME}" >> "$GITHUB_OUTPUT"
           echo "previous_release_published_at=${PREVIOUS_RELEASE_PUBLISHED_AT}" >> "$GITHUB_OUTPUT"
           echo "log_since_epoch=${LOG_SINCE_EPOCH}" >> "$GITHUB_OUTPUT"
           echo "log_until_epoch=${LOG_UNTIL_EPOCH}" >> "$GITHUB_OUTPUT"
@@ -608,7 +615,7 @@ jobs:
             | **源仓库** | [msm9527/msm](https://github.com/msm9527/msm) |
             | **构建分支** | `${{ needs.prepare.outputs.branch }}` 🌿 |
             | **源提交** | [`${{ needs.prepare.outputs.commit_sha_short }}`](https://github.com/msm9527/msm/commit/${{ needs.prepare.outputs.commit_sha }}) |
-            | **构建时间** | ${{ github.event.repository.updated_at }} ⏰ |
+            | **构建时间** | ${{ needs.prepare.outputs.build_time }} ⏰ |
 
             <details>
             <summary>🎯 最新提交详情</summary>
@@ -768,19 +775,8 @@ jobs:
             // 读取现有的版本发布页面
             let content = fs.readFileSync(releasesPath, 'utf-8');
 
-            // 使用最后一个 commit 的时间作为发布日期（精确到分钟）
-            // commitDate 格式: "2026-01-09 12:34:56 +0800"
-            const commitDateObj = new Date(commitDate);
-            const dateStr = commitDateObj.toLocaleString('zh-CN', {
-              // 统一按北京时间展示，避免 runner 时区（UTC）导致显示偏移 8 小时
-              timeZone: 'Asia/Shanghai',
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
-              hour12: false
-            }).replace(/\//g, '-');
+            // commitDate 已在 prepare 阶段统一转换为北京时间字符串
+            const dateStr = commitDate;
 
             // 构建新版本的内容（与新版 releases 页面结构对齐）
             const versionLabel = channel === 'beta'
