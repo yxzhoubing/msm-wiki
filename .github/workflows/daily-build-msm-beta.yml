@@ -137,6 +137,11 @@ jobs:
             LOG_SINCE_EPOCH="$(date -d "${PREVIOUS_RELEASE_PUBLISHED_AT}" +%s 2>/dev/null || true)"
           fi
 
+          if [ -n "${LOG_SINCE_EPOCH}" ] && [ "${LOG_SINCE_EPOCH}" -ge "${LOG_UNTIL_EPOCH}" ]; then
+            echo "warning: 发布时间窗口异常（since=${LOG_SINCE_EPOCH} >= until=${LOG_UNTIL_EPOCH}），回退为最近 100 条提交"
+            LOG_SINCE_EPOCH=""
+          fi
+
           LOG_ARGS=( "--until=@${LOG_UNTIL_EPOCH}" )
           if [ -n "${LOG_SINCE_EPOCH}" ]; then
             PREVIOUS_VERSION="${PREVIOUS_RELEASE_PUBLISHED_AT}"
@@ -216,26 +221,34 @@ jobs:
             const previousReleasePublishedAt = '${{ steps.meta.outputs.previous_release_published_at }}';
             const logSinceEpoch = '${{ steps.meta.outputs.log_since_epoch }}';
             const logUntilEpoch = '${{ steps.meta.outputs.log_until_epoch }}';
+            const sinceNum = Number(logSinceEpoch);
+            const untilNum = Number(logUntilEpoch);
+            const hasSince = logSinceEpoch && logSinceEpoch.trim();
+            const hasUntil = logUntilEpoch && logUntilEpoch.trim();
+            const hasValidWindow = hasSince && hasUntil && !Number.isNaN(sinceNum) && !Number.isNaN(untilNum) && sinceNum < untilNum;
 
             // 与 prepare 阶段保持一致：按发布时间窗口获取提交
             // 使用 %x1F 作为分隔符避免提交信息中的特殊字符干扰
             const logArgs = ['--pretty=format:%h%x1F%s%x1F%an%x1F%ar'];
 
-            // 检查是否有有效的时间戳（非空字符串）
-            if (logSinceEpoch && logSinceEpoch.trim()) {
+            if (hasValidWindow) {
               logArgs.push(`--since=@${logSinceEpoch}`);
             } else {
-              // 首次发布或未获取到上一版发布时间时，回退最近 100 条
+              // 首次发布、未获取到上一版发布时间或窗口异常时，回退最近 100 条
               logArgs.push('-100');
             }
-            if (logUntilEpoch && logUntilEpoch.trim()) {
+            if (hasUntil) {
               logArgs.push(`--until=@${logUntilEpoch}`);
             }
 
             const gitLogCmd = `git log ${logArgs.join(' ')}`;
-            console.log(logSinceEpoch && logSinceEpoch.trim()
-              ? `按发布时间窗口获取提交: since=${logSinceEpoch}, until=${logUntilEpoch}`
-              : '未找到上一版发布时间，回退获取最近 100 条提交');
+            if (hasValidWindow) {
+              console.log(`按发布时间窗口获取提交: since=${logSinceEpoch}, until=${logUntilEpoch}`);
+            } else if (hasSince && hasUntil && !Number.isNaN(sinceNum) && !Number.isNaN(untilNum) && sinceNum >= untilNum) {
+              console.log(`发布时间窗口异常，回退获取最近 100 条提交: since=${logSinceEpoch}, until=${logUntilEpoch}`);
+            } else {
+              console.log('未找到有效发布时间窗口，回退获取最近 100 条提交');
+            }
 
             const commits = execSync(gitLogCmd, { encoding: 'utf-8' })
               .split('\n')
