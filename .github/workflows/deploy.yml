@@ -34,6 +34,8 @@ jobs:
   build:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    outputs:
+      pages_artifact_name: ${{ steps.pages_artifact.outputs.name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,19 +58,38 @@ jobs:
       - name: Build with VitePress
         run: npm run docs:build
 
+      - name: Set Pages artifact name
+        id: pages_artifact
+        run: echo "name=github-pages-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
+          name: ${{ steps.pages_artifact.outputs.name }}
 
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     name: Deploy
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (attempt 1)
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ needs.build.outputs.pages_artifact_name }}
+        continue-on-error: true
+
+      - name: Wait before retrying Pages deployment
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 15
+
+      - name: Deploy to GitHub Pages (attempt 2)
+        if: steps.deployment.outcome == 'failure'
+        id: deployment_retry
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ needs.build.outputs.pages_artifact_name }}

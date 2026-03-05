@@ -1209,11 +1209,30 @@ jobs:
       - name: Build with VitePress
         run: npm run docs:build
 
+      - name: Set Pages artifact name
+        id: pages_artifact
+        run: echo "name=github-pages-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
+          name: ${{ steps.pages_artifact.outputs.name }}
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (attempt 1)
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ steps.pages_artifact.outputs.name }}
+        continue-on-error: true
+
+      - name: Wait before retrying Pages deployment
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 15
+
+      - name: Deploy to GitHub Pages (attempt 2)
+        if: steps.deployment.outcome == 'failure'
+        id: deployment_retry
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ steps.pages_artifact.outputs.name }}
