@@ -7,30 +7,24 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-0.9.12`  
-> 发布时间：2026-03-04 16:40:44 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-0.9.12>  
+> 当前 Beta 版本：`beta-0.9.13`  
+> 发布时间：2026-03-05 17:52:48 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-0.9.13>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
 ### 🔧 变更（Changed）
-- 设置页改版：渠道迁移至版本信息并按组展示
-- 代理管理页卡片适配移动端工具条布局
-- 代理编辑改为暂存后统一保存并重启
-- 订阅与节点共用「保存并重启」按钮
-- Proxies Tab 改为内联展示，移除弹窗
+- 更新 MosDNS 基础配置，提升运行性能
+- 删除无效的分流策略库，清理冗余文件
 
 ### 🐛 修复（Fixed）
-- 恢复白名单策略中遗漏的 Tracker 配置
-- 禁用代理节点增加状态标识显示
-- 修复禁用项目编辑及状态管理异常
-- 修复订阅节点增删改后未立即生效问题
+- 取消 PCDN 设置，解决视频网站访问异常
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`1a70d40`](https://github.com/msm9527/msm/commit/1a70d406e4976f408634e286ae6c628ffdfb13ec)
-- **提交信息**: 白名单策略增加tracker（之前误删了）
-- **提交作者**: msm
-- **提交时间**: 2026-03-04 16:40:44 CST
+- **源提交**: [`b0a8c76`](https://github.com/msm9527/msm/commit/b0a8c76c79b354d6f91eed67d9661070e08c8101)
+- **提交信息**: chore: sync version to 0.9.13
+- **提交作者**: github-actions[bot]
+- **提交时间**: 2026-03-05 17:52:48 CST
 :::
 
 ---
