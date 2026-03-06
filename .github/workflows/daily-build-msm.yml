@@ -892,7 +892,7 @@ jobs:
           VERSION="${{ needs.prepare.outputs.version }}"
 
           # 创建目录结构 binaries/{platform}/msm
-          mkdir -p binaries/linux/amd64 binaries/linux/arm64
+          mkdir -p binaries/linux/amd64 binaries/linux/arm64 binaries/linux/arm/v7 binaries/linux/arm/v6
 
           # 解压并复制各架构的二进制文件
           echo "准备 linux/amd64 二进制..."
@@ -900,6 +900,12 @@ jobs:
 
           echo "准备 linux/arm64 二进制..."
           tar -xzf "dist/msm-${VERSION}-linux-arm64/msm-${VERSION}-linux-arm64.tar.gz" -C binaries/linux/arm64
+
+          echo "准备 linux/arm/v7 二进制..."
+          tar -xzf "dist/msm-${VERSION}-linux-armv7/msm-${VERSION}-linux-armv7.tar.gz" -C binaries/linux/arm/v7
+
+          echo "准备 linux/arm/v6 二进制..."
+          tar -xzf "dist/msm-${VERSION}-linux-armv6/msm-${VERSION}-linux-armv6.tar.gz" -C binaries/linux/arm/v6
 
           # 验证文件结构
           echo "验证二进制文件:"
@@ -919,7 +925,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile.binary
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
           push: true
           tags: msmbox/msm:${{ needs.prepare.outputs.version }},msmbox/msm:${{ needs.prepare.outputs.docker_channel_tag }}
           labels: |
@@ -948,6 +954,8 @@ jobs:
           echo "支持的架构:"
           echo "  - linux/amd64"
           echo "  - linux/arm64"
+          echo "  - linux/arm/v7"
+          echo "  - linux/arm/v6"
           echo ""
           echo "注意: Docker 镜像使用标准 amd64 版本，amd64-v3 优化版仅作为独立二进制文件提供"
           echo ""
