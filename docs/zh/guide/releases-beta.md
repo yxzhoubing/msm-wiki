@@ -8,22 +8,24 @@
 
 
 > 当前 Beta 版本：`beta-0.9.13`  
-> 发布时间：2026-03-05 17:52:48 CST  
+> 发布时间：2026-03-06 14:22:07 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-0.9.13>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
-### 🔧 变更（Changed）
-- 更新 MosDNS 配置以提高性能，删除无效分流策略库
-
 ### 🐛 修复（Fixed）
-- 取消 PCDN 设置，防止视频网站出现异常
+- 取消 PCDN 设置，修复视频网站访问异常问题
+- 统一验证与重启流程，增强系统运行稳定性
+
+### 🔧 变更（Changed）
+- 更新 MOSDNS 基础配置，提升网络提交性能
+- 配置标签页启用自动保存，保障数据不丢失
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`b0a8c76`](https://github.com/msm9527/msm/commit/b0a8c76c79b354d6f91eed67d9661070e08c8101)
-- **提交信息**: chore: sync version to 0.9.13
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-03-05 17:52:48 CST
+- **源提交**: [`9a64eb1`](https://github.com/msm9527/msm/commit/9a64eb1915d5979c60df253310766e29499c4bb4)
+- **提交信息**: fix(mihomo): unify validate-restart flow and auto-save config tab
+- **提交作者**: msm
+- **提交时间**: 2026-03-06 14:22:07 CST
 :::
 
 ---
