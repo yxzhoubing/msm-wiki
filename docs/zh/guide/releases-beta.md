@@ -12,12 +12,13 @@
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-0.9.13>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
-### 🔧 变更（Changed）
-- 优化 MOSDNS 配置提升性能，移除 PCDN 防视频异常
-- 清理无效的分流策略库
-
 ### 🐛 修复（Fixed）
-- 修复 Mihomo 验证重启流程，完善配置自动保存机制
+- 修复 Mihomo 重启验证流程及配置自动保存
+- 禁用 PCDN 设置以解决视频网站访问问题
+
+### 🔧 变更（Changed）
+- 更新 Mosdns 基础配置以提升性能
+- 删除无效的分流策略库
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
