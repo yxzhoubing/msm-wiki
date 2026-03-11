@@ -8,24 +8,27 @@
 
 
 > 当前 Beta 版本：`beta-0.9.13`  
-> 发布时间：2026-03-06 14:22:07 CST  
+> 发布时间：2026-03-11 17:49:53 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-0.9.13>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
-### 🐛 修复（Fixed）
-- 修复 Mihomo 重启验证流程及配置自动保存
-- 禁用 PCDN 设置以解决视频网站访问问题
+### ✨ 新增
+- 限制 v1+ 自动更新，增加手动升级提示
 
-### 🔧 变更（Changed）
-- 更新 Mosdns 基础配置以提升性能
-- 删除无效的分流策略库
+### 🔧 变更
+- 优化 MosDNS 配置与性能，移除 PCDN 解决视频问题
+- 清理无效的分流策略库
+
+### 🐛 修复
+- 修复授权状态恢复异常及前端误判问题
+- 统一 Mihomo 重启验证流程并支持自动保存配置
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`9a64eb1`](https://github.com/msm9527/msm/commit/9a64eb1915d5979c60df253310766e29499c4bb4)
-- **提交信息**: fix(mihomo): unify validate-restart flow and auto-save config tab
+- **源提交**: [`6e06247`](https://github.com/msm9527/msm/commit/6e06247d6750ac25f90862d57a43e9c3a478b711)
+- **提交信息**: feat(update): 限制 v1+ 自动更新并增加手动升级提示 / Restrict auto-update for v1+ and add manual upgrade warning
 - **提交作者**: msm
-- **提交时间**: 2026-03-06 14:22:07 CST
+- **提交时间**: 2026-03-11 17:49:53 CST
 :::
 
 ---
