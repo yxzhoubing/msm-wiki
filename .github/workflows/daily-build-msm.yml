@@ -471,6 +471,23 @@ jobs:
             ~/.cache/go-build
           key: go-build-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('backend/go.sum') }}
 
+      - name: 安装 garble
+        shell: bash
+        run: |
+          set -euo pipefail
+          GARBLE_VERSION="v0.15.0"
+          export PATH="$(go env GOPATH)/bin:${PATH}"
+          go install mvdan.cc/garble@"${GARBLE_VERSION}"
+          garble version
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+
+      - name: 生成构建变体标签
+        id: variant
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "label=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${{ matrix.target }}" >> "$GITHUB_OUTPUT"
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -505,7 +522,7 @@ jobs:
           git clone https://github.com/ochinchina/supervisord.git /tmp/supervisord
           git -C /tmp/supervisord checkout "${SUPERVISORD_COMMIT}"
 
-          (cd /tmp/supervisord && go build -ldflags="-s -w" -o supervisord)
+          (cd /tmp/supervisord && go build -trimpath -buildvcs=false -ldflags="-s -w" -o supervisord)
           cp /tmp/supervisord/supervisord backend/cmd/msm/supervisord
 
       - name: 构建前端并复制到后端（嵌入资源）
@@ -533,9 +550,12 @@ jobs:
         run: |
           set -euo pipefail
           VERSION="${{ needs.prepare.outputs.version }}"
+          VARIANT_LABEL="${{ steps.variant.outputs.label }}"
+          GO_LDFLAGS="-s -w"
           mkdir -p dist
           cd backend
-          go build -ldflags="-s -w" -o ../dist/msm ./cmd/msm
+          echo "构建变体标签: ${VARIANT_LABEL}"
+          garble -seed=random -literals -tiny build -trimpath -buildvcs=false -ldflags="${GO_LDFLAGS}" -o ../dist/msm ./cmd/msm
           cd ..
           chmod +x dist/msm
 
