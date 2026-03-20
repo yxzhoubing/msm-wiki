@@ -471,6 +471,14 @@ jobs:
             ~/.cache/go-build
           key: go-build-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('backend/go.sum') }}
 
+      - name: 缓存 Garble 构建产物
+        uses: actions/cache@v4
+        with:
+          path: .cache/garble
+          key: garble-${{ runner.os }}-${{ matrix.target }}-${{ github.sha }}
+          restore-keys: |
+            garble-${{ runner.os }}-${{ matrix.target }}-
+
       - name: 安装 garble
         shell: bash
         run: |
@@ -480,13 +488,6 @@ jobs:
           go install mvdan.cc/garble@"${GARBLE_VERSION}"
           garble version
           echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
-
-      - name: 生成构建变体标签
-        id: variant
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "label=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${{ matrix.target }}" >> "$GITHUB_OUTPUT"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -547,15 +548,15 @@ jobs:
           GOARM: ${{ matrix.goarm || '' }}
           GOAMD64: ${{ matrix.goamd64 || '' }}
           CGO_ENABLED: ${{ matrix.goos == 'darwin' && '1' || '0' }}
+          GARBLE_CACHE: ${{ github.workspace }}/.cache/garble
+          GOGARBLE: github.com/msm/msm
         run: |
           set -euo pipefail
           VERSION="${{ needs.prepare.outputs.version }}"
-          VARIANT_LABEL="${{ steps.variant.outputs.label }}"
           GO_LDFLAGS="-s -w"
           mkdir -p dist
           cd backend
-          echo "构建变体标签: ${VARIANT_LABEL}"
-          garble -seed=random -literals -tiny build -trimpath -buildvcs=false -ldflags="${GO_LDFLAGS}" -o ../dist/msm ./cmd/msm
+          garble -tiny build -trimpath -buildvcs=false -ldflags="${GO_LDFLAGS}" -o ../dist/msm ./cmd/msm
           cd ..
           chmod +x dist/msm
 
