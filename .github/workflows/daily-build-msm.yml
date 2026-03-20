@@ -471,24 +471,6 @@ jobs:
             ~/.cache/go-build
           key: go-build-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('backend/go.sum') }}
 
-      - name: 缓存 Garble 构建产物
-        uses: actions/cache@v4
-        with:
-          path: .cache/garble
-          key: garble-${{ runner.os }}-${{ matrix.target }}-${{ github.sha }}
-          restore-keys: |
-            garble-${{ runner.os }}-${{ matrix.target }}-
-
-      - name: 安装 garble
-        shell: bash
-        run: |
-          set -euo pipefail
-          GARBLE_VERSION="v0.15.0"
-          export PATH="$(go env GOPATH)/bin:${PATH}"
-          go install mvdan.cc/garble@"${GARBLE_VERSION}"
-          garble version
-          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -548,15 +530,13 @@ jobs:
           GOARM: ${{ matrix.goarm || '' }}
           GOAMD64: ${{ matrix.goamd64 || '' }}
           CGO_ENABLED: ${{ matrix.goos == 'darwin' && '1' || '0' }}
-          GARBLE_CACHE: ${{ github.workspace }}/.cache/garble
-          GOGARBLE: github.com/msm/msm
         run: |
           set -euo pipefail
           VERSION="${{ needs.prepare.outputs.version }}"
           GO_LDFLAGS="-s -w"
           mkdir -p dist
           cd backend
-          garble -tiny build -trimpath -buildvcs=false -ldflags="${GO_LDFLAGS}" -o ../dist/msm ./cmd/msm
+          go build -trimpath -buildvcs=false -ldflags="${GO_LDFLAGS}" -o ../dist/msm ./cmd/msm
           cd ..
           chmod +x dist/msm
 
