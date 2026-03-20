@@ -7,30 +7,41 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-0.9.13`  
-> 发布时间：2026-03-11 17:49:53 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-0.9.13>  
+> 当前 Beta 版本：`beta-1.0.0`  
+> 发布时间：2026-03-20 23:10:41 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.0>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
-### ✨ 新增（Added）
-- 限制 v1+ 自动更新并增加手动升级提示
+### ✨ 新增
+- 引入能力票据与多点授权校验
+- MosDNS 上游统计新增分组显示功能
+- 适配 MosDNS 5.2.0 API 与升级恢复逻辑
 
-### 🔧 变更（Changed）
-- 统一 Mihomo 校验重启流程与配置保存
-- 优化 MosDNS 配置，移除 PCDN 及无效规则
+### 🔧 变更
+- 统一 Pro 限制体验并收紧配置接口
+- 限制 MosDNS 版本保留并支持删除
+- 压缩 MosDNS 配置页并移除分流刷新配置
+- 加固本地授权绑定与运行期安全检测
 
-### 🐛 修复（Fixed）
-- 修复授权状态恢复与前端误判问题
+### 🐛 修复
+- 修复内存生命周期问题及资源清理
+- 修复 Mihomo Pro 权限与升级流程异常
+- 修复许可证租约冲突及票据加载顺序
+- 修复 MosDNS 统计、显示及重建状态错误
 
-### 📝 备注（Notes）
-- 取消 PCDN 设置以防视频网站出现异常
+### ⚠️ 废弃
+- 暂时禁用 MosDNS cn-fakeip 和 answer 模式
+
+### 📝 备注
+- 许可证安全机制升级，请注意授权变更
+- MosDNS 5.2.0 适配涉及 API 变动，请测试
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`6e06247`](https://github.com/msm9527/msm/commit/6e06247d6750ac25f90862d57a43e9c3a478b711)
-- **提交信息**: feat(update): 限制 v1+ 自动更新并增加手动升级提示 / Restrict auto-update for v1+ and add manual upgrade warning
+- **源提交**: [`9f83cc5`](https://github.com/msm9527/msm/commit/9f83cc5f00dd51ed59970edfedda03f204948e40)
+- **提交信息**: golang
 - **提交作者**: msm
-- **提交时间**: 2026-03-11 17:49:53 CST
+- **提交时间**: 2026-03-20 23:10:41 CST
 :::
 
 ---
