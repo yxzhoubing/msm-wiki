@@ -8,40 +8,34 @@
 
 
 > 当前 Beta 版本：`beta-1.0.0`  
-> 发布时间：2026-03-20 23:10:41 CST  
+> 发布时间：2026-03-21 00:24:50 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.0>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
-### ✨ 新增
-- 引入能力票据与多点授权校验
+### ✨ 新增（Added）
+- 适配 MosDNS 5.2.0 API 及升级恢复流程
+- 引入能力票据与多点授权校验机制
 - MosDNS 上游统计新增分组显示功能
-- 适配 MosDNS 5.2.0 API 与升级恢复逻辑
+- 支持手动删除并限制 MosDNS 版本保留
 
-### 🔧 变更
-- 统一 Pro 限制体验并收紧配置接口
-- 限制 MosDNS 版本保留并支持删除
+### 🔧 变更（Changed）
+- 前后端统一 Pro 限制体验并收紧配置接口
 - 压缩 MosDNS 配置页并移除分流刷新配置
-- 加固本地授权绑定与运行期安全检测
+- 暂时禁用 MosDNS cn-fakeip 及 answer 模式
+- 移除上游设置中的直接 JSON 编辑子标题
 
-### 🐛 修复
-- 修复内存生命周期问题及资源清理
-- 修复 Mihomo Pro 权限与升级流程异常
-- 修复许可证租约冲突及票据加载顺序
-- 修复 MosDNS 统计、显示及重建状态错误
-
-### ⚠️ 废弃
-- 暂时禁用 MosDNS cn-fakeip 和 answer 模式
-
-### 📝 备注
-- 许可证安全机制升级，请注意授权变更
-- MosDNS 5.2.0 适配涉及 API 变动，请测试
+### 🐛 修复（Fixed）
+- 修复 SQLite 旧库主键迁移失败问题
+- 修复内存生命周期及资源清理问题
+- 修复 Mihomo Pro 权限、升级流程及 License 安全逻辑
+- 修复 MosDNS 统计、版本显示及重建状态错误
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`9f83cc5`](https://github.com/msm9527/msm/commit/9f83cc5f00dd51ed59970edfedda03f204948e40)
-- **提交信息**: golang
+- **源提交**: [`db0e3ad`](https://github.com/msm9527/msm/commit/db0e3addfa6307bc4ea32ae446122a584f8839f9)
+- **提交信息**: 修复 SQLite 旧库主键迁移 / Fix legacy SQLite primary key migration
 - **提交作者**: msm
-- **提交时间**: 2026-03-20 23:10:41 CST
+- **提交时间**: 2026-03-21 00:24:50 CST
 :::
 
 ---
