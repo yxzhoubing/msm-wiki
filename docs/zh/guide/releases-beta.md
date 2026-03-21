@@ -7,41 +7,27 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.0`  
-> 发布时间：2026-03-21 00:24:50 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.0>  
+> 当前 Beta 版本：`beta-1.0.2`  
+> 发布时间：2026-03-21 22:14:28 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.2>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
-### ✨ 新增（Added）
-- MosDNS 上游统计增加分组显示
-- 引入能力票据与多点授权校验
-
 ### 🔧 变更（Changed）
-- 适配 MosDNS 5.2.0 API 及新版统计
-- 统一 Pro 限制体验并收紧配置接口
-- 压缩 MosDNS 配置页并移除分流刷新
-- 暂时禁用 MosDNS cn-fakeip 和 answer mode
-- 移除 MosDNS 上游设置 JSON 编辑入口
-- 调整 MosDNS 概览页面布局
+- 优化 MosDNS 系统页布局与表单结构
+- 更新 MosDNS 相关页面文案
 
 ### 🐛 修复（Fixed）
-- 修复 SQLite 旧库主键迁移问题
-- 修复内存生命周期及资源清理问题
-- 修复 Mihomo Pro 权限、License 流程及票据加载
-- 修复 MosDNS 版本、统计及重置问题
-- 修复批量重建状态显示错误
-
-### 📝 备注（Notes）
-- MosDNS 部分功能已暂时禁用，请注意
-- 升级后建议检查数据库兼容性
-- 增强本地授权绑定与安全检测机制
+- 修复启动阻塞及升级误报问题
+- 修复组件更新下载版本漂移问题
+- 修复 MosDNS 规则创建与参数推导逻辑
+- 修复前端类型检查错误
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`db0e3ad`](https://github.com/msm9527/msm/commit/db0e3addfa6307bc4ea32ae446122a584f8839f9)
-- **提交信息**: 修复 SQLite 旧库主键迁移 / Fix legacy SQLite primary key migration
+- **源提交**: [`52baec8`](https://github.com/msm9527/msm/commit/52baec8de152385fc3d7afb650e891573b7a3d7a)
+- **提交信息**: 修复前端类型检查错误 / Fix frontend type-check errors
 - **提交作者**: msm
-- **提交时间**: 2026-03-21 00:24:50 CST
+- **提交时间**: 2026-03-21 22:14:28 CST
 :::
 
 ---
