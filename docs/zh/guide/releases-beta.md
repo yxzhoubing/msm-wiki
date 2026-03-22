@@ -7,20 +7,20 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.3`  
-> 发布时间：2026-03-22 09:06:54 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.3>  
+> 当前 Beta 版本：`beta-1.0.4`  
+> 发布时间：2026-03-22 11:28:41 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.4>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
 ### 🐛 修复（Fixed）
-- 修复因损坏旧缓存导致的激活兼容问题
+- 修复切换授权码时安装身份未重置的问题
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`b851b44`](https://github.com/msm9527/msm/commit/b851b443341bcc473e39a5dec76210cea8d8f646)
-- **提交信息**: chore: sync version to 1.0.3
+- **源提交**: [`e22ffb0`](https://github.com/msm9527/msm/commit/e22ffb01ae409b18b6eb74fa02a8bdfbe377717a)
+- **提交信息**: chore: sync version to 1.0.4
 - **提交作者**: github-actions[bot]
-- **提交时间**: 2026-03-22 09:06:54 CST
+- **提交时间**: 2026-03-22 11:28:41 CST
 :::
 
 ---
