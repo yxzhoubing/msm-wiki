@@ -7,20 +7,20 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.4`  
-> 发布时间：2026-03-22 11:28:41 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.4>  
+> 当前 Beta 版本：`beta-1.0.5`  
+> 发布时间：2026-03-22 12:11:00 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.5>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
-### 🐛 修复（Fixed）
-- 修复切换授权码时安装身份未重置的问题
+### ✨ 新增（Added）
+- 新增安装身份作用域实现功能
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`e22ffb0`](https://github.com/msm9527/msm/commit/e22ffb01ae409b18b6eb74fa02a8bdfbe377717a)
-- **提交信息**: chore: sync version to 1.0.4
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-03-22 11:28:41 CST
+- **源提交**: [`af315fd`](https://github.com/msm9527/msm/commit/af315fd8bff3d848b8324faabc7f315e29b7854a)
+- **提交信息**: 补充安装身份作用域实现文件 / Add scoped installation identity implementation
+- **提交作者**: msm
+- **提交时间**: 2026-03-22 12:11:00 CST
 :::
 
 ---
