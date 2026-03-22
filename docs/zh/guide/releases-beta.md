@@ -7,26 +7,20 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.2`  
-> 发布时间：2026-03-21 22:14:28 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.2>  
+> 当前 Beta 版本：`beta-1.0.3`  
+> 发布时间：2026-03-22 09:06:54 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.3>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
 ### 🐛 修复（Fixed）
-- 修复启动阻塞与升级误报问题
-- 修复组件更新下载版本漂移
-- 修复 MosDNS 规则写入及参数推导逻辑
-
-### 🔧 变更（Changed）
-- 优化 MosDNS 系统页布局与表单交互
-- 更新 MosDNS 相关页面文案说明
+- 修复因损坏旧缓存导致的激活兼容问题
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`52baec8`](https://github.com/msm9527/msm/commit/52baec8de152385fc3d7afb650e891573b7a3d7a)
-- **提交信息**: 修复前端类型检查错误 / Fix frontend type-check errors
-- **提交作者**: msm
-- **提交时间**: 2026-03-21 22:14:28 CST
+- **源提交**: [`b851b44`](https://github.com/msm9527/msm/commit/b851b443341bcc473e39a5dec76210cea8d8f646)
+- **提交信息**: chore: sync version to 1.0.3
+- **提交作者**: github-actions[bot]
+- **提交时间**: 2026-03-22 09:06:54 CST
 :::
 
 ---
