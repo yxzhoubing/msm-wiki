@@ -21,12 +21,24 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/zh/' },
-      { text: '快速安装', link: '/zh/guide/install' },
-      { text: '路由器集成', link: '/zh/guide/router-integration' },
+      { text: '快速开始', link: '/zh/guide/install' },
       { text: '使用指南', link: '/zh/guide/basic-config' },
-      { text: '版本发布', link: '/zh/guide/releases' },
-      { text: 'Beta 版发布', link: '/zh/guide/releases-beta' },
-      { text: '常见问题', link: '/zh/faq/' }
+      { text: '路由器集成', link: '/zh/guide/router-integration' },
+      {
+        text: '参考',
+        items: [
+          { text: 'CLI 命令', link: '/zh/guide/cli' },
+          { text: 'API 参考', link: '/zh/guide/api' },
+          { text: '常见问题', link: '/zh/faq/' }
+        ]
+      },
+      {
+        text: '更新日志',
+        items: [
+          { text: '正式版', link: '/zh/guide/releases' },
+          { text: 'Beta 版', link: '/zh/guide/releases-beta' }
+        ]
+      }
     ],
 
     sidebar: {
@@ -62,9 +74,11 @@ export default defineConfig({
           ]
         },
         {
-          text: '使用指南',
+          text: '界面功能',
+          collapsed: false,
           items: [
             { text: '使用指南总览', link: '/zh/guide/basic-config' },
+            { text: '仪表盘', link: '/zh/guide/dashboard' },
             { text: '设备管理', link: '/zh/guide/device-management' },
             { text: 'MosDNS 管理', link: '/zh/guide/mosdns' },
             { text: 'SingBox 管理', link: '/zh/guide/singbox' },
@@ -74,7 +88,19 @@ export default defineConfig({
           ]
         },
         {
+          text: '系统管理',
+          collapsed: false,
+          items: [
+            { text: '进程管理', link: '/zh/guide/process' },
+            { text: '用户管理', link: '/zh/guide/user-management' },
+            { text: '系统设置', link: '/zh/guide/settings' },
+            { text: '系统诊断', link: '/zh/guide/diagnostics' },
+            { text: '授权管理', link: '/zh/guide/license' }
+          ]
+        },
+        {
           text: '维护管理',
+          collapsed: true,
           items: [
             { text: '版本发布', link: '/zh/guide/releases' },
             { text: 'Beta 版发布', link: '/zh/guide/releases-beta' },
@@ -83,7 +109,16 @@ export default defineConfig({
           ]
         },
         {
+          text: '参考文档',
+          collapsed: true,
+          items: [
+            { text: 'CLI 命令参考', link: '/zh/guide/cli' },
+            { text: 'API 参考', link: '/zh/guide/api' }
+          ]
+        },
+        {
           text: '常见问题',
+          collapsed: true,
           items: [
             { text: 'FAQ', link: '/zh/faq/' },
             { text: '故障排查', link: '/zh/faq/troubleshooting' }
