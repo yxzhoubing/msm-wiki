@@ -7,30 +7,23 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.6`  
-> 发布时间：2026-03-23 20:21:30 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.6>  
+> 当前 Beta 版本：`beta-1.0.7`  
+> 发布时间：2026-03-23 22:39:35 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.7>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
-### ✨ 新增
-- 完善 MosDNS Pro 限制与授权说明
+### 🔧 变更（Changed）
+- 重启服务全屏弹窗界面美化
 
-### 🔧 变更
-- 调整 MosDNS 默认增量升级策略
-
-### 🐛 修复
-- 重置系统时保留 Pro 授权状态
-- 修复 SS 分享链接 URL 编码解析
-- 提升异常停止时的数据持久性
-- 修复初始化配置编辑与 IPv6 回填
-- 修复 MosDNS 增量升级配置回写
+### 🐛 修复（Fixed）
+- 统一重启服务流程，修正用户菜单问题
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`f03e929`](https://github.com/msm9527/msm/commit/f03e9291a59c90b5bfb94378bc1dcda4463967f3)
-- **提交信息**: chore: sync version to 1.0.6
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-03-23 20:21:30 CST
+- **源提交**: [`b8e31dd`](https://github.com/msm9527/msm/commit/b8e31ddce60fb84b2487267ee67817d473c1b682)
+- **提交信息**: style: 美化重启服务全屏弹窗
+- **提交作者**: msm
+- **提交时间**: 2026-03-23 22:39:35 CST
 :::
 
 ---
