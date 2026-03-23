@@ -157,3 +157,5 @@ MSM 适合以下场景：
 - [核心功能](/zh/introduction/features) - 了解详细功能
 - [安装总览](/zh/guide/install) - 开始安装 MSM
 - [路由器集成](/zh/guide/router-integration) - 配置路由器
+- [CLI 命令参考](/zh/guide/cli) - 命令行工具
+- [API 参考](/zh/guide/api) - REST API 文档

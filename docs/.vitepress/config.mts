@@ -84,7 +84,8 @@ export default defineConfig({
             { text: 'SingBox 管理', link: '/zh/guide/singbox' },
             { text: 'Mihomo 管理', link: '/zh/guide/mihomo' },
             { text: '配置编辑', link: '/zh/guide/config-editor' },
-            { text: '日志查看', link: '/zh/guide/logs' }
+            { text: '日志查看', link: '/zh/guide/logs' },
+            { text: '回家配置', link: '/zh/guide/home' }
           ]
         },
         {

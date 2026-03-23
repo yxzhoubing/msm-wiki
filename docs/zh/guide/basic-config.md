@@ -42,9 +42,17 @@
 
 ## 下一步
 
-- [设备管理](/zh/guide/device-management)
-- [MosDNS 管理](/zh/guide/mosdns)
-- [Mihomo 管理](/zh/guide/mihomo)
-- [Sing-box 管理](/zh/guide/singbox)
-- [配置编辑](/zh/guide/config-editor)
-- [日志查看](/zh/guide/logs)
+- [仪表盘](/zh/guide/dashboard) - 系统概览与监控
+- [设备管理](/zh/guide/device-management) - 设备代理控制
+- [MosDNS 管理](/zh/guide/mosdns) - DNS 分流管理
+- [Mihomo 管理](/zh/guide/mihomo) - Mihomo 代理配置
+- [Sing-box 管理](/zh/guide/singbox) - Sing-box 代理配置
+- [配置编辑](/zh/guide/config-editor) - 在线编辑配置
+- [日志查看](/zh/guide/logs) - 日志查看与管理
+- [进程管理](/zh/guide/process) - 服务进程控制
+- [用户管理](/zh/guide/user-management) - 用户与权限
+- [系统设置](/zh/guide/settings) - 系统参数配置
+- [系统诊断](/zh/guide/diagnostics) - 健康检查与故障排查
+- [回家配置](/zh/guide/home) - 远程访问家庭网络
+- [CLI 命令参考](/zh/guide/cli) - 命令行工具
+- [API 参考](/zh/guide/api) - REST API 文档

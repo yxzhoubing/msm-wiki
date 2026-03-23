@@ -30,3 +30,10 @@
 4. [FakeIP 分流大法总教程](https://drive.google.com/drive/u/1/folders/1ldD2XqIrREPgr_CKMSgvYomXgwknpApi)：系统化学习 FakeIP 分流
 5. [原版 MosDNS 知识库](https://irine-sistiana.gitbook.io/mosdns-wiki/) 与 [StoreHouse 脚本合集](https://github.com/herozmy/StoreHouse/tree/latest)：用于进阶查阅与脚本实践
 :::
+
+## 更多帮助
+
+- [系统诊断](/zh/guide/diagnostics) - 运行 `msm doctor` 自动检测常见问题
+- [故障排查](/zh/faq/troubleshooting) - 详细的故障排查步骤
+- [CLI 命令参考](/zh/guide/cli) - 命令行工具使用
+- [Telegram 交流群](https://t.me/msm_home) - 社区互助交流
