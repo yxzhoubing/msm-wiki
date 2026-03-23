@@ -292,4 +292,4 @@ msm serve -d
 - [安装总览](/zh/guide/install) - 安装 MSM
 - [首次使用](/zh/guide/first-use) - 初始设置向导
 - [系统诊断](/zh/guide/diagnostics) - 详细诊断说明
-- [进程管理](/zh/guide/process) - 服务进程控制
+- [仪表盘](/zh/guide/dashboard) - 服务状态监控

@@ -127,7 +127,7 @@ curl -H "Authorization: Bearer YOUR_API_TOKEN" \
 | `DELETE` | `/history/:id` | 删除历史记录 | Pro |
 | `GET` | `/history/compare` | 版本对比 | Pro |
 
-### MosDNS 管理
+### DNS 服务（MosDNS）管理
 
 | 方法 | 路径 | 说明 |
 |------|------|------|

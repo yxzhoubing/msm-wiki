@@ -43,4 +43,4 @@ http://<MSM-IP>:7777
 
 - 配置路由器 DNS 与静态路由（见 [路由器集成](/zh/guide/router-integration)）
 - 完成客户端白/黑名单设置（见 [设备管理](/zh/guide/device-management)）
-- 根据使用的代理核心配置节点与规则（见 [Mihomo 管理](/zh/guide/mihomo) 或 [Sing-box 管理](/zh/guide/singbox)）
+- 根据使用的代理核心配置节点与规则（见 [代理服务（Mihomo）](/zh/guide/mihomo) 或 [代理服务（Sing-Box）](/zh/guide/singbox)）

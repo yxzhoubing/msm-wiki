@@ -84,7 +84,7 @@
 
 ## 服务状态快捷操作
 
-在仪表盘下方可以看到各服务的运行状态卡片，支持快捷操作：
+在仪表盘下方可以看到各服务的运行状态卡片（DNS 服务、代理核心），显示运行状态、PID 和运行时间，支持快捷操作：
 
 - **停止** — 快速停止对应服务
 - **重启** — 快速重启对应服务
@@ -95,7 +95,7 @@
 
 ## 下一步
 
-- [MosDNS 管理](/zh/guide/mosdns) - DNS 分流管理
-- [Mihomo 管理](/zh/guide/mihomo) - 代理服务管理
+- [DNS 服务管理](/zh/guide/mosdns) - DNS 分流管理
+- [代理服务（Mihomo）](/zh/guide/mihomo) - 代理服务管理
 - [系统设置](/zh/guide/settings) - 系统配置
-- [进程管理](/zh/guide/process) - 服务进程控制
+- [进程管理](/zh/guide/process) - 服务启停控制

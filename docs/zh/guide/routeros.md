@@ -171,4 +171,4 @@ add host=1.1.1.1 type=http-get http-codes=200-399 interval=10s timeout=1s \
 ## 下一步
 
 - [设备管理](/zh/guide/device-management)
-- [MosDNS 管理](/zh/guide/mosdns)
+- [DNS 服务管理](/zh/guide/mosdns)

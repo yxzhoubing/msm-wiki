@@ -79,11 +79,11 @@ export default defineConfig({
           items: [
             { text: '使用指南总览', link: '/zh/guide/basic-config' },
             { text: '仪表盘', link: '/zh/guide/dashboard' },
+            { text: 'DNS 服务（MosDNS）', link: '/zh/guide/mosdns' },
+            { text: '代理服务（Mihomo）', link: '/zh/guide/mihomo' },
+            { text: '代理服务（Sing-Box）', link: '/zh/guide/singbox' },
             { text: '设备管理', link: '/zh/guide/device-management' },
-            { text: 'MosDNS 管理', link: '/zh/guide/mosdns' },
-            { text: 'SingBox 管理', link: '/zh/guide/singbox' },
-            { text: 'Mihomo 管理', link: '/zh/guide/mihomo' },
-            { text: '配置编辑', link: '/zh/guide/config-editor' },
+            { text: '配置管理', link: '/zh/guide/config-editor' },
             { text: '日志查看', link: '/zh/guide/logs' },
             { text: '回家配置', link: '/zh/guide/home' }
           ]
@@ -92,10 +92,9 @@ export default defineConfig({
           text: '系统管理',
           collapsed: false,
           items: [
-            { text: '进程管理', link: '/zh/guide/process' },
             { text: '用户管理', link: '/zh/guide/user-management' },
-            { text: '系统设置', link: '/zh/guide/settings' },
             { text: '系统诊断', link: '/zh/guide/diagnostics' },
+            { text: '系统设置', link: '/zh/guide/settings' },
             { text: '授权管理', link: '/zh/guide/license' }
           ]
         },

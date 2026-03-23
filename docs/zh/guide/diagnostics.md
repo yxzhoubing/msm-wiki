@@ -143,4 +143,4 @@ sudo msm service install
 - [FAQ](/zh/faq/) - 常见问题解答
 - [故障排查](/zh/faq/troubleshooting) - 详细故障排查指南
 - [CLI 命令参考](/zh/guide/cli) - 命令行工具
-- [进程管理](/zh/guide/process) - 服务进程控制
+- [仪表盘](/zh/guide/dashboard) - 服务状态监控

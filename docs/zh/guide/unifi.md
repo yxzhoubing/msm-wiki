@@ -38,4 +38,4 @@ nslookup google.com
 ## 下一步
 
 - [设备管理](/zh/guide/device-management)
-- [MosDNS 管理](/zh/guide/mosdns)
+- [DNS 服务管理](/zh/guide/mosdns)
