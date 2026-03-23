@@ -7,20 +7,30 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.5`  
-> 发布时间：2026-03-22 12:11:00 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.5>  
+> 当前 Beta 版本：`beta-1.0.6`  
+> 发布时间：2026-03-23 20:21:30 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.6>  
 > - 下载方式：同一发布页内提供各平台二进制与安装包
 
-### ✨ 新增（Added）
-- 新增安装身份作用域实现功能
+### ✨ 新增
+- 完善 MosDNS Pro 限制与授权说明
+
+### 🔧 变更
+- 调整 MosDNS 默认增量升级策略
+
+### 🐛 修复
+- 重置系统时保留 Pro 授权状态
+- 修复 SS 分享链接 URL 编码解析
+- 提升异常停止时的数据持久性
+- 修复初始化配置编辑与 IPv6 回填
+- 修复 MosDNS 增量升级配置回写
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`af315fd`](https://github.com/msm9527/msm/commit/af315fd8bff3d848b8324faabc7f315e29b7854a)
-- **提交信息**: 补充安装身份作用域实现文件 / Add scoped installation identity implementation
-- **提交作者**: msm
-- **提交时间**: 2026-03-22 12:11:00 CST
+- **源提交**: [`f03e929`](https://github.com/msm9527/msm/commit/f03e9291a59c90b5bfb94378bc1dcda4463967f3)
+- **提交信息**: chore: sync version to 1.0.6
+- **提交作者**: github-actions[bot]
+- **提交时间**: 2026-03-23 20:21:30 CST
 :::
 
 ---
