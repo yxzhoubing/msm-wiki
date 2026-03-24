@@ -39,17 +39,56 @@ set_status() {
   printf 'status=%s\n' "$1" > "${APPCONF}"
 }
 
-current_pid() {
+read_pidfile_pid() {
   if [ ! -f "${PIDFILE}" ]; then
     return 1
   fi
 
-  pid="$(tr -dc '0-9' < "${PIDFILE}")"
-  if [ -z "${pid}" ]; then
-    return 1
+  pid="$(awk 'NR == 1 { print $1 }' "${PIDFILE}" 2>/dev/null || true)"
+  case "${pid}" in
+    ''|*[!0-9]*)
+      return 1
+      ;;
+  esac
+
+  printf '%s\n' "${pid}"
+}
+
+find_pid_from_proc() {
+  for cmdline_file in /proc/[0-9]*/cmdline; do
+    [ -r "${cmdline_file}" ] || continue
+    cmdline="$(tr '\000' ' ' < "${cmdline_file}" 2>/dev/null || true)"
+
+    case "${cmdline}" in
+      *"/bin/msm serve "*"-c ${WORKDIR}"*|*" msm serve "*"-c ${WORKDIR}"*|*"msm serve "*"-c ${WORKDIR}"*)
+        pid="${cmdline_file#/proc/}"
+        pid="${pid%/cmdline}"
+        printf '%s\n' "${pid}"
+        return 0
+        ;;
+    esac
+  done
+
+  return 1
+}
+
+write_pidfile() {
+  ensure_dirs
+  printf '%s\n' "$1" > "${PIDFILE}"
+}
+
+current_pid() {
+  pid="$(read_pidfile_pid || true)"
+  if [ -n "${pid}" ] && kill -0 "${pid}" 2>/dev/null; then
+    printf '%s\n' "${pid}"
+    return 0
   fi
 
-  if kill -0 "${pid}" 2>/dev/null; then
+  rm -f "${PIDFILE}"
+
+  pid="$(find_pid_from_proc || true)"
+  if [ -n "${pid}" ] && kill -0 "${pid}" 2>/dev/null; then
+    write_pidfile "${pid}"
     printf '%s\n' "${pid}"
     return 0
   fi
@@ -118,11 +157,53 @@ web_start() {
   cp -Rf "${APPROOT}/web/html/"* "${HTMLDIR}/"
 }
 
-stop_service() {
-  if is_running; then
-    "${APPROOT}/bin/msm" stop -c "${WORKDIR}" >/dev/null 2>&1 || true
+cleanup_web() {
+  rm -rf "${WEBROOT}/App/${APPNAME}" \
+    "${WEBROOT}/html/App/${APPNAME}" \
+    "${WEBROOT}/cgi-bin/App/${APPNAME}"
+}
+
+cleanup_app_data() {
+  rm -rf "${WORKDIR}" "${CONFDIR}"
+}
+
+terminate_pid() {
+  pid="$1"
+  signal_name="$2"
+
+  kill "-${signal_name}" "${pid}" 2>/dev/null || true
+}
+
+wait_pid_exit() {
+  pid="$1"
+  max_tries="$2"
+  i=0
+
+  while [ "${i}" -lt "${max_tries}" ]; do
+    if ! kill -0 "${pid}" 2>/dev/null; then
+      return 0
+    fi
+    i=$((i + 1))
     sleep 1
+  done
+
+  return 1
+}
+
+stop_service() {
+  pid="$(current_pid 2>/dev/null || true)"
+
+  "${APPROOT}/bin/msm" stop -c "${WORKDIR}" >/dev/null 2>&1 || true
+
+  if [ -n "${pid}" ] && kill -0 "${pid}" 2>/dev/null; then
+    terminate_pid "${pid}" TERM
+    if ! wait_pid_exit "${pid}" 10; then
+      terminate_pid "${pid}" KILL
+      wait_pid_exit "${pid}" 5 || true
+    fi
   fi
+
+  rm -f "${PIDFILE}"
 }
 
 start_service() {
@@ -210,6 +291,11 @@ case "${1:-}" in
     ;;
   upload_ui)
     web_start
+    ;;
+  cleanup|remove|uninstall)
+    stop_service
+    cleanup_web
+    cleanup_app_data
     ;;
   *)
     echo "unknown action!" >&2
