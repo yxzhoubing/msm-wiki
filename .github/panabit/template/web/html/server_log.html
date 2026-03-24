@@ -1,6 +1,9 @@
 <div class="layui-card">
   <div class="layui-card-header" style="display:flex;align-items:center;justify-content:space-between;">
-    <span>MSM 日志</span>
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <span>MSM 日志</span>
+      <span id="paui-log-source" style="font-size:12px;color:#999;">来源: 自动检测</span>
+    </div>
     <div style="display:flex;align-items:center;gap:10px;">
       <span id="paui-log-status" style="font-size:12px;color:#999;">等待刷新...</span>
       <button type="button" class="layui-btn layui-btn-xs" id="btn-log-refresh">刷新</button>
@@ -32,6 +35,29 @@ layui.use(function(){
   var api = "/cgi-bin/App/msm/ajax_msm";
   var logEl = document.getElementById('paui-log-content');
   var statusEl = document.getElementById('paui-log-status');
+  var sourceEl = document.getElementById('paui-log-source');
+
+  function normalizeLogPayload(data) {
+    if (!data) {
+      return null;
+    }
+
+    if (typeof data === 'string') {
+      var trimmed = data.trim();
+
+      if (!trimmed) {
+        return {log_content: ''};
+      }
+
+      try {
+        return JSON.parse(trimmed);
+      } catch (error) {
+        return {log_content: data};
+      }
+    }
+
+    return data;
+  }
 
   function loadLog() {
     pa_ajax({
@@ -43,10 +69,18 @@ layui.use(function(){
           + now.getMinutes().toString().padStart(2, '0') + ':'
           + now.getSeconds().toString().padStart(2, '0');
 
-        if (json && json.data && json.data.log_content !== undefined) {
-          logEl.textContent = (json.data.log_content || '日志为空').replace(/\\n/g, '\n');
+        var payload = normalizeLogPayload(json && json.data ? json.data : null);
+
+        if (payload && payload.log_content !== undefined) {
+          logEl.textContent = String(payload.log_content || '日志为空')
+            .replace(/\\n/g, '\n')
+            .replace(/\n+$/, '');
+          sourceEl.textContent = payload.log_file
+            ? '来源: ' + payload.log_file
+            : '来源: 自动检测';
         } else {
           logEl.textContent = '未获取到日志内容';
+          sourceEl.textContent = '来源: 未知';
         }
 
         statusEl.textContent = '最近刷新: ' + timeStr;
@@ -57,6 +91,7 @@ layui.use(function(){
       },
       error: function(){
         statusEl.textContent = '刷新失败';
+        sourceEl.textContent = '来源: 刷新失败';
       }
     });
   }

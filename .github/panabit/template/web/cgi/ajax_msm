@@ -12,6 +12,45 @@ if [ ! -x "${APPCTRL}" ]; then
   APPCTRL="${PGPATH}/app/${APPNAME}/appctrl"
 fi
 
+escape_log_lines()
+{
+  awk '{
+    gsub(/\033\[[0-9;]*[A-Za-z]/, "");
+    gsub(/\\/, "\\\\");
+    gsub(/"/, "\\\"");
+    gsub(/\t/, "\\t");
+    gsub(/\r/, "\\r");
+    gsub(/[\001-\010\013\014\016-\037]/, "");
+    printf "%s\\n", $0
+  }'
+}
+
+find_logfile()
+{
+  set -- \
+    "${WORKDIR}/logs/msm.log" \
+    "${WORKDIR}/logs/server.log" \
+    "${WORKDIR}/logs/web.log" \
+    "${WORKDIR}/logs"/*.log \
+    "/root/.msm/logs/msm.log" \
+    "/root/.msm/logs/server.log" \
+    "/root/.msm/logs/web.log" \
+    "/root/.msm/logs"/*.log
+
+  for log_file in "$@"; do
+    [ -f "${log_file}" ] || continue
+    printf '%s\n' "${log_file}"
+    return 0
+  done
+
+  return 1
+}
+
+read_log_content()
+{
+  tail -200 "$1" 2>/dev/null | escape_log_lines
+}
+
 status_payload()
 {
   "${APPCTRL}" status_json
@@ -51,15 +90,18 @@ restart_service()
 
 get_log()
 {
-  LOGFILE="${WORKDIR}/logs/msm.log"
+  LOGFILE="$(find_logfile || true)"
 
-  if [ -f "${LOGFILE}" ]; then
-    log_content=$(tail -200 "${LOGFILE}" 2>/dev/null | awk '{gsub(/\\/, "\\\\"); gsub(/"/, "\\\""); printf "%s\\n", $0}')
+  if [ -n "${LOGFILE}" ]; then
+    log_content="$(read_log_content "${LOGFILE}")"
+    if [ -z "${log_content}" ]; then
+      log_content="日志为空"
+    fi
   else
-    log_content="日志文件不存在"
+    log_content="未找到日志文件，已检查 ${WORKDIR}/logs 和 /root/.msm/logs"
   fi
 
-  printf '{"log_content":"%s"}' "${log_content}"
+  printf '{"log_content":"%s","log_file":"%s"}' "${log_content}" "${LOGFILE}"
 }
 
 case "${CGI_action}" in
