@@ -7,33 +7,31 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.8`  
-> 发布时间：2026-03-24 17:22:55 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.8>  
+> 当前 Beta 版本：`beta-1.0.9`  
+> 发布时间：2026-03-24 23:25:23 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.9>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包与派网 APX
 
-### ✨ 新增（Added）
-- 代理组卡片增加类型彩色标签
+### ✨ 新增
+- 为 mihomo 增加中转优先下载
+- 补全 mosdns 代理策略覆盖
 
-### 🔧 变更（Changed）
-- 「规则仓库」更名为「规则集」
-- 统一「代理核心」显示名为 Mihomo
-- 移除实时速率卡片的连接数展示
-- 重构仪表盘设置弹窗及规则编辑器 UI
-- 优化仪表盘拖拽及页面加载性能
+### 🔧 变更
+- 调整 mosdns 下载优先级逻辑
+- 优化 setup 安装下载可靠性
 
-### 🐛 修复（Fixed）
-- 修复多处界面翻译错误及 TUN 显示异常
-- 修复开关组件对齐问题
-- 修复仪表盘 UI 交互与布局约束
-- 修复策略组多选、MosDNS 及标签映射逻辑
+### 🐛 修复
+- 修复 tar.gz 下载安装处理
+
+### 📝 备注
+- 0.x 升级至 1.x 建议重置 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`9dd338e`](https://github.com/msm9527/msm/commit/9dd338e194afbaa83c34584c971c8c4efd4f729a)
-- **提交信息**: fix(i18n): 修复用户卡片翻译错误
-- **提交作者**: msm
-- **提交时间**: 2026-03-24 17:22:55 CST
+- **源提交**: [`3507bf8`](https://github.com/msm9527/msm/commit/3507bf88303036b8e7b6d6af3c70645a6ff7f4db)
+- **提交信息**: chore: sync version to 1.0.9
+- **提交作者**: github-actions[bot]
+- **提交时间**: 2026-03-24 23:25:23 CST
 :::
 
 ---
