@@ -1,0 +1,35 @@
+<div class="layui-tab layui-tab-brief paui--tab" lay-filter="menu_msm">
+  <ul class="layui-tab-title paui-bg-white">
+    <li class="paui-msm-page-li">控制台</li>
+    <li class="paui-msm-page-li">日志</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item paui-msm-page-item"></div>
+    <div class="layui-tab-item paui-msm-page-item"></div>
+  </div>
+</div>
+
+<script>
+layui.use(function(){
+    var $ = layui.$,
+    laytpl = layui.laytpl,
+    element = layui.element;
+
+    var page_target = ['server_config', 'server_log'];
+
+    element.on('tab(menu_msm)', function(obj){
+        var page = '/html/App/msm/' + page_target[obj.index] + '.html';
+        var dobj = $(".paui-msm-page-item").eq(obj.index);
+
+        paui_clear_interval();
+        g_Intervaltimer = [];
+        dobj.html("");
+
+        pa_get_html(page, function(tpl){
+            dobj.html(laytpl(tpl).render({}))
+        });
+    });
+
+    $(".paui-msm-page-li").eq(0).click();
+});
+</script>

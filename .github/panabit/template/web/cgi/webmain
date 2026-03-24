@@ -1,0 +1,8 @@
+#!/bin/sh
+
+APP_NAME='msm'
+export CGI_pop_title="MSM"
+export CGI_pop_route="App/${APP_NAME}/main"
+
+cd /usr/ramdisk/admin/cgi-bin/common
+sh popup

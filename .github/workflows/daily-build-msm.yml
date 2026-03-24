@@ -456,6 +456,28 @@ jobs:
           ref: ${{ needs.prepare.outputs.branch }}
           token: ${{ secrets.MSM_REPO_TOKEN }}
 
+      - name: Checkout 当前仓库（msm-wiki）用于派网 APX 模板
+        if: matrix.target == 'linux-amd64' || matrix.target == 'linux-arm64'
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          path: msm-wiki
+
+      - name: 检测派网 APX 构建器
+        if: matrix.target == 'linux-amd64' || matrix.target == 'linux-arm64'
+        id: panabit_builder
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILDER="msm-wiki/.github/panabit/build-apx.sh"
+          if [ -f "${BUILDER}" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "::warning::派网 APX 构建器缺失，跳过 ${{ matrix.target }} 的 .apx 产物"
+          echo "available=false" >> "$GITHUB_OUTPUT"
+
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
@@ -544,6 +566,22 @@ jobs:
           tar -czf "dist/msm-${VERSION}-${{ matrix.target }}.tar.gz" -C dist msm
           rm -f dist/msm
 
+      - name: 生成派网 APX 安装包
+        if: (matrix.target == 'linux-amd64' || matrix.target == 'linux-arm64') && steps.panabit_builder.outputs.available == 'true'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="${{ needs.prepare.outputs.version }}"
+          INPUT_TARBALL="dist/msm-${VERSION}-${{ matrix.target }}.tar.gz"
+          OUTPUT_APX="dist/msm-${VERSION}-${{ matrix.target }}-panabit.apx"
+
+          bash msm-wiki/.github/panabit/build-apx.sh \
+            "${VERSION}" \
+            "${{ matrix.target }}" \
+            "${INPUT_TARBALL}" \
+            "${OUTPUT_APX}"
+
       - name: 上传构建产物 - 二进制 (macOS)
         if: matrix.goos == 'darwin'
         uses: actions/upload-artifact@v4
@@ -560,6 +598,15 @@ jobs:
           path: dist/msm-${{ needs.prepare.outputs.version }}-${{ matrix.target }}.tar.gz
           if-no-files-found: error
 
+      - name: 上传构建产物 (派网 APX)
+        if: (matrix.target == 'linux-amd64' || matrix.target == 'linux-arm64') && steps.panabit_builder.outputs.available == 'true'
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: msm-${{ needs.prepare.outputs.version }}-${{ matrix.target }}-panabit
+          path: dist/msm-${{ needs.prepare.outputs.version }}-${{ matrix.target }}-panabit.apx
+          if-no-files-found: ignore
+
   release:
     name: 发布构建产物（${{ needs.prepare.outputs.channel_name }}）
     needs: [prepare, build]
@@ -575,6 +622,75 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: dist
+
+      - name: 收集 Release 附件
+        id: release_assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="${{ needs.prepare.outputs.version }}"
+
+          mapfile -t RELEASE_FILES < <(find dist -type f \( -name "msm-${VERSION}-*.tar.gz" -o -name "msm-${VERSION}-*-panabit.apx" \) | sort)
+          if [ "${#RELEASE_FILES[@]}" -eq 0 ]; then
+            echo "error: 没有找到任何可发布附件" >&2
+            exit 1
+          fi
+
+          {
+            echo "paths<<EOF"
+            printf '%s\n' "${RELEASE_FILES[@]}"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+          mapfile -t APX_FILES < <(find dist -type f -name "msm-${VERSION}-*-panabit.apx" | sort)
+          if [ "${#APX_FILES[@]}" -eq 0 ]; then
+            echo "download_note=同一发布页内提供各平台二进制与安装包" >> "$GITHUB_OUTPUT"
+            echo "panabit_section=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          SECTION="$(printf '%s\n' \
+            '            ### 🧩 派网应用版本（APX）' \
+            '' \
+            '            <details>' \
+            '            <summary><b>PanaBit / 派网</b></summary>' \
+            '' \
+            '            | 架构 | 文件 | 说明 |' \
+            '            |------|------|------|')"
+
+          for file in "${APX_FILES[@]}"; do
+            base="$(basename "${file}")"
+            arch="**unknown**"
+            desc="派网安装包"
+            case "${base}" in
+              *linux-amd64-panabit.apx)
+                arch="**amd64**"
+                desc="派网 x86_64 安装包"
+                ;;
+              *linux-arm64-panabit.apx)
+                arch="**arm64**"
+                desc="派网 ARM64 安装包"
+                ;;
+            esac
+            SECTION="${SECTION}
+            | ${arch} | [\`${base}\`](https://github.com/msm9527/msm-wiki/releases/download/${VERSION}/${base}) | ${desc} |"
+          done
+
+          SECTION="${SECTION}
+
+            **说明：**
+            1. \`.apx\` 安装后会在派网页面中提供 MSM 控制入口
+            2. 实际管理界面由派网入口页跳转到 MSM 自身 Web 控制台
+            3. 如果派网设备已有服务占用目标端口，请先处理端口冲突
+
+            </details>"
+
+          echo "download_note=同一发布页内提供各平台二进制、安装包与派网 APX" >> "$GITHUB_OUTPUT"
+          {
+            echo "panabit_section<<EOF"
+            printf '%s\n' "${SECTION}"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: 创建/更新版本 tag
         shell: bash
@@ -665,6 +781,8 @@ jobs:
             > **💡 提示：** amd64-v3 版本针对较新的 CPU 进行了优化（需要支持 AVX、AVX2 等指令集），性能更好但兼容性较低。如果不确定，请使用标准的 amd64 版本。
 
             </details>
+
+            ${{ steps.release_assets.outputs.panabit_section }}
 
             <details>
             <summary><b>macOS 平台</b></summary>
@@ -762,8 +880,7 @@ jobs:
           prerelease: ${{ needs.prepare.outputs.is_beta }}
           allowUpdates: true
           replacesArtifacts: true
-          artifacts: |
-            dist/**/msm-${{ needs.prepare.outputs.version }}-*.tar.gz
+          artifacts: ${{ steps.release_assets.outputs.paths }}
 
       - name: 更新 Wiki 版本发布页面
         uses: actions/github-script@v7
@@ -783,6 +900,7 @@ jobs:
             const commitMessage = ${{ toJSON(needs.prepare.outputs.commit_message) }};
             const commitAuthor = ${{ toJSON(needs.prepare.outputs.commit_author) }};
             const commitDate = '${{ needs.prepare.outputs.commit_date }}';
+            const releaseDownloadNote = ${{ toJSON(steps.release_assets.outputs.download_note) }};
             const latestVersionMarker = '${{ needs.prepare.outputs.latest_marker }}';
             const historyVersionMarker = '${{ needs.prepare.outputs.history_marker }}';
             const releasesPath = '${{ needs.prepare.outputs.release_notes_path }}';
@@ -801,7 +919,7 @@ jobs:
             > ${versionLabel}  
             > 发布时间：${dateStr}  
             > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/${version}>  
-            > - 下载方式：同一发布页内提供各平台二进制与安装包
+            > - 下载方式：${releaseDownloadNote}
             
             ${aiSummary}
             

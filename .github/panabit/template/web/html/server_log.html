@@ -1,0 +1,72 @@
+<div class="layui-card">
+  <div class="layui-card-header" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>MSM 日志</span>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span id="paui-log-status" style="font-size:12px;color:#999;">等待刷新...</span>
+      <button type="button" class="layui-btn layui-btn-xs" id="btn-log-refresh">刷新</button>
+      <label style="font-size:12px;color:#666;cursor:pointer;">
+        <input type="checkbox" id="chk-log-autoscroll" checked style="margin-right:4px;">自动滚动
+      </label>
+    </div>
+  </div>
+  <div class="layui-card-body" style="padding:0;">
+    <pre id="paui-log-content" style="
+      background:#1e1e1e;
+      color:#d4d4d4;
+      font-family:'Courier New',Consolas,monospace;
+      font-size:12px;
+      line-height:1.6;
+      margin:0;
+      padding:12px 15px;
+      height:360px;
+      overflow-y:auto;
+      white-space:pre-wrap;
+      word-break:break-all;
+    ">正在加载日志...</pre>
+  </div>
+</div>
+
+<script>
+layui.use(function(){
+  var $ = layui.$;
+  var api = "/cgi-bin/App/msm/ajax_msm";
+  var logEl = document.getElementById('paui-log-content');
+  var statusEl = document.getElementById('paui-log-status');
+
+  function loadLog() {
+    pa_ajax({
+      url: api,
+      data: {action: 'get_log'},
+      success: function(json){
+        var now = new Date();
+        var timeStr = now.getHours().toString().padStart(2, '0') + ':'
+          + now.getMinutes().toString().padStart(2, '0') + ':'
+          + now.getSeconds().toString().padStart(2, '0');
+
+        if (json && json.data && json.data.log_content !== undefined) {
+          logEl.textContent = (json.data.log_content || '日志为空').replace(/\\n/g, '\n');
+        } else {
+          logEl.textContent = '未获取到日志内容';
+        }
+
+        statusEl.textContent = '最近刷新: ' + timeStr;
+
+        if ($('#chk-log-autoscroll').prop('checked')) {
+          logEl.scrollTop = logEl.scrollHeight;
+        }
+      },
+      error: function(){
+        statusEl.textContent = '刷新失败';
+      }
+    });
+  }
+
+  loadLog();
+  $('#btn-log-refresh').on('click', loadLog);
+
+  var timer = setInterval(loadLog, 5000);
+  if (typeof g_Intervaltimer !== 'undefined') {
+    g_Intervaltimer.push(timer);
+  }
+});
+</script>

@@ -1,0 +1,218 @@
+#!/bin/sh
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+
+. /etc/PG.conf
+
+APPNAME="msm"
+APPROOT="${SCRIPT_DIR}"
+WEBROOT="/usr/ramdisk/admin"
+WORKDIR="${DATAPATH}/${APPNAME}"
+CONFDIR="${PGETC}/App/${APPNAME}"
+APPCONF="${CONFDIR}/app.conf"
+PIDFILE="${WORKDIR}/msm.pid"
+LOGFILE="${WORKDIR}/logs/msm.log"
+DEFAULT_PORT="7777"
+RUNNING_PID=""
+
+ensure_dirs() {
+  mkdir -p "${WORKDIR}" "${WORKDIR}/logs" "${CONFDIR}"
+}
+
+ensure_appconf() {
+  if [ ! -f "${APPCONF}" ]; then
+    printf 'status=enable\n' > "${APPCONF}"
+  fi
+}
+
+read_status() {
+  status="enable"
+  if [ -f "${APPCONF}" ]; then
+    . "${APPCONF}"
+  fi
+  printf '%s\n' "${status:-enable}"
+}
+
+set_status() {
+  ensure_dirs
+  printf 'status=%s\n' "$1" > "${APPCONF}"
+}
+
+current_pid() {
+  if [ ! -f "${PIDFILE}" ]; then
+    return 1
+  fi
+
+  pid="$(tr -dc '0-9' < "${PIDFILE}")"
+  if [ -z "${pid}" ]; then
+    return 1
+  fi
+
+  if kill -0 "${pid}" 2>/dev/null; then
+    printf '%s\n' "${pid}"
+    return 0
+  fi
+
+  return 1
+}
+
+is_running() {
+  if RUNNING_PID="$(current_pid 2>/dev/null)"; then
+    return 0
+  fi
+
+  RUNNING_PID=""
+  return 1
+}
+
+admin_ip() {
+  if [ -f "${PGETC}/ifadmin.conf" ]; then
+    . "${PGETC}/ifadmin.conf"
+    if [ -n "${ADMIN_IP:-}" ]; then
+      printf '%s\n' "${ADMIN_IP}"
+      return 0
+    fi
+  fi
+  printf '%s\n' "127.0.0.1"
+}
+
+ensure_config() {
+  if [ ! -f "${WORKDIR}/configs/app.yaml" ]; then
+    "${APPROOT}/bin/msm" init -c "${WORKDIR}" >/dev/null
+  fi
+}
+
+config_port() {
+  CONFIG_FILE="${WORKDIR}/configs/app.yaml"
+  if [ ! -f "${CONFIG_FILE}" ]; then
+    printf '%s\n' "${DEFAULT_PORT}"
+    return 0
+  fi
+
+  awk -v default_port="${DEFAULT_PORT}" '
+    /^server:[[:space:]]*$/ { in_server=1; next }
+    in_server && $1 == "port:" {
+      gsub(/"/, "", $2)
+      print $2
+      found=1
+      exit
+    }
+    in_server && /^[A-Za-z_][A-Za-z0-9_]*:[[:space:]]*$/ { in_server=0 }
+    END {
+      if (!found) {
+        print default_port
+      }
+    }
+  ' "${CONFIG_FILE}"
+}
+
+web_start() {
+  HTMLDIR="${WEBROOT}/html/App/${APPNAME}"
+  CGIDIR="${WEBROOT}/cgi-bin/App/${APPNAME}"
+
+  mkdir -p "${HTMLDIR}" "${CGIDIR}"
+  chmod +x "${APPROOT}/web/cgi/"*
+
+  cp -Rf "${APPROOT}/web/cgi/"* "${CGIDIR}/"
+  cp -Rf "${APPROOT}/web/html/"* "${HTMLDIR}/"
+}
+
+stop_service() {
+  if is_running; then
+    "${APPROOT}/bin/msm" stop -c "${WORKDIR}" >/dev/null 2>&1 || true
+    sleep 1
+  fi
+}
+
+start_service() {
+  ensure_config
+
+  if is_running; then
+    return 0
+  fi
+
+  "${APPROOT}/bin/msm" serve -c "${WORKDIR}" >>"${LOGFILE}" 2>&1 &
+
+  i=0
+  while [ "${i}" -lt 15 ]; do
+    if is_running; then
+      return 0
+    fi
+    i=$((i + 1))
+    sleep 1
+  done
+
+  echo "ERROR: MSM failed to start" >&2
+  return 1
+}
+
+status_json() {
+  STATUS="$(read_status)"
+  RUNNING="false"
+  PID=""
+
+  if is_running; then
+    RUNNING="true"
+    PID="${RUNNING_PID}"
+  fi
+
+  IP="$(admin_ip)"
+  PORT="$(config_port)"
+  printf '{'
+  printf '"status":"%s",' "${STATUS}"
+  printf '"running":%s,' "${RUNNING}"
+  printf '"pid":"%s",' "${PID}"
+  printf '"admin_ip":"%s",' "${IP}"
+  printf '"port":"%s",' "${PORT}"
+  printf '"config_dir":"%s",' "${WORKDIR}"
+  printf '"app_url":"http://%s:%s"' "${IP}" "${PORT}"
+  printf '}'
+}
+
+app_start() {
+  ensure_dirs
+  ensure_appconf
+  web_start
+
+  if [ "$(read_status)" = "enable" ]; then
+    start_service
+    return 0
+  fi
+
+  stop_service
+}
+
+case "${1:-}" in
+  start)
+    app_start
+    ;;
+  stop)
+    stop_service
+    ;;
+  restart)
+    stop_service
+    app_start
+    ;;
+  enable)
+    set_status "enable"
+    app_start
+    ;;
+  disable)
+    set_status "disable"
+    stop_service
+    ;;
+  status)
+    read_status
+    ;;
+  status_json)
+    status_json
+    ;;
+  upload_ui)
+    web_start
+    ;;
+  *)
+    echo "unknown action!" >&2
+    exit 1
+    ;;
+esac

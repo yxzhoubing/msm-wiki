@@ -1,0 +1,194 @@
+<div class="layui-card">
+  <div class="layui-card-header">MSM 服务控制</div>
+  <div class="layui-card-body" style="padding: 18px 20px 8px;">
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px;">
+      <div style="background:#f7f8fa;border:1px solid #ebeef5;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:12px;color:#909399;margin-bottom:8px;">服务状态</div>
+        <div id="paui-msm-status" style="font-size:18px;font-weight:700;color:#303133;">检测中...</div>
+      </div>
+      <div style="background:#f7f8fa;border:1px solid #ebeef5;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:12px;color:#909399;margin-bottom:8px;">访问地址</div>
+        <div id="paui-admin-url" style="font-size:14px;word-break:break-all;">-</div>
+      </div>
+      <div style="background:#f7f8fa;border:1px solid #ebeef5;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:12px;color:#909399;margin-bottom:8px;">配置目录</div>
+        <div id="paui-config-dir" style="font-size:14px;word-break:break-all;">-</div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#f5f7ff 0%,#eef5ff 100%);border:1px solid #dbe7ff;border-radius:12px;padding:16px 18px;margin-bottom:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:16px;font-weight:700;color:#303133;margin-bottom:8px;">打开 MSM 管理界面</div>
+          <div style="font-size:13px;line-height:1.8;color:#606266;">
+            派网页面只负责应用状态和快捷操作，完整配置、初始化向导和后续管理都在 MSM 自身 Web 页面中完成。<br>
+            当前将跳转到 <span id="paui-url-inline" style="font-weight:700;color:#1e6fff;">http://127.0.0.1:7777</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="button" class="layui-btn layui-btn-normal" id="btn-open-console">打开管理界面</button>
+          <button type="button" class="layui-btn layui-btn-primary" id="btn-copy-url">复制地址</button>
+        </div>
+      </div>
+    </div>
+
+    <form class="layui-form paui-form" lay-filter="form_server_config">
+      <div class="layui-form-item">
+        <label class="layui-form-label">服务开关</label>
+        <div class="layui-input-inline">
+          <input type="checkbox" name="status" lay-skin="switch" lay-text="启用|停用" lay-filter="status_switch">
+        </div>
+        <div class="layui-form-mid" style="color:#909399;">停用后不会自动拉起 MSM，但配置和数据会保留。</div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">快捷操作</label>
+        <div class="layui-input-block" style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="btn-restart-service">重启服务</button>
+          <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="btn-stop-service">停止服务</button>
+          <button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit_server_config">保存开关</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="layui-card" style="margin-top: 10px;">
+  <div class="layui-card-header">使用说明</div>
+  <div class="layui-card-body" style="padding: 14px 18px;color:#606266;line-height:1.9;">
+    <div>1. 首次启动 MSM 后会进入初始化向导，请点击“打开管理界面”完成设置。</div>
+    <div>2. 端口优先取 MSM 配置文件中的实际值；如果尚未生成配置，则默认使用 `7777`。</div>
+    <div>3. 如果地址无法访问，先检查派网设备防火墙与端口占用，再看“日志”页排查启动错误。</div>
+  </div>
+</div>
+
+<script>
+layui.use(function(){
+  var $ = layui.$,
+  form = layui.form;
+
+  var api = "/cgi-bin/App/msm/ajax_msm";
+  var currentUrl = "";
+
+  function renderStatus(data) {
+    var running = !!data.running;
+    var enabled = data.status === 'enable';
+    currentUrl = data.app_url || "";
+
+    $("#paui-msm-status").html(
+      running
+        ? '<span style="color:#5FB878;">运行中</span>'
+        : '<span style="color:#FF5722;">已停止</span>'
+    );
+
+    if (currentUrl) {
+      $("#paui-admin-url").html('<a href="' + currentUrl + '" target="_blank" style="color:#01AAED;">' + currentUrl + '</a>');
+      $("#paui-url-inline").text(currentUrl);
+    } else {
+      $("#paui-admin-url").text("-");
+      $("#paui-url-inline").text("http://127.0.0.1:7777");
+    }
+
+    $("#paui-config-dir").text(data.config_dir || "-");
+    $('input[name="status"]').prop('checked', enabled);
+    form.render('checkbox');
+  }
+
+  function loadConfig() {
+    pa_ajax({
+      url: api,
+      data: {action: 'load_config'},
+      success: function(json) {
+        if (json && json.data) {
+          renderStatus(json.data);
+        }
+      }
+    });
+  }
+
+  function doAction(action, message) {
+    pa_ajax({
+      url: api,
+      data: {action: action},
+      success: function(json) {
+        if (json.code != 0) {
+          alert_err(json.msg);
+          return;
+        }
+        alert_ok(message);
+        setTimeout(loadConfig, 800);
+      },
+      error: function() {
+        alert_err('请求失败，请稍后重试');
+      }
+    });
+  }
+
+  form.render();
+  loadConfig();
+
+  $('#btn-open-console').on('click', function(){
+    if (!currentUrl) {
+      alert_err('当前没有可用的管理地址');
+      return;
+    }
+    window.open(currentUrl, '_blank');
+  });
+
+  $('#btn-copy-url').on('click', function(){
+    if (!currentUrl) {
+      alert_err('当前没有可用的管理地址');
+      return;
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(currentUrl).then(function(){
+        alert_ok('地址已复制');
+      }).catch(function(){
+        layer.alert(currentUrl, {title: '请手动复制'});
+      });
+      return;
+    }
+
+    layer.alert(currentUrl, {title: '请手动复制'});
+  });
+
+  $('#btn-restart-service').on('click', function(){
+    pa_confirm('确认重启 MSM 服务吗？', function(index){
+      layer.close(index);
+      doAction('restart_service', '重启指令已发送');
+    });
+  });
+
+  $('#btn-stop-service').on('click', function(){
+    pa_confirm('确认停止 MSM 服务吗？', function(index){
+      layer.close(index);
+      doAction('stop_service', '停止指令已发送');
+    });
+  });
+
+  form.on('submit(submit_server_config)', function(obj){
+    obj.field.action = 'submit_config';
+    obj.field.status = obj.field.status === 'on' ? 'enable' : 'disable';
+
+    pa_confirm('确认保存派网侧服务开关吗？', function(index){
+      layer.close(index);
+      pa_ajax({
+        url: api,
+        data: obj.field,
+        success: function(json){
+          if (json.code != 0) {
+            alert_err(json.msg);
+            return;
+          }
+          alert_ok(json.msg);
+          setTimeout(loadConfig, 800);
+        },
+        error: function(){
+          alert_err('保存失败，请稍后重试');
+        }
+      });
+    });
+    return false;
+  });
+});
+</script>

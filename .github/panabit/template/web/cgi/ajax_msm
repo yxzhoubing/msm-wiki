@@ -1,0 +1,91 @@
+#!/bin/sh
+
+. ../../common/ajax_common
+
+APPNAME="msm"
+WORKDIR="${DATAPATH}/${APPNAME}"
+CONFDIR="${PGETC}/App/${APPNAME}"
+APPCONF="${CONFDIR}/app.conf"
+APPCTRL="/usr/ramdisk/app/${APPNAME}/appctrl"
+
+if [ ! -x "${APPCTRL}" ]; then
+  APPCTRL="${PGPATH}/app/${APPNAME}/appctrl"
+fi
+
+status_payload()
+{
+  "${APPCTRL}" status_json
+}
+
+submit_config()
+{
+  mkdir -p "${CONFDIR}"
+  printf 'status=%s\n' "${CGI_status}" > "${APPCONF}"
+
+  if [ "${CGI_status}" = "enable" ]; then
+    "${APPCTRL}" start >/dev/null 2>&1
+  else
+    "${APPCTRL}" stop >/dev/null 2>&1
+  fi
+
+  retjson 0 "保存成功"
+}
+
+start_service()
+{
+  "${APPCTRL}" start >/dev/null 2>&1
+  retjson 0 "启动成功"
+}
+
+stop_service()
+{
+  "${APPCTRL}" stop >/dev/null 2>&1
+  retjson 0 "停止成功"
+}
+
+restart_service()
+{
+  "${APPCTRL}" restart >/dev/null 2>&1
+  retjson 0 "重启成功"
+}
+
+get_log()
+{
+  LOGFILE="${WORKDIR}/logs/msm.log"
+
+  if [ -f "${LOGFILE}" ]; then
+    log_content=$(tail -200 "${LOGFILE}" 2>/dev/null | awk '{gsub(/\\/, "\\\\"); gsub(/"/, "\\\""); printf "%s\\n", $0}')
+  else
+    log_content="日志文件不存在"
+  fi
+
+  printf '{"log_content":"%s"}' "${log_content}"
+}
+
+case "${CGI_action}" in
+  "load_config")
+    retjson 0 "OK" "`status_payload`"
+    ;;
+  "submit_config")
+    action_check
+    submit_config
+    ;;
+  "start_service")
+    action_check
+    start_service
+    ;;
+  "stop_service")
+    action_check
+    stop_service
+    ;;
+  "restart_service")
+    action_check
+    restart_service
+    ;;
+  "get_log")
+    retjson 0 "OK" "`get_log`"
+    ;;
+  *)
+    retjson 1 "UNKNOW_ACTION"
+    ;;
+esac

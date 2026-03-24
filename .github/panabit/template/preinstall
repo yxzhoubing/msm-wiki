@@ -1,0 +1,23 @@
+#!/bin/sh
+set -eu
+
+. /etc/PG.conf
+
+APPNAME="msm"
+WEBROOT="/usr/ramdisk/admin"
+RAMROOT="/usr/ramdisk/app/${APPNAME}"
+APPROOT="${PGPATH}/app/${APPNAME}"
+
+if [ -x "${APPROOT}/appctrl" ]; then
+  "${APPROOT}/appctrl" stop >/dev/null 2>&1 || true
+fi
+
+if [ -x "${RAMROOT}/appctrl" ]; then
+  "${RAMROOT}/appctrl" stop >/dev/null 2>&1 || true
+fi
+
+[ -d "${WEBROOT}/App/${APPNAME}" ] && rm -rf "${WEBROOT}/App/${APPNAME}"
+[ -d "${WEBROOT}/html/App/${APPNAME}" ] && rm -rf "${WEBROOT}/html/App/${APPNAME}"
+[ -d "${WEBROOT}/cgi-bin/App/${APPNAME}" ] && rm -rf "${WEBROOT}/cgi-bin/App/${APPNAME}"
+
+exit 0

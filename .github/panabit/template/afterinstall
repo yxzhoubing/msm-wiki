@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+
+. /etc/PG.conf
+
+APPNAME="msm"
+WORKDIR="${DATAPATH}/${APPNAME}"
+CONFDIR="${PGETC}/App/${APPNAME}"
+APPCONF="${CONFDIR}/app.conf"
+
+mkdir -p "${WORKDIR}" "${CONFDIR}"
+
+if [ ! -f "${APPCONF}" ]; then
+  printf 'status=enable\n' > "${APPCONF}"
+fi
+
+chmod +x "${SCRIPT_DIR}/appctrl" "${SCRIPT_DIR}/bin/msm"
+chmod +x "${SCRIPT_DIR}/web/cgi/"* 2>/dev/null || true
+
+"${SCRIPT_DIR}/appctrl" start
