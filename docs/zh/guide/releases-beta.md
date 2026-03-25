@@ -7,31 +7,28 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.9`  
-> 发布时间：2026-03-24 23:25:23 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.9>  
+> 当前 Beta 版本：`beta-1.0.10`  
+> 发布时间：2026-03-25 18:53:11 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.10>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包与派网 APX
 
-### ✨ 新增
-- 为 mihomo 增加中转优先下载
-- 补全 mosdns 代理策略覆盖
+### ✨ 新增（Added）
+- 支持订阅链接批量添加（Pro 功能）
 
-### 🔧 变更
-- 调整 mosdns 下载优先级逻辑
-- 优化 setup 安装下载可靠性
+### 🐛 修复（Fixed）
+- 修复自定义背景、导航栏透明及登录页背景问题
+- 修复 MosDNS 端口释放竞态及弹窗 UI 问题
+- 修复代理测速交互与在线分流规则路径问题
 
-### 🐛 修复
-- 修复 tar.gz 下载安装处理
-
-### 📝 备注
-- 0.x 升级至 1.x 建议重置 DNS 服务
+### 📝 备注（Notes）
+- 0.x 升至 1.x 必须重装或重置安全服务重下 DNS
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`3507bf8`](https://github.com/msm9527/msm/commit/3507bf88303036b8e7b6d6af3c70645a6ff7f4db)
-- **提交信息**: chore: sync version to 1.0.9
+- **源提交**: [`650f7cc`](https://github.com/msm9527/msm/commit/650f7ccd720fee6546f53df5e3c35d4a2622ba9f)
+- **提交信息**: chore: sync version to 1.0.10
 - **提交作者**: github-actions[bot]
-- **提交时间**: 2026-03-24 23:25:23 CST
+- **提交时间**: 2026-03-25 18:53:11 CST
 :::
 
 ---
