@@ -63,28 +63,22 @@ wget -qO- https://raw.githubusercontent.com/msm9527/msm-wiki/main/install_beta.s
 ```
 
 ::: tip 国内加速（可选）
-如果直连 GitHub 较慢，可使用社区加速镜像：
+如果直连 GitHub 较慢，推荐直接使用 Beta 国内镜像脚本直链：
 
 ```bash
+# Beta 国内镜像脚本（等价于 install_beta_cn.sh）
 # curl（sudo）
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_beta.sh | sudo bash
+curl -fsSL https://msm.19930520.xyz/dl/beta/install.sh | sudo bash
 # root 用户
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_beta.sh | bash
+curl -fsSL https://msm.19930520.xyz/dl/beta/install.sh | bash
 
 # wget（sudo）
-wget -qO- https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_beta.sh | sudo bash
+wget -qO- https://msm.19930520.xyz/dl/beta/install.sh | sudo bash
 # root 用户
-wget -qO- https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_beta.sh | bash
-
-# 或直接使用国内专用脚本（自动走镜像下载二进制）
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_beta_cn.sh | sudo bash
-# root 用户
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_beta_cn.sh | bash
-# wget（sudo）
-wget -qO- https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_beta_cn.sh | sudo bash
-# root 用户
-wget -qO- https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_beta_cn.sh | bash
+wget -qO- https://msm.19930520.xyz/dl/beta/install.sh | bash
 ```
+
+> `https://msm.19930520.xyz/dl/beta/install.sh` 为 Beta 国内镜像脚本直链，和仓库中的 `install_beta_cn.sh` 同步。
 
 > 系统自带工具小贴士：Debian/Ubuntu/Alpine 最小镜像通常预装 `wget` 而不一定有 `curl`；CentOS/RHEL/Fedora 常见预装 `curl`；macOS 预装 `curl`。缺少对应工具时可先用包管理器安装（如 `apt-get install curl` 或 `yum install wget`）。
 :::

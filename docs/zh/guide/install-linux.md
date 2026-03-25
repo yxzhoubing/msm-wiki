@@ -34,16 +34,19 @@ MSM_VERSION=0.7.7 curl -fsSL https://raw.githubusercontent.com/msm9527/msm-wiki/
 ### 国内网络加速（可选）
 
 ```bash
-# 镜像反代（sudo）
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install.sh | sudo bash
-# root 用户
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install.sh | bash
-
-# 镜像直链（sudo）
+# 稳定版国内镜像脚本（等价于 install_cn.sh）
+# curl（sudo）
 curl -fsSL https://msm.19930520.xyz/dl/install.sh | sudo bash
 # root 用户
 curl -fsSL https://msm.19930520.xyz/dl/install.sh | bash
+
+# wget（sudo）
+wget -qO- https://msm.19930520.xyz/dl/install.sh | sudo bash
+# root 用户
+wget -qO- https://msm.19930520.xyz/dl/install.sh | bash
 ```
+
+> `https://msm.19930520.xyz/dl/install.sh` 为国内镜像稳定版脚本直链，和仓库中的 `install_cn.sh` 同步。
 
 ## 脚本会做什么
 
@@ -51,7 +54,7 @@ curl -fsSL https://msm.19930520.xyz/dl/install.sh | bash
 - 自动选择 glibc / musl 构建
 - 下载并安装到 `/usr/local/bin/msm`
 - 安装并启动 systemd 服务（如系统支持）
-- 处理 53 端口冲突（可能停用 systemd-resolved 等）
+- 检测 53 端口冲突，并在 Linux + systemd 环境下按当前运行方式处理
 - 打开常用端口并输出访问地址
 
 ## 验证安装
@@ -66,7 +69,7 @@ msm logs
 ## 常见问题
 
 - **非 systemd 系统**：按提示手动启动 `msm -d`
-- **53 端口冲突**：脚本会尝试停用冲突服务
+- **53 端口冲突**：交互运行会先提示再询问是否自动处理；非交互运行（如 `curl | bash`）会在提示后默认自动处理。非 systemd 系统请手动释放端口
 
 ## 下一步
 

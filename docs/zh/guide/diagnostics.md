@@ -98,6 +98,10 @@ sudo systemctl stop systemd-resolved
 sudo systemctl disable systemd-resolved
 ```
 
+> 一键安装脚本在 Linux + systemd 环境下会先提示风险：
+> 交互运行时会询问是否自动处理，非交互运行（如 `curl | bash`）会在提示后默认自动处理。
+> Alpine / OpenRC 等非 systemd 环境请按上面的方式手动处理。
+
 ### 端口 7777 被占用
 
 ```bash

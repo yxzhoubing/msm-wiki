@@ -137,37 +137,23 @@ wget -qO- https://raw.githubusercontent.com/msm9527/msm-wiki/main/install.sh | b
 ```
 
 ::: tip 国内加速（可选）
-如果直连 GitHub 较慢，可使用社区加速镜像：
+如果直连 GitHub 较慢，推荐直接使用国内镜像脚本直链：
 
 ```bash
+# 稳定版国内镜像脚本（等价于 install_cn.sh）
 # curl（sudo）
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install.sh | sudo bash
-# root 用户
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install.sh | bash
-
-# wget（sudo）
-wget -qO- https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install.sh | sudo bash
-# root 用户
-wget -qO- https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install.sh | bash
-
-# 或直接使用国内专用脚本（自动走镜像下载二进制）
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_cn.sh | sudo bash
-# root 用户
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_cn.sh | bash
-# wget（sudo）
-wget -qO- https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_cn.sh | sudo bash
-# root 用户
-wget -qO- https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install_cn.sh | bash
-
-# 镜像直链版（等价，用于部分环境更快）
 curl -fsSL https://msm.19930520.xyz/dl/install.sh | sudo bash
 # root 用户
 curl -fsSL https://msm.19930520.xyz/dl/install.sh | bash
+
 # wget（sudo）
 wget -qO- https://msm.19930520.xyz/dl/install.sh | sudo bash
 # root 用户
 wget -qO- https://msm.19930520.xyz/dl/install.sh | bash
 ```
+
+> `https://msm.19930520.xyz/dl/install.sh` 为国内镜像稳定版脚本直链，和仓库中的 `install_cn.sh` 同步。
+> Beta 版镜像直链见 [Beta 版本说明](/zh/guide/releases-beta)。
 
 > 系统自带工具小贴士：Debian/Ubuntu/Alpine 最小镜像通常预装 `wget` 而不一定有 `curl`；CentOS/RHEL/Fedora 常见预装 `curl`；macOS 预装 `curl`。缺少对应工具时可先用包管理器安装（如 `apt-get install curl` 或 `yum install wget`）。
 :::

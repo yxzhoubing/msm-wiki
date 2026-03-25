@@ -12,12 +12,11 @@ curl -fsSL https://raw.githubusercontent.com/msm9527/msm-wiki/main/install.sh | 
 ### 国内网络加速（可选）
 
 ```bash
-# 镜像反代
-curl -fsSL https://msm.19930520.xyz/https://raw.githubusercontent.com/msm9527/msm-wiki/refs/heads/main/install.sh | sudo bash
-
-# 镜像直链
+# 国内镜像稳定版脚本直链（等价于 install_cn.sh）
 curl -fsSL https://msm.19930520.xyz/dl/install.sh | sudo bash
 ```
+
+> `https://msm.19930520.xyz/dl/install.sh` 为国内镜像稳定版脚本直链，和仓库中的 `install_cn.sh` 同步。
 
 安装后可使用：
 
