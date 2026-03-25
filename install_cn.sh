@@ -17,6 +17,9 @@ SERVICE_NAME="msm"
 MSM_VERSION="${MSM_VERSION:-}"
 MSM_DL_BASE="https://msm.19930520.xyz/dl"
 MSM_CONFIG_DIR="${MSM_CONFIG_DIR:-}"
+FETCH_CONNECT_TIMEOUT="${MSM_FETCH_CONNECT_TIMEOUT:-10}"
+FETCH_MAX_TIME="${MSM_FETCH_MAX_TIME:-30}"
+MSM_AUTO_FIX_PORT_CONFLICTS="${MSM_AUTO_FIX_PORT_CONFLICTS:-}"
 
 # 打印带颜色的消息
 print_info() {
@@ -44,9 +47,9 @@ fetch_text() {
     fi
 
     if [ "$DOWNLOAD_CMD" = "wget" ]; then
-        wget -qO- "$url"
+        wget -qO- --timeout="$FETCH_CONNECT_TIMEOUT" --read-timeout="$FETCH_MAX_TIME" "$url"
     else
-        curl -fsSL "$url"
+        curl --connect-timeout "$FETCH_CONNECT_TIMEOUT" --max-time "$FETCH_MAX_TIME" -fsSL "$url"
     fi
 }
 
@@ -69,9 +72,9 @@ check_root() {
     if [ "$EUID" -ne 0 ]; then
         print_error "请使用 root 权限运行此脚本"
         print_info "使用以下方式之一运行:"
-        print_info "  方式1: sudo bash install.sh"
-        print_info "  方式2: su root -c 'bash install.sh'"
-        print_info "  方式3: 切换到 root 用户后运行 bash install.sh"
+        print_info "  方式1: sudo bash install_cn.sh"
+        print_info "  方式2: su root -c 'bash install_cn.sh'"
+        print_info "  方式3: 切换到 root 用户后运行 bash install_cn.sh"
         exit 1
     fi
 }
@@ -94,6 +97,28 @@ resolve_config_dir() {
     fi
 
     echo "${root_home}/.msm"
+}
+
+normalize_version() {
+    local version="$1"
+
+    if echo "$version" | grep -q '^v'; then
+        echo "$version"
+        return
+    fi
+
+    echo "v${version}"
+}
+
+is_truthy() {
+    case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
+        1|y|yes|true|on)
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
 }
 
 # 检测系统架构
@@ -251,7 +276,7 @@ download_msm() {
     # 下载文件（显示进度条）
     if ! download_file "$download_url" "${filename}"; then
         print_error "下载失败: $download_url"
-        rm -rf $temp_dir
+        rm -rf "${temp_dir}"
         exit 1
     fi
     printf '\n' >&2
@@ -260,7 +285,7 @@ download_msm() {
     print_info "解压文件..."
     if ! tar -xzf "${filename}"; then
         print_error "解压失败"
-        rm -rf $temp_dir
+        rm -rf "${temp_dir}"
         exit 1
     fi
 
@@ -329,99 +354,195 @@ install_service() {
 }
 
 # 检查并处理端口冲突
-check_port_conflicts() {
-    print_info "检查端口占用情况..."
+get_port_53_conflict() {
+    local process_name=""
+    local port53_process=""
 
-    # 检查 53 端口
     if command -v lsof &> /dev/null; then
-        local port53_process=$(lsof -i :53 -t 2>/dev/null | head -1)
+        port53_process=$(lsof -i :53 -t 2>/dev/null | head -1)
         if [ -n "$port53_process" ]; then
-            local process_name=$(ps -p $port53_process -o comm= 2>/dev/null)
-            print_warning "检测到 53 端口被占用: $process_name (PID: $port53_process)"
-
-            # 处理 systemd-resolved
-            if systemctl is-active --quiet systemd-resolved 2>/dev/null; then
-                print_info "停止 systemd-resolved 服务..."
-                systemctl stop systemd-resolved
-                systemctl disable systemd-resolved
-                print_success "systemd-resolved 已停止并禁用"
-
-                # 备份并修改 resolv.conf
-                if [ -L /etc/resolv.conf ]; then
-                    rm /etc/resolv.conf
-                    echo "nameserver 223.5.5.5" > /etc/resolv.conf
-                    echo "nameserver 114.114.114.114" >> /etc/resolv.conf
-                    print_success "已更新 DNS 配置"
-                fi
-            fi
-
-            # 检查其他可能占用 53 端口的服务
-            for service in dnsmasq named bind9; do
-                if systemctl is-active --quiet $service 2>/dev/null; then
-                    print_info "停止 $service 服务..."
-                    systemctl stop $service
-                    systemctl disable $service
-                    print_success "$service 已停止并禁用"
-                fi
-            done
+            process_name=$(ps -p "$port53_process" -o comm= 2>/dev/null)
         fi
     elif command -v ss &> /dev/null; then
         local ss_out=""
         ss_out=$(ss -H -lntup 'sport = :53' 2>/dev/null || true)
         ss_out="${ss_out}"$'\n'"$(ss -H -lnup 'sport = :53' 2>/dev/null || true)"
-
         if echo "$ss_out" | grep -q '[^[:space:]]'; then
-            local port53_process=$(echo "$ss_out" | grep -oE 'pid=[0-9]+' | head -1 | cut -d= -f2)
-            local process_name=$(echo "$ss_out" | sed -n 's/.*users:(("\([^"]\+\)".*/\1/p' | head -1)
+            port53_process=$(echo "$ss_out" | grep -oE 'pid=[0-9]+' | head -1 | cut -d= -f2)
+            process_name=$(echo "$ss_out" | sed -n 's/.*users:(("\([^"]\+\)".*/\1/p' | head -1)
             if [ -z "$process_name" ] && [ -n "$port53_process" ]; then
-                process_name=$(ps -p $port53_process -o comm= 2>/dev/null)
+                process_name=$(ps -p "$port53_process" -o comm= 2>/dev/null)
             fi
-            if [ -n "$process_name" ] && [ -n "$port53_process" ]; then
-                print_warning "检测到 53 端口被占用: $process_name (PID: $port53_process)"
-            else
-                print_warning "检测到 53 端口被占用"
-            fi
-
-            # 处理 systemd-resolved
-            if systemctl is-active --quiet systemd-resolved 2>/dev/null; then
-                print_info "停止 systemd-resolved 服务..."
-                systemctl stop systemd-resolved
-                systemctl disable systemd-resolved
-                print_success "systemd-resolved 已停止并禁用"
-
-                # 备份并修改 resolv.conf
-                if [ -L /etc/resolv.conf ]; then
-                    rm /etc/resolv.conf
-                    echo "nameserver 223.5.5.5" > /etc/resolv.conf
-                    echo "nameserver 114.114.114.114" >> /etc/resolv.conf
-                    print_success "已更新 DNS 配置"
-                fi
-            fi
-
-            # 检查其他可能占用 53 端口的服务
-            for service in dnsmasq named bind9; do
-                if systemctl is-active --quiet $service 2>/dev/null; then
-                    print_info "停止 $service 服务..."
-                    systemctl stop $service
-                    systemctl disable $service
-                    print_success "$service 已停止并禁用"
-                fi
-            done
         fi
-    elif command -v netstat &> /dev/null; then
-        if netstat -tuln | grep -q ":53 "; then
-            print_warning "检测到 53 端口被占用"
-            print_warning "尝试停止可能冲突的服务..."
+    elif command -v netstat &> /dev/null && netstat -tuln 2>/dev/null | grep -q ":53 "; then
+        process_name="unknown"
+    else
+        return 2
+    fi
 
-            for service in systemd-resolved dnsmasq named bind9; do
-                if systemctl is-active --quiet $service 2>/dev/null; then
-                    systemctl stop $service
-                    systemctl disable $service
-                    print_success "$service 已停止并禁用"
-                fi
-            done
+    if [ -n "$process_name" ] || [ -n "$port53_process" ]; then
+        printf '%s|%s\n' "$process_name" "$port53_process"
+        return 0
+    fi
+
+    return 1
+}
+
+print_port_conflict_help() {
+    local process_name="$1"
+    local port53_process="$2"
+
+    if [ -n "$process_name" ] && [ -n "$port53_process" ]; then
+        print_warning "检测到 53 端口被占用: $process_name (PID: $port53_process)"
+    else
+        print_warning "检测到 53 端口被占用"
+    fi
+
+    print_warning "自动处理将停止并禁用冲突服务"
+    print_warning "处理 systemd-resolved 时，必要时会重写 /etc/resolv.conf 并备份原文件"
+    print_info "常见冲突服务: systemd-resolved、dnsmasq、named、bind9"
+    print_info "非交互环境会在打印提示后默认自动处理"
+}
+
+prompt_port_conflict_fix() {
+    local process_name="$1"
+    local port53_process="$2"
+
+    print_port_conflict_help "$process_name" "$port53_process"
+
+    if is_truthy "$MSM_AUTO_FIX_PORT_CONFLICTS"; then
+        print_info "已启用 MSM_AUTO_FIX_PORT_CONFLICTS，开始自动处理 53 端口冲突"
+        return 0
+    fi
+
+    if [ ! -t 0 ]; then
+        print_info "检测到非交互运行，默认自动处理 53 端口冲突"
+        return 0
+    fi
+
+    printf "是否自动处理 53 端口冲突？[y/N]: " >&2
+    local answer=""
+    read -r answer || return 1
+    if is_truthy "$answer"; then
+        return 0
+    fi
+
+    print_info "已取消自动处理"
+    print_info "如确认允许脚本自动处理，可重新运行并输入 y，或使用 MSM_AUTO_FIX_PORT_CONFLICTS=1"
+    return 1
+}
+
+stop_and_disable_service() {
+    local service="$1"
+
+    if ! command -v systemctl &> /dev/null; then
+        print_error "检测到 53 端口冲突，但当前系统不支持通过 systemctl 自动处理"
+        return 1
+    fi
+
+    if systemctl is-active --quiet "$service" 2>/dev/null; then
+        print_info "停止 $service 服务..."
+        systemctl stop "$service"
+        systemctl disable "$service"
+        print_success "$service 已停止并禁用"
+        return 0
+    fi
+
+    return 1
+}
+
+needs_resolv_conf_update() {
+    if [ -L /etc/resolv.conf ]; then
+        return 0
+    fi
+
+    if [ -f /etc/resolv.conf ] && grep -Eq '^[[:space:]]*nameserver[[:space:]]+127\.0\.0\.53([[:space:]]|$)' /etc/resolv.conf 2>/dev/null; then
+        return 0
+    fi
+
+    return 1
+}
+
+update_resolv_conf() {
+    local backup_path="/etc/resolv.conf.msm-backup.$(date +%Y%m%d%H%M%S)"
+
+    if [ -L /etc/resolv.conf ] || [ -f /etc/resolv.conf ]; then
+        cp -fL /etc/resolv.conf "$backup_path" 2>/dev/null || cp -af /etc/resolv.conf "$backup_path" 2>/dev/null || true
+    fi
+
+    rm -f /etc/resolv.conf
+    cat > /etc/resolv.conf <<'EOF'
+nameserver 223.5.5.5
+nameserver 114.114.114.114
+EOF
+
+    print_success "已更新 DNS 配置"
+    if [ -e "$backup_path" ]; then
+        print_info "原 resolv.conf 备份路径: $backup_path"
+    fi
+}
+
+auto_fix_port_conflicts() {
+    local handled_any="false"
+
+    if stop_and_disable_service "systemd-resolved"; then
+        handled_any="true"
+        if needs_resolv_conf_update; then
+            update_resolv_conf
         fi
     fi
+
+    for service in dnsmasq named bind9; do
+        if stop_and_disable_service "$service"; then
+            handled_any="true"
+        fi
+    done
+
+    if [ "$handled_any" != "true" ]; then
+        print_error "未找到可自动处理的 systemd 服务，请手动释放 53 端口"
+        return 1
+    fi
+
+    local conflict=""
+    conflict=$(get_port_53_conflict)
+    local detect_status=$?
+    if [ "$detect_status" -eq 0 ]; then
+        local process_name="${conflict%%|*}"
+        local port53_process="${conflict#*|}"
+        if [ -n "$process_name" ] && [ -n "$port53_process" ]; then
+            print_error "53 端口仍被占用: $process_name (PID: $port53_process)"
+        else
+            print_error "53 端口仍被占用"
+        fi
+        return 1
+    fi
+
+    print_success "53 端口冲突已自动处理"
+}
+
+check_port_conflicts() {
+    print_info "检查端口占用情况..."
+
+    local conflict=""
+    conflict=$(get_port_53_conflict)
+    local detect_status=$?
+    if [ "$detect_status" -eq 1 ]; then
+        return
+    fi
+    if [ "$detect_status" -eq 2 ]; then
+        print_warning "未检测到 lsof、ss 或 netstat，跳过端口检测"
+        return
+    fi
+
+    local process_name="${conflict%%|*}"
+    local port53_process="${conflict#*|}"
+    if prompt_port_conflict_fix "$process_name" "$port53_process"; then
+        auto_fix_port_conflicts
+        return
+    fi
+
+    print_error "用户未同意自动处理 53 端口冲突，安装已停止"
+    return 1
 }
 
 # 配置防火墙
@@ -432,19 +553,27 @@ configure_firewall() {
 
     # 检测防火墙类型
     if command -v ufw &> /dev/null; then
+        if ! ufw status 2>/dev/null | grep -q '^Status: active'; then
+            print_warning "检测到 UFW，但未启用，跳过自动配置"
+            return
+        fi
         # Ubuntu/Debian UFW
         for port in $ports; do
-            ufw allow ${port}/tcp > /dev/null 2>&1 || true
-            ufw allow ${port}/udp > /dev/null 2>&1 || true
+            ufw allow ${port}/tcp > /dev/null 2>&1
+            ufw allow ${port}/udp > /dev/null 2>&1
         done
         print_success "UFW 防火墙规则已添加"
     elif command -v firewall-cmd &> /dev/null; then
+        if ! firewall-cmd --state > /dev/null 2>&1; then
+            print_warning "检测到 firewalld，但服务未运行，跳过自动配置"
+            return
+        fi
         # CentOS/RHEL firewalld
         for port in $ports; do
-            firewall-cmd --permanent --add-port=${port}/tcp > /dev/null 2>&1 || true
-            firewall-cmd --permanent --add-port=${port}/udp > /dev/null 2>&1 || true
+            firewall-cmd --permanent --add-port=${port}/tcp > /dev/null 2>&1
+            firewall-cmd --permanent --add-port=${port}/udp > /dev/null 2>&1
         done
-        firewall-cmd --reload > /dev/null 2>&1 || true
+        firewall-cmd --reload > /dev/null 2>&1
         print_success "firewalld 防火墙规则已添加"
     elif command -v iptables &> /dev/null; then
         # Alpine Linux 或其他使用 iptables 的系统
@@ -688,11 +817,7 @@ main() {
     # 获取版本
     local version
     if [ -n "$MSM_VERSION" ]; then
-        version="$MSM_VERSION"
-        # 确保版本号格式正确（添加 v 前缀如果没有）
-        if ! echo "$version" | grep -q '^v'; then
-            version="v${version}"
-        fi
+        version=$(normalize_version "$MSM_VERSION")
         print_info "使用指定版本: $version"
     else
         version=$(get_latest_version)
@@ -700,10 +825,11 @@ main() {
     fi
 
     # 下载 MSM
-    local temp_dir=$(download_msm $version $os $arch $libc)
+    local temp_dir
+    temp_dir=$(download_msm "$version" "$os" "$arch" "$libc")
 
     # 安装 MSM
-    install_msm $temp_dir
+    install_msm "$temp_dir"
 
     # 检查并处理端口冲突
     check_port_conflicts
