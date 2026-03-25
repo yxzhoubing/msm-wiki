@@ -545,8 +545,12 @@ auto_fix_port_conflicts() {
     fi
 
     local conflict=""
-    conflict=$(get_port_53_conflict)
-    local detect_status=$?
+    local detect_status=0
+    if conflict=$(get_port_53_conflict); then
+        detect_status=0
+    else
+        detect_status=$?
+    fi
     if [ "$detect_status" -eq 0 ]; then
         local process_name="${conflict%%|*}"
         local port53_process="${conflict#*|}"
@@ -565,8 +569,12 @@ check_port_conflicts() {
     print_info "检查端口占用情况..."
 
     local conflict=""
-    conflict=$(get_port_53_conflict)
-    local detect_status=$?
+    local detect_status=0
+    if conflict=$(get_port_53_conflict); then
+        detect_status=0
+    else
+        detect_status=$?
+    fi
     if [ "$detect_status" -eq 1 ]; then
         return
     fi
