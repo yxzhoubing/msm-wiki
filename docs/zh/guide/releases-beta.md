@@ -7,23 +7,26 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.11`  
-> 发布时间：2026-03-26 11:30:20 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.11>  
+> 当前 Beta 版本：`beta-1.0.12`  
+> 发布时间：2026-03-26 15:40:51 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.12>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包与派网 APX
 
-### 🐛 修复（Fixed）
-- 修复仪表盘布局拖拽混乱、调节受限及刷新失效问题
+### ✨ 新增（Added）
+- 联动 MosDNS 客户端名称
+
+### 🔧 变更（Changed）
+- 优化日志筛选逻辑
 
 ### 📝 备注（Notes）
-- 0.x 升级至 1.x 需重置安全并重新下载 DNS 服务
+- 0.x 升级 1.x 需重置 DNS 服务或重装
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`983c11f`](https://github.com/msm9527/msm/commit/983c11fc6e96290aff0fce3e2b9144cba1b4070d)
-- **提交信息**: chore: sync version to 1.0.11
+- **源提交**: [`fc36a98`](https://github.com/msm9527/msm/commit/fc36a983cc87dee414701cce22a4f20fc55312ab)
+- **提交信息**: chore: sync version to 1.0.12
 - **提交作者**: github-actions[bot]
-- **提交时间**: 2026-03-26 11:30:20 CST
+- **提交时间**: 2026-03-26 15:40:51 CST
 :::
 
 ---
