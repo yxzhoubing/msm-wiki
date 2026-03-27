@@ -7,24 +7,27 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.12`  
-> 发布时间：2026-03-26 15:40:51 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.12>  
+> 当前 Beta 版本：`beta-1.0.13`  
+> 发布时间：2026-03-27 17:37:12 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.13>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包与派网 APX
 
-### ✨ 新增（Added）
-- 联动 MosDNS 客户端名称
-- 优化日志筛选逻辑
+### 🐛 修复（Fixed）
+- 修复 MosDNS 回写等待 API 就绪问题
+- 修复内存回收死锁问题
+
+### 🔧 变更（Changed）
+- 全面优化长期运行内存占用及监控负载
 
 ### 📝 备注（Notes）
-- 0.x 升级 1.x 需重置安全配置并重下 DNS 服务
+- 0.x 升级 1.x 必须重置安全并重下载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`fc36a98`](https://github.com/msm9527/msm/commit/fc36a983cc87dee414701cce22a4f20fc55312ab)
-- **提交信息**: chore: sync version to 1.0.12
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-03-26 15:40:51 CST
+- **源提交**: [`fd3b791`](https://github.com/msm9527/msm/commit/fd3b79124ac8a75994519964864fee4b54a77a72)
+- **提交信息**: Merge remote-tracking branch 'origin/dev' into dev
+- **提交作者**: msm
+- **提交时间**: 2026-03-27 17:37:12 CST
 :::
 
 ---
