@@ -7,27 +7,27 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.13`  
-> 发布时间：2026-03-27 22:27:10 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.13>  
+> 当前 Beta 版本：`beta-1.0.14`  
+> 发布时间：2026-03-27 23:59:56 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.14>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包与派网 APX
 
 ### 🔧 变更（Changed）
-- 优化长期运行及监控任务的内存占用与开销
+- 调整组件更新阶段 GitHub 下载优先级
 
 ### 🐛 修复（Fixed）
-- 修复 MosDNS 备份恢复时 API 未就绪导致的异常
-- 修复内存回收死锁并降低实时面板内存分配
+- 修复 MosDNS 恢复失败并优化重试策略及插件检测
+- 修复许可证重激活时因本地授权材料损坏导致的失败
 
 ### 📝 备注（Notes）
-- 0.x 升至 1.x 需重装或重置后重新下载 DNS 服务
+- 0.x 升级至 1.x 需重装或重置安全并重新下载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`65583db`](https://github.com/msm9527/msm/commit/65583dbb0a51bda6ca11d4308f00e6f3a9dee6df)
-- **提交信息**: 修复 MosDNS 增量升级前等待 API 就绪 / Fix MosDNS incremental backup by waiting for API readiness
-- **提交作者**: msm
-- **提交时间**: 2026-03-27 22:27:10 CST
+- **源提交**: [`33d934d`](https://github.com/msm9527/msm/commit/33d934d4c5cdf97d9170a528345f422137751d64)
+- **提交信息**: chore: sync version to 1.0.14
+- **提交作者**: github-actions[bot]
+- **提交时间**: 2026-03-27 23:59:56 CST
 :::
 
 ---
