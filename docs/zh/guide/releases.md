@@ -9,34 +9,23 @@
 ## 🚀 最新稳定版本
 
 
-> 当前稳定版本：`v1.0.14`  
-> 发布时间：2026-03-31 10:14:32 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/1.0.14>  
+> 当前稳定版本：`v1.0.15`  
+> 发布时间：2026-04-01 10:37:38 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/1.0.15>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包与派网 APX
 
-### ✨ 新增（Added）
-- 联动 MosDNS 客户端名称并优化日志筛选功能
-
-### 🔧 变更（Changed）
-- 调整组件更新阶段 GitHub 下载优先级
-- 优化内存预算、监控负载及长期运行内存占用
-- 统一 MosDNS 恢复写操作的重试策略
-
 ### 🐛 修复（Fixed）
-- 修复 MosDNS 恢复阶段回写失败及 API 就绪等待问题
-- 修复许可证重激活时因本地授权材料损坏导致的失败
-- 修复内存回收死锁并降低实时面板分配
-- 修复 Dashboard 布局拖拽混乱、调节受限及刷新失效问题
+- 修复规则集编辑、展示及保存异常行为
 
-### 📝 备注（Notes）
-- 0.x 升级到 1.x 需重装或重置安全，DNS 服务已变更
+### ⚠️ 备注（Notes）
+- 0.x 升级至 1.x 需重置安全并重新下载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: stable（稳定版）
-- **源提交**: [`450f730`](https://github.com/msm9527/msm/commit/450f730d9d458149ff7514feaa9105f41f2428e9)
-- **提交信息**: Merge pull request #33 from msm9527/dev
+- **源提交**: [`cf439cf`](https://github.com/msm9527/msm/commit/cf439cfb5127f9a09daf5cd8360549000fb7dec3)
+- **提交信息**: Merge pull request #34 from msm9527/dev
 - **提交作者**: msm
-- **提交时间**: 2026-03-31 10:14:32 CST
+- **提交时间**: 2026-04-01 10:37:38 CST
 :::
 
 ---
