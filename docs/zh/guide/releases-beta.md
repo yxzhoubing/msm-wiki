@@ -30,7 +30,23 @@
 
 ## 📚 历史 Beta 版本
 
-> 下面仅展示最新一次 beta 每日构建信息。完整历史请以 GitHub Releases 中 `beta-*` 标签为准。
+> 下面仅列出最近几个 Beta 版本的主要变更，完整变更记录以 GitHub Release 为准。
+
+### beta-1.0.14（2026-03-31 16:29） <Badge type="tip" text="Beta 版" />
+
+- 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.14>
+
+**新增 / 优化**
+- 统一 MosDNS 恢复写操作重试策略
+- 调整组件更新 GitHub 下载优先级
+
+**问题修复**
+- 修复 MosDNS 未启用列表插件回写失败
+- 修复许可证重激活因本地材料损坏失败
+- 修复 MosDNS 列表插件就绪前的回写问题
+
+**注意事项**
+- 0.x 升级 1.x 必须重置或重装 DNS 服务
 
 ---
 

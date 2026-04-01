@@ -910,74 +910,26 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         with:
           script: |
-            const fs = require('fs');
+            const updateReleasePage = require('./scripts/update-release-page.cjs');
 
-            const version = '${{ needs.prepare.outputs.version }}';
-            const baseVersion = '${{ needs.prepare.outputs.base_version }}';
-            const channel = '${{ needs.prepare.outputs.channel }}';
-            const channelName = '${{ needs.prepare.outputs.channel_name }}';
-            const aiSummary = ${{ toJSON(needs.prepare.outputs.ai_summary) }};
-            const commitSha = '${{ needs.prepare.outputs.commit_sha_short }}';
-            const commitShaFull = '${{ needs.prepare.outputs.commit_sha }}';
-            const commitMessage = ${{ toJSON(needs.prepare.outputs.commit_message) }};
-            const commitAuthor = ${{ toJSON(needs.prepare.outputs.commit_author) }};
-            const commitDate = '${{ needs.prepare.outputs.commit_date }}';
-            const releaseDownloadNote = ${{ toJSON(steps.release_assets.outputs.download_note) }};
-            const latestVersionMarker = '${{ needs.prepare.outputs.latest_marker }}';
-            const historyVersionMarker = '${{ needs.prepare.outputs.history_marker }}';
-            const releasesPath = '${{ needs.prepare.outputs.release_notes_path }}';
+            updateReleasePage({
+              version: '${{ needs.prepare.outputs.version }}',
+              baseVersion: '${{ needs.prepare.outputs.base_version }}',
+              channel: '${{ needs.prepare.outputs.channel }}',
+              channelName: '${{ needs.prepare.outputs.channel_name }}',
+              aiSummary: ${{ toJSON(needs.prepare.outputs.ai_summary) }},
+              commitSha: '${{ needs.prepare.outputs.commit_sha_short }}',
+              commitShaFull: '${{ needs.prepare.outputs.commit_sha }}',
+              commitMessage: ${{ toJSON(needs.prepare.outputs.commit_message) }},
+              commitAuthor: ${{ toJSON(needs.prepare.outputs.commit_author) }},
+              commitDate: '${{ needs.prepare.outputs.commit_date }}',
+              releaseDownloadNote: ${{ toJSON(steps.release_assets.outputs.download_note) }},
+              latestVersionMarker: '${{ needs.prepare.outputs.latest_marker }}',
+              historyVersionMarker: '${{ needs.prepare.outputs.history_marker }}',
+              releasesPath: '${{ needs.prepare.outputs.release_notes_path }}',
+            });
 
-            // 读取现有的版本发布页面
-            let content = fs.readFileSync(releasesPath, 'utf-8');
-
-            // commitDate 已在 prepare 阶段统一转换为北京时间字符串
-            const dateStr = commitDate;
-
-            // 构建新版本的内容（与新版 releases 页面结构对齐）
-            const versionLabel = channel === 'beta'
-              ? `当前 Beta 版本：\`${version}\``
-              : `当前稳定版本：\`v${baseVersion}\``;
-            const newVersionContent = `
-            > ${versionLabel}  
-            > 发布时间：${dateStr}  
-            > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/${version}>  
-            > - 下载方式：${releaseDownloadNote}
-            
-            ${aiSummary}
-            
-            ::: details 📋 构建信息
-            - **发布通道**: ${channel}（${channelName}）
-            - **源提交**: [\`${commitSha}\`](https://github.com/msm9527/msm/commit/${commitShaFull})
-            - **提交信息**: ${commitMessage}
-            - **提交作者**: ${commitAuthor}
-            - **提交时间**: ${commitDate}
-            :::
-            
-            ---
-            `;
-
-            if (content.includes(latestVersionMarker) && content.includes(historyVersionMarker)) {
-              // 找到最新版本和历史版本的位置
-              const latestIndex = content.indexOf(latestVersionMarker);
-              const historyIndex = content.indexOf(historyVersionMarker);
-
-              if (latestIndex !== -1 && historyIndex !== -1) {
-                // 保留标题之前的内容
-                const beforeLatest = content.substring(0, latestIndex + latestVersionMarker.length);
-                // 保留历史版本及之后的内容
-                const afterHistory = content.substring(historyIndex);
-
-                // 重新组装：标题前 + 标题 + 新版本内容 + 历史版本及之后
-                content = beforeLatest + '\n\n' + newVersionContent + '\n' + afterHistory;
-              }
-            } else {
-              console.log('⚠️ 未找到版本标记，跳过更新');
-            }
-
-            // 写回文件
-            fs.writeFileSync(releasesPath, content, 'utf-8');
-
-            console.log(`✅ 已更新版本发布页面: ${version}`);
+            console.log('✅ 已更新版本发布页面');
 
       - name: 提交 Wiki 更新
         run: |
@@ -1336,6 +1288,9 @@ jobs:
     steps:
       - name: Checkout Wiki 仓库
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
 
       - name: Setup Node
         uses: actions/setup-node@v4
