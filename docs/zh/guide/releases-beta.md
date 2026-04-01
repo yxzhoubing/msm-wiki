@@ -7,29 +7,23 @@
 ## 🧪 最新 Beta 版本
 
 
-> 当前 Beta 版本：`beta-1.0.14`  
-> 发布时间：2026-03-31 16:29:09 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.14>  
+> 当前 Beta 版本：`beta-1.0.15`  
+> 发布时间：2026-04-01 10:32:05 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.15>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包与派网 APX
 
-### 🔧 变更
-- 统一 MosDNS 恢复写操作重试策略
-- 调整组件更新 GitHub 下载优先级
+### 🐛 修复（Fixed）
+- 修复规则集编辑、展示及保存功能异常
 
-### 🐛 修复
-- 修复 MosDNS 未启用列表插件回写失败
-- 修复许可证重激活因本地材料损坏失败
-- 修复 MosDNS 列表插件就绪前的回写问题
-
-### 📝 备注
-- 0.x 升级 1.x 必须重置或重装 DNS 服务
+### 📝 备注（Notes）
+- 0.x 升至 1.x 需重装或重置并重新下载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`7663b78`](https://github.com/msm9527/msm/commit/7663b7888077ce863c7a8257922d99dc072452dc)
-- **提交信息**: 0.x版本升级到1.x必须 重装或者升级后重置安全重新下载dns服务，切记很重要，dns服务都变了
-- **提交作者**: msm
-- **提交时间**: 2026-03-31 16:29:09 CST
+- **源提交**: [`f4d5760`](https://github.com/msm9527/msm/commit/f4d5760ad0dd50c791b52176cf4bf0fd6aae32a7)
+- **提交信息**: chore: sync version to 1.0.15
+- **提交作者**: github-actions[bot]
+- **提交时间**: 2026-04-01 10:32:05 CST
 :::
 
 ---
