@@ -20,7 +20,7 @@
   - 系统功能 — 系统功能和高级设置
   - 配置管理 — 配置文件和版本管理
   - 实时日志 — 实时运行日志和历史记录
-- **代理服务**：代理内核管理（Mihomo / Sing-Box）
+- **代理服务**：代理内核管理（ProxyCore / Sing-Box）
   - 概览 — 代理服务运行状态
   - 代理节点 — 节点列表和延迟测试
   - 规则管理 — 代理分流规则
@@ -78,7 +78,7 @@
 
 - 想让国外域名开始分流：先看 [路由器集成总览](/zh/guide/router-integration)，再看 [DNS 服务管理](/zh/guide/mosdns)
 - 想决定哪些设备走代理：看 [设备管理](/zh/guide/device-management)
-- 想导入或调整代理节点：看 [Mihomo 代理管理](/zh/guide/mihomo) 或 [Sing-Box 代理管理](/zh/guide/singbox)
+- 想导入或调整代理节点：看 [ProxyCore 代理管理](/zh/guide/mihomo) 或 [Sing-Box 代理管理](/zh/guide/singbox)
 - 想查配置错误或服务异常：看 [系统诊断](/zh/guide/diagnostics) 和 [故障排查](/zh/faq/troubleshooting)
 - 想改平台全局参数：看 [系统设置](/zh/guide/settings)
 
@@ -89,13 +89,13 @@
 - [路由器集成总览](/zh/guide/router-integration)
 - [DNS 服务管理](/zh/guide/mosdns)
 - [设备管理](/zh/guide/device-management)
-- [Mihomo 代理管理](/zh/guide/mihomo) 或 [Sing-Box 代理管理](/zh/guide/singbox)
+- [ProxyCore 代理管理](/zh/guide/mihomo) 或 [Sing-Box 代理管理](/zh/guide/singbox)
 
 ## 下一步
 
 - [仪表盘](/zh/guide/dashboard) - 系统概览与监控
 - [DNS 服务管理](/zh/guide/mosdns) - DNS 分流管理
-- [Mihomo 代理管理](/zh/guide/mihomo) - Mihomo 代理配置
+- [ProxyCore 代理管理](/zh/guide/mihomo) - ProxyCore 代理配置
 - [Sing-Box 代理管理](/zh/guide/singbox) - Sing-Box 代理配置
 - [设备管理](/zh/guide/device-management) - 设备代理控制
 - [配置管理](/zh/guide/config-editor) - 在线编辑配置

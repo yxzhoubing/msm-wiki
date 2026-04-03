@@ -21,7 +21,7 @@ MSM 需要备份的内容包括：
 | MSM 数据库 | `/root/.msm/data/msm.db` | 高 | 用户、配置、历史记录 |
 | MosDNS 配置 | `/root/.msm/mosdns/` | 高 | DNS 分流配置 |
 | SingBox 配置 | `/root/.msm/singbox/` | 高 | 代理配置 |
-| Mihomo 配置 | `/root/.msm/mihomo/` | 高 | 代理配置 |
+| ProxyCore 配置 | `/root/.msm/mihomo/` | 高 | 代理配置 |
 | 日志文件 | `/root/.msm/logs/` | 低 | 可选备份 |
 
 ## 备份方式

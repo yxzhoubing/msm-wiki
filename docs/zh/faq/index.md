@@ -13,7 +13,7 @@
 
 ## 3. 代理服务无法启动
 
-- 只可启用 Sing-box 或 Mihomo 其中一个
+- 只可启用 Sing-box 或 ProxyCore 其中一个
 - 检查配置文件格式与路径
 
 ## 4. 找不到日志
@@ -41,7 +41,7 @@
 ::: tip 推荐按这个顺序阅读
 1. [MSSB（逗猫佬）](https://github.com/baozaodetudou/mssb)：先理解旁路由分流整体设计思路
 2. [MosDNS 相关实践（PH 佬）](https://github.com/yyysuo/mosdns)：再看 MosDNS 侧配置与实战经验
-3. [Mihomo 官方核心](https://github.com/MetaCubeX/mihomo)：核对内核能力与官方参数说明
+3. [MetaCubeX 官方核心](https://github.com/MetaCubeX/mihomo)：核对上游内核能力与官方参数说明
 4. [FakeIP 分流大法总教程](https://drive.google.com/drive/u/1/folders/1ldD2XqIrREPgr_CKMSgvYomXgwknpApi)：系统化学习 FakeIP 分流
 5. [以 FakeIP 分流为基石的一套科学方案](https://blog.847977.xyz/2025/10/30/%E4%BB%A5fakeip%E5%88%86%E6%B5%81%E4%B8%BA%E5%9F%BA%E7%9F%B3%E7%9A%84%E4%B8%80%E5%A5%97%E7%A7%91%E5%AD%A6%E6%96%B9%E6%A1%88/)：结合实际拓扑理解 FakeIP 方案落地
 6. [Tom佬的技术博客](https://blog.847977.xyz/)：延伸阅读 RouterOS、FakeIP 与相关折腾实践

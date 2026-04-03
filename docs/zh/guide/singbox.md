@@ -1,6 +1,6 @@
 # 代理服务 — Sing-Box
 
-Sing-Box 是 MSM 支持的代理内核之一，与 Mihomo 二选一。
+Sing-Box 是 MSM 支持的代理内核之一，与 ProxyCore 二选一。
 
 ::: info 开发中
 Sing-Box 集成目前仍在开发中，部分功能可能尚未完善。
@@ -31,6 +31,6 @@ Sing-Box 集成目前仍在开发中，部分功能可能尚未完善。
 ## 下一步
 
 - [DNS 服务管理](/zh/guide/mosdns) - DNS 分流配置
-- [Mihomo 代理管理](/zh/guide/mihomo) - 另一个代理内核
+- [ProxyCore 代理管理](/zh/guide/mihomo) - 另一个代理内核
 - [配置管理](/zh/guide/config-editor) - 在线编辑配置
 - [日志查看](/zh/guide/logs) - 日志管理

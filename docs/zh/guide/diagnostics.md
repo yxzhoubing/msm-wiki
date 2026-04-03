@@ -59,7 +59,7 @@ msm doctor
 |--------|------|
 | MSM 服务 | 检查 MSM 主进程是否正常运行 |
 | MosDNS | 检查 DNS 服务是否正常 |
-| Mihomo | 检查 Mihomo 代理内核状态 |
+| ProxyCore | 检查 ProxyCore 代理内核状态 |
 | Sing-Box | 检查 Sing-Box 代理内核状态 |
 
 ### 4. 配置验证
@@ -70,7 +70,7 @@ msm doctor
 |--------|------|
 | MSM 配置 | 验证 MSM 系统配置格式 |
 | MosDNS 配置 | 验证 MosDNS YAML 配置语法 |
-| 代理配置 | 验证 Mihomo/Sing-Box 配置 |
+| 代理配置 | 验证 ProxyCore / Sing-Box 配置 |
 | 规则文件 | 验证分流规则文件完整性 |
 
 ### 5. 网络连通性

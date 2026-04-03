@@ -90,12 +90,12 @@
 - **重启** — 快速重启对应服务
 
 ::: warning 操作提示
-停止代理服务（Mihomo/Sing-Box）会导致所有通过代理的网络连接中断，请确认后再操作。
+停止代理服务（ProxyCore / Sing-Box）会导致所有通过代理的网络连接中断，请确认后再操作。
 :::
 
 ## 下一步
 
 - [DNS 服务管理](/zh/guide/mosdns) - DNS 分流管理
-- [代理服务（Mihomo）](/zh/guide/mihomo) - 代理服务管理
+- [代理服务（ProxyCore）](/zh/guide/mihomo) - 代理服务管理
 - [系统设置](/zh/guide/settings) - 系统配置
 - [进程管理](/zh/guide/process) - 服务启停控制

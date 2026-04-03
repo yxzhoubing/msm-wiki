@@ -5,7 +5,7 @@
 
   <h3>MSM 项目官方文档</h3>
 
-  <p>Mosdns Singbox Mihomo Manager - 统一管理平台文档</p>
+  <p>Mosdns Singbox Manager - 统一管理平台文档</p>
 
   <p>
     <a href="https://msm9527.github.io/msm-wiki/zh/">中文文档</a> •
@@ -17,7 +17,7 @@
 
 ## 📖 关于
 
-这是 MSM (Mosdns Singbox Mihomo Manager) 项目的官方文档站点，提供完整的使用指南、API 文档和部署说明。
+这是 MSM (Mosdns Singbox Manager) 项目的官方文档站点，提供完整的使用指南、API 文档和部署说明。
 
 ## 🌐 在线访问
 
@@ -95,7 +95,7 @@ msm-wiki/
 - 用户管理
 - MosDNS 管理
 - SingBox 管理
-- Mihomo 管理
+- ProxyCore 管理
 - 配置编辑
 - 历史记录与回滚
 - 日志查看

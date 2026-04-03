@@ -28,7 +28,7 @@ http://<MSM-IP>:7777
    - 本机 DNS 与 IPv6 开关
 4. **选择安装服务**
    - MosDNS 为必选
-   - Sing-box / Mihomo 二选一
+   - Sing-box / ProxyCore 二选一
 5. **完成初始化**
    - 系统下载组件并生成默认配置
 
@@ -37,7 +37,7 @@ http://<MSM-IP>:7777
 - **网络接口**：选择与主路由同一局域网的接口
 - **本机 DNS**：保持启用，方便客户端直接把 DNS 指向 MSM
 - **IPv6**：如果你的局域网有可用的 ULA / GUA，建议直接启用，后续按双栈接入
-- **代理内核**：新手优先保持单内核，先选 Mihomo 或 Sing-Box 其中一个跑通
+- **代理内核**：新手优先保持单内核，先选 ProxyCore 或 Sing-Box 其中一个跑通
 - **Web 端口**：如果没有端口冲突，保持默认 `7777`
 
 ## 4. 登录与仪表盘
@@ -65,12 +65,12 @@ http://<MSM-IP>:7777
    - 检查 FakeIP 网段是否与你的路由器配置一致
 3. 打开 [设备管理](/zh/guide/device-management)
    - 先确认哪些设备需要走代理
-4. 打开 [代理服务（Mihomo）](/zh/guide/mihomo) 或 [代理服务（Sing-Box）](/zh/guide/singbox)
+4. 打开 [代理服务（ProxyCore）](/zh/guide/mihomo) 或 [代理服务（Sing-Box）](/zh/guide/singbox)
    - 导入节点并检查内核是否正常运行
 
 ## 7. 下一步建议
 
 - 配置路由器 DNS 与静态路由（见 [路由器集成](/zh/guide/router-integration)）
 - 完成客户端白/黑名单设置（见 [设备管理](/zh/guide/device-management)）
-- 根据使用的代理核心配置节点与规则（见 [代理服务（Mihomo）](/zh/guide/mihomo) 或 [代理服务（Sing-Box）](/zh/guide/singbox)）
+- 根据使用的代理核心配置节点与规则（见 [代理服务（ProxyCore）](/zh/guide/mihomo) 或 [代理服务（Sing-Box）](/zh/guide/singbox)）
 - 如果已经接入双栈网络，优先验证 `A` 与 `AAAA` 两类查询都能返回 FakeIP

@@ -78,7 +78,7 @@ sudo ss -tlnp | grep 7777
 
 2. **选择代理内核**
    - MosDNS：必选（DNS 分流）
-   - SingBox 或 Mihomo：二选一（代理内核）
+   - SingBox 或 ProxyCore：二选一（代理内核）
 
 3. **等待组件下载**
    - 系统自动下载并安装选择的组件
@@ -158,7 +158,7 @@ sudo ss -tlnp | grep 7777
 在 MSM 管理界面中：
 
 1. 进入 **配置编辑** 页面
-2. 选择 **SingBox** 或 **Mihomo** 配置
+2. 选择 **SingBox** 或 **ProxyCore** 配置
 3. 添加代理节点配置
 
 ### 2. SingBox 配置示例
@@ -178,7 +178,7 @@ sudo ss -tlnp | grep 7777
 }
 ```
 
-### 3. Mihomo 配置示例
+### 3. ProxyCore 配置示例
 
 ```yaml
 proxies:
@@ -261,7 +261,7 @@ dig AAAA google.com
 ### 2. 查看实时日志
 
 1. 进入 **日志查看** 页面
-2. 选择服务（MosDNS/SingBox/Mihomo）
+2. 选择服务（MosDNS/SingBox/ProxyCore）
 3. 查看实时日志
 
 ### 3. 排查问题
@@ -296,7 +296,7 @@ dig AAAA google.com
 1. 检查设备 IP 是否在白名单中
 2. 检查静态路由是否配置正确
 3. 检查代理节点配置是否正确
-4. 查看 SingBox/Mihomo 日志
+4. 查看 SingBox / ProxyCore 日志
 
 ### 4. 国内网站访问慢
 

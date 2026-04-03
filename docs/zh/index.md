@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "MSM"
   text: "统一管理平台"
-  tagline: 基于 MosDNS + SingBox/Mihomo 的智能 DNS 分流与透明代理管理平台
+  tagline: 基于 MosDNS + ProxyCore / Sing-Box 的智能 DNS 分流与透明代理管理平台
   image:
     src: /logo/logo-square.svg
     alt: MSM Logo
@@ -25,7 +25,7 @@ features:
     details: 文档默认按 FakeIP v4 与 v6 的共存方式组织，主路由接入逻辑更统一
   - icon: 🔄
     title: 双内核代理
-    details: 同时支持 Mihomo 和 Sing-Box，便于按自己的使用习惯选择内核
+    details: 同时支持 ProxyCore 和 Sing-Box，便于按自己的使用习惯选择内核
   - icon: 🛡️
     title: 设备级控制
     details: 支持白名单、黑名单和禁用模式，按设备精确决定谁走代理
@@ -42,7 +42,7 @@ features:
 
 ## 一句话理解
 
-MSM 是一套围绕 **MosDNS + Mihomo / Sing-Box** 构建的旁路由方案。  
+MSM 是一套围绕 **MosDNS + ProxyCore / Sing-Box** 构建的旁路由方案。  
 你只需要完成三件事：安装 MSM、让主路由把 DNS 指向 MSM、再把 `28.0.0.0/8` 和 `f2b0::/18` 路由回 MSM。
 
 ## 你会在这里完成什么
@@ -60,7 +60,7 @@ MSM 是一套围绕 **MosDNS + Mihomo / Sing-Box** 构建的旁路由方案。
 4. [对应路由器配置](/zh/guide/routeros)
 5. [DNS 服务管理](/zh/guide/mosdns)
 6. [设备管理](/zh/guide/device-management)
-7. [代理服务（Mihomo）](/zh/guide/mihomo) 或 [代理服务（Sing-Box）](/zh/guide/singbox)
+7. [代理服务（ProxyCore）](/zh/guide/mihomo) 或 [代理服务（Sing-Box）](/zh/guide/singbox)
 
 ## 三步开始
 
