@@ -29,4 +29,6 @@ sudo ss -tlnp | grep 7777
 
 - 确认主路由 DHCP DNS 设置正确
 - 确认 FakeIP 网段与路由一致
+- IPv4 至少检查 `28.0.0.0/8` 是否指向 MSM
+- 再检查 `f2b0::/18` 是否指向 MSM 的 IPv6 地址
 - 查看 MosDNS 与代理服务日志

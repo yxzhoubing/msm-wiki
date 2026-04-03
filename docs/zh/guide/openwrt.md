@@ -4,10 +4,12 @@
 
 ## 示例环境
 
-- OpenWrt 网关：`192.168.1.1`
-- MSM 主机：`192.168.1.2`
+- OpenWrt 网关 IPv4：`192.168.1.1`
+- MSM 主机 IPv4：`192.168.1.2`
+- OpenWrt 网关 IPv6：`fd00::1`
+- MSM 主机 IPv6：`fd00::2`
 
-## 步骤一：添加静态路由（FakeIP）
+## 步骤一：添加静态路由（IPv4 + IPv6）
 
 ```bash
 uci add network route
@@ -15,9 +17,17 @@ uci set network.@route[-1].interface='lan'
 uci set network.@route[-1].target='28.0.0.0'
 uci set network.@route[-1].netmask='255.0.0.0'
 uci set network.@route[-1].gateway='192.168.1.2'
+
+uci add network route6
+uci set network.@route6[-1].interface='lan'
+uci set network.@route6[-1].target='f2b0::/18'
+uci set network.@route6[-1].gateway='fd00::2'
+
 uci commit network
 /etc/init.d/network reload
 ```
+
+如需 Telegram IPv6 等附加网段，可继续按 `route6` 方式添加。
 
 ## 步骤二：设置 DHCP DNS
 
@@ -31,9 +41,11 @@ uci commit dhcp
 
 ```bash
 nslookup google.com 192.168.1.2
+dig AAAA google.com @192.168.1.2
 ```
 
-应返回 `28.0.0.0/8` 段地址。
+- `nslookup google.com 192.168.1.2` 应返回 `28.0.0.0/8` 段地址
+- `dig AAAA google.com @192.168.1.2` 应返回 `f2b0::/18` 段地址
 
 ## 下一步
 

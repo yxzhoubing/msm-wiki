@@ -42,8 +42,12 @@ MSM 支持以下语言：
 
 - **监听端口** — DNS 服务监听端口（默认 53）
 - **上游 DNS** — 配置国内和国外上游 DNS 服务器
-- **FakeIP 网段** — FakeIP 使用的 IP 段（默认 28.0.0.0/8）
+- **FakeIP 网段** — FakeIP 使用的 IP 段（默认 `28.0.0.0/8` 与 `f2b0::/18`）
 - **缓存设置** — DNS 缓存大小和过期时间
+
+::: tip 配置同步
+如果你在系统设置或 MosDNS 配置中调整了 FakeIP 网段，必须同步修改主路由里的静态路由；否则客户端会解析出 FakeIP，但流量无法正确回到 MSM。
+:::
 
 ### 代理服务配置
 
@@ -129,6 +133,7 @@ msm serve -d
 
 ## 下一步
 
+- [路由器集成总览](/zh/guide/router-integration) - 同步主路由的 DNS 与静态路由
 - [用户管理](/zh/guide/user-management) - 管理用户与权限
 - [备份恢复](/zh/guide/backup-restore) - 数据备份与恢复
 - [系统诊断](/zh/guide/diagnostics) - 系统健康检查
