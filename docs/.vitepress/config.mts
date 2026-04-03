@@ -21,15 +21,24 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/zh/' },
-      { text: '快速开始', link: '/zh/guide/install' },
-      { text: '使用指南', link: '/zh/guide/basic-config' },
-      { text: '路由器集成', link: '/zh/guide/router-integration' },
+      { text: '快速上手', link: '/zh/guide/install' },
+      { text: '路由器接入', link: '/zh/guide/router-integration' },
+      { text: '界面功能', link: '/zh/guide/basic-config' },
       {
-        text: '参考',
+        text: '场景与进阶',
         items: [
+          { text: 'OpenWrt 进阶', link: '/zh/guide/openwrt-advanced' },
+          { text: '回家配置', link: '/zh/guide/home' }
+        ]
+      },
+      {
+        text: '运维与参考',
+        items: [
+          { text: '系统诊断', link: '/zh/guide/diagnostics' },
           { text: 'CLI 命令', link: '/zh/guide/cli' },
           { text: 'API 参考', link: '/zh/guide/api' },
-          { text: '常见问题', link: '/zh/faq/' }
+          { text: '常见问题', link: '/zh/faq/' },
+          { text: '故障排查', link: '/zh/faq/troubleshooting' }
         ]
       },
       {
@@ -45,13 +54,14 @@ export default defineConfig({
       '/zh/': [
         {
           text: '项目介绍',
+          collapsed: true,
           items: [
             { text: '什么是 MSM', link: '/zh/introduction/what-is-msm' },
             { text: '核心功能', link: '/zh/introduction/features' }
           ]
         },
         {
-          text: '快速安装',
+          text: '快速上手',
           items: [
             { text: '安装总览', link: '/zh/guide/install' },
             { text: 'Linux 安装', link: '/zh/guide/install-linux' },
@@ -63,13 +73,12 @@ export default defineConfig({
           ]
         },
         {
-          text: '路由器集成',
+          text: '路由器接入',
           items: [
             { text: '集成概述', link: '/zh/guide/router-integration' },
             { text: 'RouterOS 配置', link: '/zh/guide/routeros' },
             { text: '爱快配置', link: '/zh/guide/ikuai' },
             { text: 'OpenWrt 配置', link: '/zh/guide/openwrt' },
-            { text: 'OpenWrt 进阶', link: '/zh/guide/openwrt-advanced' },
             { text: 'UniFi 配置', link: '/zh/guide/unifi' }
           ]
         },
@@ -84,42 +93,37 @@ export default defineConfig({
             { text: '代理服务（Sing-Box）', link: '/zh/guide/singbox' },
             { text: '设备管理', link: '/zh/guide/device-management' },
             { text: '配置管理', link: '/zh/guide/config-editor' },
-            { text: '日志查看', link: '/zh/guide/logs' },
+            { text: '日志查看', link: '/zh/guide/logs' }
+          ]
+        },
+        {
+          text: '场景与进阶',
+          collapsed: false,
+          items: [
+            { text: 'OpenWrt 进阶', link: '/zh/guide/openwrt-advanced' },
             { text: '回家配置', link: '/zh/guide/home' }
           ]
         },
         {
-          text: '系统管理',
-          collapsed: false,
+          text: '系统与维护',
+          collapsed: true,
           items: [
             { text: '用户管理', link: '/zh/guide/user-management' },
             { text: '系统诊断', link: '/zh/guide/diagnostics' },
             { text: '系统设置', link: '/zh/guide/settings' },
-            { text: '授权管理', link: '/zh/guide/license' }
-          ]
-        },
-        {
-          text: '维护管理',
-          collapsed: true,
-          items: [
-            { text: '版本发布', link: '/zh/guide/releases' },
-            { text: 'Beta 版发布', link: '/zh/guide/releases-beta' },
+            { text: '授权管理', link: '/zh/guide/license' },
             { text: '更新升级', link: '/zh/guide/update' },
-            { text: '备份恢复', link: '/zh/guide/backup-restore' }
+            { text: '备份恢复', link: '/zh/guide/backup-restore' },
+            { text: '版本发布', link: '/zh/guide/releases' },
+            { text: 'Beta 版发布', link: '/zh/guide/releases-beta' }
           ]
         },
         {
-          text: '参考文档',
+          text: '运维与参考',
           collapsed: true,
           items: [
             { text: 'CLI 命令参考', link: '/zh/guide/cli' },
-            { text: 'API 参考', link: '/zh/guide/api' }
-          ]
-        },
-        {
-          text: '常见问题',
-          collapsed: true,
-          items: [
+            { text: 'API 参考', link: '/zh/guide/api' },
             { text: 'FAQ', link: '/zh/faq/' },
             { text: '故障排查', link: '/zh/faq/troubleshooting' }
           ]

@@ -1,6 +1,7 @@
 # 使用指南总览
 
-本页基于 MSM 实际界面整理常用功能入口与操作路径，并给出从“刚安装完”到“稳定可用”的推荐操作顺序。
+这页是 **后台菜单地图**。  
+如果你想知道“要做某件事，应该去后台哪个页面”，这页比 [完整使用流程](/zh/guide/complete-workflow) 更适合你。
 
 ## 访问与登录
 
@@ -72,6 +73,14 @@
 - 代理配置文件：**代理服务 > 配置管理**
 - 服务日志：**日志查看**
 - 配置文件管理：**配置管理**
+
+## 按任务找页面
+
+- 想让国外域名开始分流：先看 [路由器集成总览](/zh/guide/router-integration)，再看 [DNS 服务管理](/zh/guide/mosdns)
+- 想决定哪些设备走代理：看 [设备管理](/zh/guide/device-management)
+- 想导入或调整代理节点：看 [Mihomo 代理管理](/zh/guide/mihomo) 或 [Sing-Box 代理管理](/zh/guide/singbox)
+- 想查配置错误或服务异常：看 [系统诊断](/zh/guide/diagnostics) 和 [故障排查](/zh/faq/troubleshooting)
+- 想改平台全局参数：看 [系统设置](/zh/guide/settings)
 
 ## 推荐阅读顺序
 

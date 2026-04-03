@@ -1,6 +1,7 @@
 # 首次使用
 
-本页整理 MSM 初始化向导的关键步骤，并补上初始化完成后的推荐动作。
+这页只负责一件事：帮你完成 **初始化向导**。  
+安装方式怎么选，请看 [安装总览](/zh/guide/install)；主路由怎么接，请看 [路由器集成总览](/zh/guide/router-integration)。
 
 ## 1. 访问系统
 
@@ -47,7 +48,14 @@ http://<MSM-IP>:7777
 - 资源使用情况
 - 关键告警与提示
 
-## 5. 初始化完成后立刻做的事
+## 5. 完成这一步后你应该得到什么
+
+- 可以稳定访问 `http://<MSM-IP>:7777`
+- 已经创建管理员账号
+- MosDNS 和一个代理内核已经就绪
+- 后台页面可以正常打开，不报初始化错误
+
+## 6. 初始化完成后立刻做的事
 
 1. 打开 [路由器集成](/zh/guide/router-integration)
    - 先配 DHCP DNS（默认填 MSM 的 IPv4 地址）
@@ -60,7 +68,7 @@ http://<MSM-IP>:7777
 4. 打开 [代理服务（Mihomo）](/zh/guide/mihomo) 或 [代理服务（Sing-Box）](/zh/guide/singbox)
    - 导入节点并检查内核是否正常运行
 
-## 6. 下一步建议
+## 7. 下一步建议
 
 - 配置路由器 DNS 与静态路由（见 [路由器集成](/zh/guide/router-integration)）
 - 完成客户端白/黑名单设置（见 [设备管理](/zh/guide/device-management)）
