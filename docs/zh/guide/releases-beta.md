@@ -7,43 +7,45 @@
 ## 🧪 最新 Beta 版本
 
 > 当前 Beta 版本：`beta-1.0.17`  
-> 发布时间：2026-04-05 00:01:55 CST  
+> 发布时间：2026-04-05 00:22:24 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.17>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
 ### ✨ 新增（Added）
-- 新增 CLI 自更新命令及平台版本选择功能
-- 引入 Harness 工程体系完善 Agent 控制系统
-- 实现内置原生进程管理器替代 Supervisord
-- 强化客户端授权完整性与证据上报机制
-- 统一前端代理选择字段并同步恢复链路
+- CLI 增加自更新命令支持
+- 内置进程管理后端核心及前端控制面
+- Harness Engineering 体系完善 Agent 控制
+- 客户端授权完整性与证据上报增强
 
 ### 🔧 变更（Changed）
-- 前端 Mihomo/ProxyCore 标签统一重命名为 Clash
+- 前端 Mihomo/ProxyCore 显示名统一为 Clash
+- 重构进程管理页面，优化视觉设计
 - 默认隐藏实验性 Docker 和网络工具入口
-- 后端架构进行大文件拆分与 Handler 重构
-- 优化前端构建分包策略消除 Vite 警告
-- 重构进程管理页面优化视觉设计与卡片
+- 优化前端构建分包结构
 
 ### 🐛 修复（Fixed）
-- 修复升级后托管服务配置迁移丢失问题
-- 修复前端手写分包导致的白屏显示错误
-- 修复服务关闭时 SSE 长连接导致的超时
+- 修复重启时暂态 capability 丢失导致掉 Pro
+- 修复升级后托管服务迁移丢失问题
+- 修复前端手写分包导致白屏
 - 修复配置保存时二进制路径查找错误
-- 修复规则集编辑展示与保存行为异常
-- 修复 MSM 单实例与进程托管重启异常
-- 稳定激活状态并统一加固正式二进制
+- 修复规则集编辑展示与保存异常
+- 修复服务关闭时 SSE 长连接超时
+- 修复 WOL IPv6 地址寻址问题
+- 修复 MSM 单实例与进程托管重启问题
+
+### ⚠️ 废弃（Deprecated）
+- 移除旧版 supervisord 二进制及兼容配置
 
 ### 📝 备注（Notes）
-- 0.x 版本升级 1.x 需重装或重置安全并重下 DNS
-- DNS 服务在 1.x 版本已变更请务必注意升级
+- 0.x 升 1.x 必重装或重置安全并重新下载 DNS 服务
+- DNS 服务底层已变更，请严格执行重置流程
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`7bb118f`](https://github.com/msm9527/msm/commit/7bb118f590f4927161919101c373fc2fe3b8393c)
-- **提交信息**: 修复 MSM 单实例与进程托管重启问题 / Fix MSM single-instance and managed process restart issues
+- **源提交**: [`40e0c96`](https://github.com/msm9527/msm/commit/40e0c96004e49f40a0066b85330f253a2d751a81)
+- **提交信息**: fix: 修复重启时暂态 capability 丢失导致掉 Pro / preserve Pro during transient capability loss on restart
 - **提交作者**: msm
-- **提交时间**: 2026-04-05 00:01:55 CST
+- **提交时间**: 2026-04-05 00:22:24 CST
 :::
 
 ---
