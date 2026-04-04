@@ -555,8 +555,14 @@ jobs:
           set -euo pipefail
           VERSION="${{ needs.prepare.outputs.version }}"
           mkdir -p dist
-          test -x scripts/build-release-msm.sh
-          test -x scripts/verify-executable-sha256.sh
+          test -f scripts/build-release-msm.sh
+          test -f scripts/embed-executable-sha256.sh
+          test -f scripts/verify-executable-sha256.sh
+          perl -0pi -e 's/\A#!\/bin\/zsh\n/#!\/usr\/bin\/env bash\n/' \
+            scripts/build-release-msm.sh \
+            scripts/embed-executable-sha256.sh \
+            scripts/verify-executable-sha256.sh
+          chmod +x scripts/build-release-msm.sh scripts/embed-executable-sha256.sh scripts/verify-executable-sha256.sh
           bash ./scripts/build-release-msm.sh "dist/msm"
           bash ./scripts/verify-executable-sha256.sh "dist/msm"
           chmod +x dist/msm
