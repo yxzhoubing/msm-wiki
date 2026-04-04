@@ -6,23 +6,37 @@
 
 ## 🧪 最新 Beta 版本
 
-> 当前 Beta 版本：`beta-1.0.16`  
-> 发布时间：2026-04-04 15:18:31 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.16>  
+> 当前 Beta 版本：`beta-1.0.17`  
+> 发布时间：2026-04-04 16:48:34 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.17>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
+### ✨ 新增（Added）
+- 新增 CLI 自更新命令及平台版本选择功能
+- 实现内置进程管理后端核心与前端控制面
+
+### 🔧 变更（Changed）
+- 统一前端 Mihomo/ProxyCore 显示名为 Clash
+- 优化前端构建分包消除 Vite 大 chunk 警告
+- 默认隐藏实验性 Docker 管理和网络工具入口
+
 ### 🐛 修复（Fixed）
-- 修复前端手写分包配置导致应用白屏的问题
+- 修复升级后托管服务迁移数据丢失问题
+- 修复前端手动分包导致页面白屏故障
+- 修复配置保存时二进制路径查找错误
+- 修复服务关闭时 SSE 长连接超时问题
+- 修复规则集编辑展示与保存异常
+- 修复授权执行链与完整性验证问题
 
 ### 📝 备注（Notes）
-- 0.x 升级 1.x 必须重置安全并重新下载 DNS 服务
+- 0.x 升级至 1.x 需重装或重置安全并重新下载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`7998447`](https://github.com/msm9527/msm/commit/79984473bc172c106cc02a561faf1d18d8570a69)
-- **提交信息**: 修复前端手写分包导致白屏 / Fix frontend white screen caused by manual chunk splitting
-- **提交作者**: msm
-- **提交时间**: 2026-04-04 15:18:31 CST
+- **源提交**: [`3bb506c`](https://github.com/msm9527/msm/commit/3bb506ce93d659be21f0fbc0d2fc8ced15b63dc8)
+- **提交信息**: chore: sync version to 1.0.17
+- **提交作者**: github-actions[bot]
+- **提交时间**: 2026-04-04 16:48:34 CST
 :::
 
 ---
