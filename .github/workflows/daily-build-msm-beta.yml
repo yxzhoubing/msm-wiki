@@ -528,41 +528,6 @@ jobs:
           path: frontend/node_modules
           key: npm-frontend-${{ runner.os }}-${{ hashFiles('frontend/package-lock.json') }}
 
-      - name: 构建 supervisord（嵌入资源）
-        shell: bash
-        env:
-          GOOS: ${{ matrix.goos }}
-          GOARCH: ${{ matrix.goarch }}
-          GOARM: ${{ matrix.goarm || '' }}
-          GOAMD64: ${{ matrix.goamd64 || '' }}
-          CGO_ENABLED: ${{ matrix.goos == 'darwin' && '1' || '0' }}
-        run: |
-          set -euo pipefail
-          SUPERVISORD_VERSION_FILE="backend/cmd/msm/.supervisord.version"
-          SUPERVISORD_COMMIT=""
-          if [ -f "${SUPERVISORD_VERSION_FILE}" ]; then
-            SUPERVISORD_COMMIT="$(head -n 1 "${SUPERVISORD_VERSION_FILE}" | tr -d '\r\n')"
-          fi
-
-          rm -rf /tmp/supervisord
-          git clone https://github.com/ochinchina/supervisord.git /tmp/supervisord
-
-          if [ -z "${SUPERVISORD_COMMIT}" ]; then
-            DEFAULT_BRANCH="$(git -C /tmp/supervisord symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's#^origin/##')"
-            if [ -z "${DEFAULT_BRANCH}" ]; then
-              DEFAULT_BRANCH="$(git -C /tmp/supervisord rev-parse --abbrev-ref HEAD 2>/dev/null || echo master)"
-            fi
-            SUPERVISORD_COMMIT="$(git -C /tmp/supervisord rev-parse "origin/${DEFAULT_BRANCH}" 2>/dev/null || git -C /tmp/supervisord rev-parse HEAD)"
-            echo "warning: ${SUPERVISORD_VERSION_FILE} 缺失或为空，回退到 ${DEFAULT_BRANCH}@${SUPERVISORD_COMMIT}" >&2
-          else
-            echo "supervisord commit: ${SUPERVISORD_COMMIT}"
-          fi
-
-          git -C /tmp/supervisord checkout "${SUPERVISORD_COMMIT}"
-
-          (cd /tmp/supervisord && go build -trimpath -buildvcs=false -ldflags="-s -w" -o supervisord)
-          cp /tmp/supervisord/supervisord backend/cmd/msm/supervisord
-
       - name: 构建前端并复制到后端（嵌入资源）
         shell: bash
         run: |
