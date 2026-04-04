@@ -7,22 +7,22 @@
 ## 🧪 最新 Beta 版本
 
 > 当前 Beta 版本：`beta-1.0.16`  
-> 发布时间：2026-04-04 14:38:59 CST  
+> 发布时间：2026-04-04 15:18:31 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.16>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
-### 🔧 变更（Changed）
-- DNS 服务底层架构及逻辑已更新
+### 🐛 修复（Fixed）
+- 修复前端手写分包配置导致应用白屏的问题
 
 ### 📝 备注（Notes）
-- 0.x 升级 1.x 须重置安全并重载 DNS 服务
+- 0.x 升级 1.x 必须重置安全并重新下载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`bb43c6b`](https://github.com/msm9527/msm/commit/bb43c6b101cd79d63f746e324b276ea106e60462)
-- **提交信息**: chore: sync version to 1.0.16
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-04-04 14:38:59 CST
+- **源提交**: [`7998447`](https://github.com/msm9527/msm/commit/79984473bc172c106cc02a561faf1d18d8570a69)
+- **提交信息**: 修复前端手写分包导致白屏 / Fix frontend white screen caused by manual chunk splitting
+- **提交作者**: msm
+- **提交时间**: 2026-04-04 15:18:31 CST
 :::
 
 ---
