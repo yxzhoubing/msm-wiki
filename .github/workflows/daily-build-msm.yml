@@ -706,6 +706,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ needs.prepare.outputs.version }}
+          draft: false
           name: 🚀 MSM ${{ needs.prepare.outputs.version }}（${{ needs.prepare.outputs.channel_name }}）
           body: |
             <div align="center">
@@ -1240,13 +1241,15 @@ jobs:
           if-no-files-found: ignore
 
       - name: 将 DMG 附加到已有 Release
-        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ needs.prepare.outputs.version }}
-          files: dist/msm-desktop-${{ needs.prepare.outputs.version }}-${{ matrix.target }}.dmg
-          fail_on_unmatched_files: false
+        shell: sh
+        run: |
+          set -eu
+          gh release upload "${{ needs.prepare.outputs.version }}" \
+            "dist/msm-desktop-${{ needs.prepare.outputs.version }}-${{ matrix.target }}.dmg" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --clobber
 
   pages:
     name: 构建并发布 Wiki 到 GitHub Pages
