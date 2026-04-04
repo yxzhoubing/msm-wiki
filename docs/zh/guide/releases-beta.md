@@ -7,22 +7,36 @@
 ## 🧪 最新 Beta 版本
 
 > 当前 Beta 版本：`beta-1.0.15`  
-> 发布时间：2026-04-01 10:32:05 CST  
+> 发布时间：2026-04-04 13:25:34 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.15>  
-> - 下载方式：同一发布页内提供各平台二进制、安装包与派网 APX
+> - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
+
+### ✨ 新增（Added）
+- 实现内置进程管理后端核心及前端控制面
+- 新增服务配置与暂停恢复后端接口
+
+### 🔧 变更（Changed）
+- 前端 Mihomo 模块重命名为 ProxyCore
+- 优化进程卡片视觉设计与前端拆包
+- 默认隐藏实验性 Docker 和网络工具入口
+- 清理旧版 supervisord 二进制及兼容路径
+- 调整侧边栏菜单顺序与图标
 
 ### 🐛 修复（Fixed）
-- 修复规则集编辑、展示与保存问题
+- 修复配置保存时二进制路径查找错误
+- 修复服务关闭时 SSE 长连接导致的超时
+- 修复规则集编辑展示与保存异常
+- 修复 WOL IPv6 地址寻址问题
 
 ### 📝 备注（Notes）
-- 0.x 升级 1.x 需重置并重新下载 DNS 服务
+- 【重要】0.x 升 1.x 需重装或重置安全并重下 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`f4d5760`](https://github.com/msm9527/msm/commit/f4d5760ad0dd50c791b52176cf4bf0fd6aae32a7)
-- **提交信息**: chore: sync version to 1.0.15
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-04-01 10:32:05 CST
+- **源提交**: [`48eb9f4`](https://github.com/msm9527/msm/commit/48eb9f4b2e435eb6524728ba86ac6b8e0c2d2cbc)
+- **提交信息**: 强化客户端授权完整性与证据上报 / Strengthen client license integrity and evidence reporting
+- **提交作者**: msm
+- **提交时间**: 2026-04-04 13:25:34 CST
 :::
 
 ---
