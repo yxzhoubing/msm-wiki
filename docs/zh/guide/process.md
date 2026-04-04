@@ -25,11 +25,11 @@ MSM 统一管理以下服务进程：
 | 服务 | 说明 | 默认端口 |
 |------|------|----------|
 | **MosDNS** | DNS 分流引擎 | 53 |
-| **ProxyCore** | ProxyCore 代理内核 | 7890/7891/7892 |
+| **Clash** | Clash 代理内核 | 7890/7891/7892 |
 | **Sing-Box** | Sing-Box 代理内核 | 7890/7891/7892 |
 
 ::: info 说明
-ProxyCore 和 Sing-Box 是两种可选的代理内核，通常只需启用其中一个。
+Clash 和 Sing-Box 是两种可选的代理内核，通常只需启用其中一个。
 :::
 
 ## 基本操作
@@ -124,14 +124,14 @@ curl -X POST -H "Authorization: Bearer TOKEN" \
 MSM 主服务
   ├── MosDNS (DNS 分流)
   │     └── 依赖：端口 53 可用，配置文件有效
-  ├── ProxyCore (代理内核)
+  ├── Clash (代理内核)
   │     └── 依赖：配置文件有效，订阅节点可用
   └── Sing-Box (代理内核)
         └── 依赖：配置文件有效，订阅节点可用
 ```
 
 ::: tip 启动顺序
-建议先启动 MosDNS（DNS 服务），再启动代理内核（ProxyCore 或 Sing-Box），确保 DNS 分流就绪后代理才开始工作。
+建议先启动 MosDNS（DNS 服务），再启动代理内核（Clash 或 Sing-Box），确保 DNS 分流就绪后代理才开始工作。
 :::
 
 ## 故障恢复
@@ -147,7 +147,7 @@ MSM 主服务
 ## 下一步
 
 - [DNS 服务管理](/zh/guide/mosdns) - DNS 分流详细配置
-- [代理服务（ProxyCore）](/zh/guide/mihomo) - ProxyCore 代理管理
+- [代理服务（Clash）](/zh/guide/mihomo) - Clash 代理管理
 - [代理服务（Sing-Box）](/zh/guide/singbox) - Sing-Box 代理管理
 - [系统诊断](/zh/guide/diagnostics) - 系统健康检查
 - [日志查看](/zh/guide/logs) - 日志管理

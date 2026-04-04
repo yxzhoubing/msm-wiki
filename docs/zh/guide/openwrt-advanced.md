@@ -40,7 +40,7 @@ CHECK_HOST="https://8.8.8.8"
 
 # IPv4 路由地址集 - 按分类定义
 read -r -d '' IPV4_FAKEIP_ROUTES << 'EOF' || true
-# MosDNS 和 ProxyCore FakeIP 路由
+# MosDNS 和 Clash FakeIP 路由
 28.0.0.0/8
 8.8.8.8/32
 1.1.1.1/32
@@ -158,11 +158,11 @@ select_ipv4_routes() {
 
     while true; do
         echo "当前选择："
-        [ "$SELECT_FAKEIP" = "1" ] && echo "  ✓ MosDNS 和 ProxyCore FakeIP" || echo "  ☐ MosDNS 和 ProxyCore FakeIP"
+        [ "$SELECT_FAKEIP" = "1" ] && echo "  ✓ MosDNS 和 Clash FakeIP" || echo "  ☐ MosDNS 和 Clash FakeIP"
         [ "$SELECT_TELEGRAM" = "1" ] && echo "  ✓ Telegram" || echo "  ☐ Telegram"
         [ "$SELECT_NETFLIX" = "1" ] && echo "  ✓ Netflix" || echo "  ☐ Netflix"
         echo ""
-        echo "1) 切换 MosDNS 和 ProxyCore FakeIP"
+        echo "1) 切换 MosDNS 和 Clash FakeIP"
         echo "2) 切换 Telegram"
         echo "3) 切换 Netflix"
         echo "4) 全选"

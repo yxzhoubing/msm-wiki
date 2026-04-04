@@ -1,6 +1,6 @@
 # 更新升级
 
-本文档介绍如何更新 MSM 和各个组件（MosDNS、SingBox、ProxyCore）。
+本文档介绍如何更新 MSM 和各个组件（MosDNS、SingBox、Clash）。
 
 ## 更新 MSM
 
@@ -202,27 +202,27 @@ sudo systemctl start msm
 ~/.msm/singbox/sing-box version
 ```
 
-## 更新 ProxyCore
+## 更新 Clash
 
 ::: tip 命名说明
-本节对外名称使用“ProxyCore”；命令、目录和上游下载链接中仍会保留 `mihomo` 标识。
+本节对外名称使用“Clash”；命令、目录和上游下载链接中仍会保留 `mihomo` 标识。
 :::
 
 ### 方式一：Web 界面更新
 
 1. 登录 MSM 管理界面
-2. 进入 **代理服务（ProxyCore）** 页面
+2. 进入 **代理服务（Clash）** 页面
 3. 点击 **版本管理**
 4. 选择要安装的版本
 5. 点击 **安装**
 6. 等待下载完成
 7. 点击 **切换版本**
-8. 重启 ProxyCore 服务
+8. 重启 Clash 服务
 
 ### 方式二：命令行更新
 
 ```bash
-# 查看当前 ProxyCore 版本
+# 查看当前 Clash 版本
 ~/.msm/mihomo/mihomo -v
 
 # 下载最新版本
@@ -358,7 +358,7 @@ cp ~/.msm/mosdns/mosdns.backup ~/.msm/mosdns/mosdns
 # 恢复 SingBox
 cp ~/.msm/singbox/sing-box.backup ~/.msm/singbox/sing-box
 
-# 恢复 ProxyCore
+# 恢复 Clash
 cp ~/.msm/mihomo/mihomo.backup ~/.msm/mihomo/mihomo
 
 # 启动服务

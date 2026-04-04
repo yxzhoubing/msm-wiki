@@ -4,7 +4,7 @@
 
 ## 服务端配置
 
-在服务端的 ProxyCore 配置文件中添加如下字段。当前 MSM 的目录名仍为 `~/.msm/mihomo/`。
+在服务端的 Clash 配置文件中添加如下字段。当前 MSM 的目录名仍为 `~/.msm/mihomo/`。
 
 ```yaml
 listeners:
@@ -18,7 +18,7 @@ rules:
 
 ## 客户端配置
 
-在客户端的 ProxyCore 配置（手机 / 平板 / 异地电脑）中添加如下字段
+在客户端的 Clash 配置（手机 / 平板 / 异地电脑）中添加如下字段
 
 ```yaml
 proxies:

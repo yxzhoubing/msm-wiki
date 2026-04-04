@@ -95,7 +95,7 @@ msm-wiki/
 - 用户管理
 - MosDNS 管理
 - SingBox 管理
-- ProxyCore 管理
+- Clash 管理
 - 配置编辑
 - 历史记录与回滚
 - 日志查看

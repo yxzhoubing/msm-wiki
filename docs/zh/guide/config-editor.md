@@ -1,6 +1,6 @@
 # 配置编辑
 
-MSM 提供在线配置编辑器，用于管理 MosDNS / Sing-box / ProxyCore 等配置文件。
+MSM 提供在线配置编辑器，用于管理 MosDNS / Sing-box / Clash 等配置文件。
 
 ## 功能概览
 

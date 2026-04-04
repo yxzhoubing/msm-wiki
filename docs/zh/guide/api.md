@@ -221,7 +221,7 @@ MSM 提供基于 SSE（Server-Sent Events）的实时事件推送：
 | `/events/monitor` | 系统监控事件 |
 | `/events/proxy` | 代理服务事件 |
 | `/events/mosdns` | MosDNS 事件 |
-| `/events/mihomo` | ProxyCore 事件（接口名保留 `mihomo`） |
+| `/events/mihomo` | Clash 事件（接口名保留 `mihomo`） |
 | `/events/logs/:service` | 服务日志流 |
 
 使用示例：
@@ -275,7 +275,7 @@ curl -X POST -H "Authorization: Bearer TOKEN" \
 curl -X POST -H "Authorization: Bearer TOKEN" \
   http://your-server:7777/api/v1/services/mosdns/restart
 
-# 查看 ProxyCore 日志
+# 查看 Clash 日志
 curl -H "Authorization: Bearer TOKEN" \
   http://your-server:7777/api/v1/services/mihomo/logs
 ```

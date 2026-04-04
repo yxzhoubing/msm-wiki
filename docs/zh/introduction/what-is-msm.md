@@ -1,6 +1,6 @@
 # 什么是 MSM？
 
-MSM 是一个**旁路由 DNS 分流方案**，通过可视化管理平台统一管理 **MosDNS**（DNS 服务器）和 **ProxyCore / Sing-Box**（代理内核），实现智能 DNS 分流和透明代理。
+MSM 是一个**旁路由 DNS 分流方案**，通过可视化管理平台统一管理 **MosDNS**（DNS 服务器）和 **Clash / Sing-Box**（代理内核），实现智能 DNS 分流和透明代理。
 
 ## 设计宗旨与目标
 
@@ -68,7 +68,7 @@ MSM 实现全局透明代理：
    ↓
 5. 主路由通过静态路由将流量转发到 MSM
    ↓
-6. MSM（ProxyCore / Sing-Box）拦截流量并通过代理转发
+6. MSM（Clash / Sing-Box）拦截流量并通过代理转发
    ↓
 7. 代理服务器访问目标网站并返回结果
 ```
@@ -85,12 +85,12 @@ MSM 实现全局透明代理：
   - 支持 DNS 缓存
   - 支持自定义上游 DNS
 
-### ProxyCore / Sing-Box
+### Clash / Sing-Box
 
 - **功能**: 代理内核，负责透明代理
 - **端口**:
   - SingBox: 7890 (HTTP), 7891 (SOCKS5), 7892 (混合)
-  - ProxyCore: 7890 (HTTP), 7891 (SOCKS5), 7892 (混合)
+  - Clash: 7890 (HTTP), 7891 (SOCKS5), 7892 (混合)
 - **特性**:
   - 支持多种代理协议（Shadowsocks, VMess, Trojan, VLESS 等）
   - 支持透明代理（TProxy, Redirect）

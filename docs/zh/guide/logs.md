@@ -7,7 +7,7 @@
 - MSM
 - MosDNS
 - Sing-box
-- ProxyCore（内部服务名：`mihomo`）
+- Clash（内部服务名：`mihomo`）
 
 ## 常见操作
 
@@ -18,5 +18,5 @@
 ## 排查建议
 
 - DNS 解析异常：优先查看 **MosDNS** 日志
-- 代理连通问题：查看 **ProxyCore / Sing-box** 日志
+- 代理连通问题：查看 **Clash / Sing-box** 日志
 - 服务无法启动：查看 **MSM** 日志与系统诊断

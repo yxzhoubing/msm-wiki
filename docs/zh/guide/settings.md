@@ -51,7 +51,7 @@ MSM 支持以下语言：
 
 ### 代理服务配置
 
-- **代理内核** — 选择 ProxyCore 或 Sing-Box
+- **代理内核** — 选择 Clash 或 Sing-Box
 - **混合端口** — HTTP/SOCKS5 混合代理端口
 - **TProxy 端口** — 透明代理端口
 - **外部控制端口** — 代理内核 API 端口
@@ -66,7 +66,7 @@ MSM 支持自动检查和更新以下组件：
 |------|------|
 | MSM | MSM 管理平台自身 |
 | MosDNS | DNS 分流引擎 |
-| ProxyCore | ProxyCore 代理内核 |
+| Clash | Clash 代理内核 |
 | Sing-Box | Sing-Box 代理内核 |
 
 配置项：
@@ -97,7 +97,7 @@ ls ~/.msm/
 备份内容包括：
 - MSM 系统配置
 - MosDNS 配置和规则
-- ProxyCore / Sing-Box 配置
+- Clash / Sing-Box 配置
 - 用户数据和设置
 
 ### 恢复

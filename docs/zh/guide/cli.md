@@ -85,11 +85,11 @@ msm status
 MSM 状态:
   MSM 服务:    运行中 (PID: 12345)
   MosDNS:     运行中 (PID: 12346)
-  ProxyCore:  运行中 (PID: 12347)
+  Clash:  运行中 (PID: 12347)
   Sing-Box:   已停止
 ```
 
-示例里写作 `ProxyCore`，但 CLI 当前仍沿用内部服务标识 `mihomo`。
+示例里写作 `Clash`，但 CLI 当前仍沿用内部服务标识 `mihomo`。
 
 ### `msm restart` — 重启服务 {#restart}
 
@@ -121,7 +121,7 @@ msm logs mosdns
 # 查看 Sing-Box 日志
 msm logs singbox
 
-# 查看 ProxyCore 日志
+# 查看 Clash 日志
 msm logs mihomo
 ```
 
