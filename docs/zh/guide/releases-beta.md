@@ -7,22 +7,23 @@
 ## 🧪 最新 Beta 版本
 
 > 当前 Beta 版本：`beta-1.0.19`  
-> 发布时间：2026-04-05 22:48:27 CST  
+> 发布时间：2026-04-05 23:24:09 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.19>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
 ### 🐛 修复（Fixed）
+- 修复 Linux 下僵尸进程误判问题
 - 修复 Pro 授权降级与测试版版本比较逻辑
 
 ### 📝 备注（Notes）
-- 0.x 升级至 1.x 必须重装或重置安全及 DNS 服务
+- 0.x 升级至 1.x 需重装或重置 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`f269dff`](https://github.com/msm9527/msm/commit/f269dffcead1e95505f3e28837d3580228ab30aa)
-- **提交信息**: chore: sync version to 1.0.19
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-04-05 22:48:27 CST
+- **源提交**: [`149a6e6`](https://github.com/msm9527/msm/commit/149a6e698f7e559f5d9f7bd4818fa2ee13c79cf0)
+- **提交信息**: fix: 修复 Linux 下僵尸进程误判 / fix zombie process detection on Linux
+- **提交作者**: msm
+- **提交时间**: 2026-04-05 23:24:09 CST
 :::
 
 ---
