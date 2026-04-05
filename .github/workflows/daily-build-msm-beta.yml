@@ -716,15 +716,22 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # 删除旧的版本 tag（如果存在）
-          git tag -d "${VERSION}" >/dev/null 2>&1 || true
-          git push origin ":refs/tags/${VERSION}" || true
+          REMOTE_TAG_EXISTS="false"
+          if git ls-remote --exit-code --tags origin "refs/tags/${VERSION}" >/dev/null 2>&1; then
+            REMOTE_TAG_EXISTS="true"
+          fi
 
-          # 创建新的版本 tag
-          git tag -a "${VERSION}" -m "${CHANNEL_NAME} 每日构建 ${VERSION}" "${SHA}"
-          git push origin "refs/tags/${VERSION}"
+          # 直接覆盖同名 tag，避免“先删后建”导致 GitHub 将已有 release 短暂转成 draft。
+          git tag -fa "${VERSION}" -m "${CHANNEL_NAME} 每日构建 ${VERSION}" "${SHA}"
+
+          if [ "${REMOTE_TAG_EXISTS}" = "true" ]; then
+            git push --force origin "refs/tags/${VERSION}"
+          else
+            git push origin "refs/tags/${VERSION}"
+          fi
 
       - name: 创建/更新 GitHub Release
+        id: github_release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ needs.prepare.outputs.version }}
@@ -900,6 +907,31 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           artifacts: ${{ steps.release_assets.outputs.paths }}
+
+      - name: 校正 GitHub Release 发布状态
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const releaseId = Number('${{ steps.github_release.outputs.id }}');
+            if (!Number.isInteger(releaseId) || releaseId <= 0) {
+              throw new Error(`无效的 release id: ${{ steps.github_release.outputs.id }}`);
+            }
+
+            const prerelease = '${{ needs.prepare.outputs.is_beta }}' === 'true';
+            const makeLatest = '${{ needs.prepare.outputs.is_stable }}' === 'true' ? 'true' : 'false';
+
+            const { data } = await github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: releaseId,
+              draft: false,
+              prerelease,
+              make_latest: makeLatest,
+            });
+
+            core.info(
+              `已校正 release ${data.tag_name}: draft=${data.draft}, prerelease=${data.prerelease}, make_latest=${makeLatest}`
+            );
 
       - name: 更新 Wiki 版本发布页面
         uses: actions/github-script@v7
