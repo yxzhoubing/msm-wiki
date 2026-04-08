@@ -551,6 +551,8 @@ jobs:
           GOAMD64: ${{ matrix.goamd64 || '' }}
           CGO_ENABLED: ${{ matrix.goos == 'darwin' && '1' || '0' }}
           MSM_USE_GARBLE: '0'
+          MSM_BUILD_ID: ${{ needs.prepare.outputs.version }}
+          MSM_BUILD_CHANNEL: ${{ needs.prepare.outputs.channel }}
         run: |
           set -euo pipefail
           VERSION="${{ needs.prepare.outputs.version }}"
