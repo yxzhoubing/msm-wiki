@@ -6,34 +6,23 @@
 
 ## 🧪 最新 Beta 版本
 
-> 当前 Beta 版本：`beta-1.0.20`  
-> 发布时间：2026-04-08 16:42:52 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.20>  
+> 当前 Beta 版本：`beta-1.0.21`  
+> 发布时间：2026-04-08 17:31:00 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.21>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
-### ✨ 新增（Added）
-- 支持 Fake-IP 范围编辑并立即生效
-- 支持 HTTPS 证书上传与自签名生成
-- Setup 支持自动下载及手动上传安装
-
-### 🔧 变更（Changed）
-- 优化系统设置并迁移个人中心入口
-- 优化 SSE 首帧与代理页加载性能
-- 完善初始化上传与 HTTPS 配置流程
-
 ### 🐛 修复（Fixed）
-- 修复重启状态轮询地址错误
-- 修复 Linux 下僵尸进程误判问题
+- 修复注入环境变量误报与加载器环境评分问题
 
 ### 📝 备注（Notes）
-- 0.x 升级 1.x 需重装或重置 DNS 服务
+- 0.x 升 1.x 须重装或重置安全及 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`ffc362a`](https://github.com/msm9527/msm/commit/ffc362a7f53e893e82f01b4c85b0d25d7daa815f)
-- **提交信息**: chore: sync version to 1.0.20
+- **源提交**: [`290996a`](https://github.com/msm9527/msm/commit/290996a3deebf4ff71ef8af3ab15138347cd3dec)
+- **提交信息**: chore: sync version to 1.0.21
 - **提交作者**: github-actions[bot]
-- **提交时间**: 2026-04-08 16:42:52 CST
+- **提交时间**: 2026-04-08 17:31:00 CST
 :::
 
 ---
