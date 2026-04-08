@@ -7,22 +7,22 @@
 ## 🧪 最新 Beta 版本
 
 > 当前 Beta 版本：`beta-1.0.21`  
-> 发布时间：2026-04-08 17:31:00 CST  
+> 发布时间：2026-04-08 18:03:56 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.21>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
 ### 🐛 修复（Fixed）
-- 修复注入环境变量误报与加载器环境评分问题
+- 修正注入环境变量误报与加载器环境评分
 
-### 📝 备注（Notes）
-- 0.x 升 1.x 须重装或重置安全及 DNS 服务
+### ⚠️ 废弃（Deprecated）
+- 0.x 升级 1.x 需重装或重置安全并重新下载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`290996a`](https://github.com/msm9527/msm/commit/290996a3deebf4ff71ef8af3ab15138347cd3dec)
-- **提交信息**: chore: sync version to 1.0.21
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-04-08 17:31:00 CST
+- **源提交**: [`89b1fc1`](https://github.com/msm9527/msm/commit/89b1fc1a7e9b9d8ac12eff9d775d2b946ddf78d3)
+- **提交信息**: build: 修复发布脚本构建标识与通道注入 / build: inject release build id and channel in release script
+- **提交作者**: root
+- **提交时间**: 2026-04-08 18:03:56 CST
 :::
 
 ---
