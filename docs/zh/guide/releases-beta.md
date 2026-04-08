@@ -6,24 +6,34 @@
 
 ## 🧪 最新 Beta 版本
 
-> 当前 Beta 版本：`beta-1.0.19`  
-> 发布时间：2026-04-05 23:24:09 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.19>  
+> 当前 Beta 版本：`beta-1.0.20`  
+> 发布时间：2026-04-08 16:42:52 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.20>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
+### ✨ 新增（Added）
+- 支持 Fake-IP 范围编辑并立即生效
+- 支持 HTTPS 证书上传与自签名生成
+- Setup 支持自动下载及手动上传安装
+
+### 🔧 变更（Changed）
+- 优化系统设置并迁移个人中心入口
+- 优化 SSE 首帧与代理页加载性能
+- 完善初始化上传与 HTTPS 配置流程
+
 ### 🐛 修复（Fixed）
-- 修复 Linux 下僵尸进程检测误判问题
-- 修复 Pro 授权降级与测试版版本比较逻辑
+- 修复重启状态轮询地址错误
+- 修复 Linux 下僵尸进程误判问题
 
 ### 📝 备注（Notes）
-- 0.x 升级至 1.x 需重置 DNS 服务，DNS 架构已变更
+- 0.x 升级 1.x 需重装或重置 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`149a6e6`](https://github.com/msm9527/msm/commit/149a6e698f7e559f5d9f7bd4818fa2ee13c79cf0)
-- **提交信息**: fix: 修复 Linux 下僵尸进程误判 / fix zombie process detection on Linux
-- **提交作者**: msm
-- **提交时间**: 2026-04-05 23:24:09 CST
+- **源提交**: [`ffc362a`](https://github.com/msm9527/msm/commit/ffc362a7f53e893e82f01b4c85b0d25d7daa815f)
+- **提交信息**: chore: sync version to 1.0.20
+- **提交作者**: github-actions[bot]
+- **提交时间**: 2026-04-08 16:42:52 CST
 :::
 
 ---
