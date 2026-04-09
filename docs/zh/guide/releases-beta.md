@@ -7,23 +7,29 @@
 ## 🧪 最新 Beta 版本
 
 > 当前 Beta 版本：`beta-1.0.21`  
-> 发布时间：2026-04-09 00:30:18 CST  
+> 发布时间：2026-04-09 18:06:00 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.21>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
+### 🔧 变更（Changed）
+- 加固 Pro 授权校验与运行时完整性
+
 ### 🐛 修复（Fixed）
-- 清理升级残留进程，避免端口冲突
-- 修正注入环境变量误报及加载器评分
+- 修复 DNS 查询趋势曲线停滞
+- 修复代理 YAML 解析并合并重复节点
+- 优化日志筛选及减少访问日志噪音
+- 修复升级残留进程及端口冲突问题
+- 修正环境变量误报与加载器评分
 
 ### 📝 备注（Notes）
-- 0.x 升至 1.x 需重装或重置安全并重下 DNS 服务
+- 0.x 升至 1.x 需重装或重置 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`ca1473f`](https://github.com/msm9527/msm/commit/ca1473f2ce282761e03743745ffcb00be51e30c9)
-- **提交信息**: fix: 清理升级残留进程避免端口冲突 / fix upgrade leftover processes to avoid port conflicts
+- **源提交**: [`0472fd8`](https://github.com/msm9527/msm/commit/0472fd8d724b1ef4c299bfc1b04602ffe25e339c)
+- **提交信息**: 修复 DNS 查询趋势曲线停滞 / Fix stalled DNS query trend chart
 - **提交作者**: root
-- **提交时间**: 2026-04-09 00:30:18 CST
+- **提交时间**: 2026-04-09 18:06:00 CST
 :::
 
 ---
