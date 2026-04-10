@@ -6,30 +6,36 @@
 
 ## 🧪 最新 Beta 版本
 
-> 当前 Beta 版本：`beta-1.0.21`  
-> 发布时间：2026-04-09 18:06:00 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.21>  
+> 当前 Beta 版本：`beta-1.0.22`  
+> 发布时间：2026-04-11 00:26:26 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.22>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
+### ✨ 新增（Added）
+- 切换 MosDNS 客户端模式前增加确认提示
+
 ### 🔧 变更（Changed）
-- 加固 Pro 授权校验与运行时完整性
+- 适配 MosDNS 客户端黑白名单拆分逻辑
 
 ### 🐛 修复（Fixed）
-- 修复 DNS 查询趋势曲线停滞
-- 修复代理 YAML 解析并合并重复节点
-- 优化日志筛选及减少访问日志噪音
-- 修复升级残留进程及端口冲突问题
-- 修正环境变量误报与加载器评分
+- 兼容进程不存在错误，避免启动失败
+- 修复 Mihomo 配置校验及 MosDNS 概览数据
+- 修复 MosDNS 上游统计兼容映射问题
+- 修复 DNS 查询趋势曲线停滞显示
+- 兼容单节点代理 YAML 并合并重复节点
+- 修复日志页筛选功能并降低日志噪音
+- 优化 Pro 授权校验、同步及设备上报
+- 清理升级残留进程，修复升级回退及端口冲突
 
 ### 📝 备注（Notes）
-- 0.x 升至 1.x 需重装或重置 DNS 服务
+- 0.x 升至 1.x 需重装或重置安全并重新下载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`0472fd8`](https://github.com/msm9527/msm/commit/0472fd8d724b1ef4c299bfc1b04602ffe25e339c)
-- **提交信息**: 修复 DNS 查询趋势曲线停滞 / Fix stalled DNS query trend chart
-- **提交作者**: root
-- **提交时间**: 2026-04-09 18:06:00 CST
+- **源提交**: [`c6a58fd`](https://github.com/msm9527/msm/commit/c6a58fdc06f4d9cbaaf24761a2d2b0e3e6035c19)
+- **提交信息**: chore: sync version to 1.0.22
+- **提交作者**: github-actions[bot]
+- **提交时间**: 2026-04-11 00:26:26 CST
 :::
 
 ---
