@@ -7,22 +7,25 @@
 ## 🧪 最新 Beta 版本
 
 > 当前 Beta 版本：`beta-1.0.24`  
-> 发布时间：2026-04-13 22:52:41 CST  
+> 发布时间：2026-04-13 23:23:06 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.24>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
+### 🔧 变更（Changed）
+- 调整运行时代理网络自愈默认行为及判定逻辑
+
 ### 🐛 修复（Fixed）
-- 修复代理网络自愈判定逻辑导致的误判问题
+- 修复编译构建阻塞及网络自愈误判问题
 
 ### 📝 备注（Notes）
-- 0.x 升级至 1.x 必须重置安全并重载 DNS 服务
+- 0.x 升级 1.x 需重装或重置安全及 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`ec4b2f2`](https://github.com/msm9527/msm/commit/ec4b2f2596ea162a7d8f3cce7104c9dd80b6db0f)
-- **提交信息**: 放宽代理网络自愈判定并清理后端一批 lint / Relax proxy network self-heal detection and clean a batch of backend lint issues
+- **源提交**: [`b53fe3e`](https://github.com/msm9527/msm/commit/b53fe3eff6b37efc178dee46d3bf2cc0abd29121)
+- **提交信息**: 默认关闭运行时代理网络自愈并修复编译断点 / Disable runtime proxy network self-heal by default and fix build blockers
 - **提交作者**: root
-- **提交时间**: 2026-04-13 22:52:41 CST
+- **提交时间**: 2026-04-13 23:23:06 CST
 :::
 
 ---
