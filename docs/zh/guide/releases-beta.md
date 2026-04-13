@@ -6,33 +6,30 @@
 
 ## 🧪 最新 Beta 版本
 
-> 当前 Beta 版本：`beta-1.0.22`  
-> 发布时间：2026-04-11 00:26:26 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.22>  
+> 当前 Beta 版本：`beta-1.0.23`  
+> 发布时间：2026-04-13 21:44:54 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.23>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
-### ✨ 新增（Added）
-- 切换 MosDNS 客户端模式前增加确认提示
-
 ### 🔧 变更（Changed）
-- 适配 MosDNS 客户端黑白名单拆分逻辑
-- 加固 Pro 授权校验与运行时完整性检查
+- 缩短代理网络自愈间隔至 3 秒
+- 默认禁用 libpcap 依赖，保留显式构建
 
 ### 🐛 修复（Fixed）
-- 修复升级残留进程及启动兼容性问题
-- 修复 Mihomo 配置校验、DNS 统计及趋势图停滞
-- 兼容单节点代理 YAML 解析并合并重复节点
-- 优化日志页筛选功能并降低访问日志噪音
+- 修复代理网络规则丢失及重启重复恢复
+- 修复 MosDNS 日志分页、布局及就绪判定
+- 修复更新页面状态残留问题
+- 修复 Mihomo 单节点保存、粘贴兼容及 Alpha 更新显示
 
 ### 📝 备注（Notes）
-- 0.x 升级至 1.x 需重置安全设置并重载 DNS 服务
+- 0.x 升级 1.x 须重置安全并重新下载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`c6a58fd`](https://github.com/msm9527/msm/commit/c6a58fdc06f4d9cbaaf24761a2d2b0e3e6035c19)
-- **提交信息**: chore: sync version to 1.0.22
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-04-11 00:26:26 CST
+- **源提交**: [`e5b010e`](https://github.com/msm9527/msm/commit/e5b010e8c1e25153642612e7678ebaa18ef67345)
+- **提交信息**: 0.x版本升级到1.x必须 重装或者升级后重置安全重新下载dns服务，切记很重要，dns服务都变了
+- **提交作者**: msm
+- **提交时间**: 2026-04-13 21:44:54 CST
 :::
 
 ---
