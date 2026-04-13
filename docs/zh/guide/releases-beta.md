@@ -7,22 +7,22 @@
 ## 🧪 最新 Beta 版本
 
 > 当前 Beta 版本：`beta-1.0.24`  
-> 发布时间：2026-04-13 22:31:39 CST  
+> 发布时间：2026-04-13 22:52:41 CST  
 > - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.24>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
 ### 🐛 修复（Fixed）
-- 修复后端网络自愈逻辑的误判问题
+- 修复代理网络自愈判定逻辑导致的误判问题
 
 ### 📝 备注（Notes）
-- 0.x 升级 1.x 需重置安全并重新下载 DNS 服务
+- 0.x 升级至 1.x 必须重置安全并重载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`19f3cc3`](https://github.com/msm9527/msm/commit/19f3cc303961bf86525e83d665b95b85862bff2c)
-- **提交信息**: chore: sync version to 1.0.24
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-04-13 22:31:39 CST
+- **源提交**: [`ec4b2f2`](https://github.com/msm9527/msm/commit/ec4b2f2596ea162a7d8f3cce7104c9dd80b6db0f)
+- **提交信息**: 放宽代理网络自愈判定并清理后端一批 lint / Relax proxy network self-heal detection and clean a batch of backend lint issues
+- **提交作者**: root
+- **提交时间**: 2026-04-13 22:52:41 CST
 :::
 
 ---
