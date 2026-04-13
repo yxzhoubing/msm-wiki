@@ -6,30 +6,23 @@
 
 ## 🧪 最新 Beta 版本
 
-> 当前 Beta 版本：`beta-1.0.23`  
-> 发布时间：2026-04-13 21:44:54 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.23>  
+> 当前 Beta 版本：`beta-1.0.24`  
+> 发布时间：2026-04-13 22:31:39 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.24>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
-### 🔧 变更（Changed）
-- 缩短代理网络自愈间隔至 3 秒
-- 默认禁用 libpcap 依赖，保留显式构建
-
 ### 🐛 修复（Fixed）
-- 修复代理网络规则丢失及重启重复恢复
-- 修复 MosDNS 日志分页、布局及就绪判定
-- 修复更新页面状态残留问题
-- 修复 Mihomo 单节点保存、粘贴兼容及 Alpha 更新显示
+- 修复后端网络自愈逻辑的误判问题
 
 ### 📝 备注（Notes）
-- 0.x 升级 1.x 须重置安全并重新下载 DNS 服务
+- 0.x 升级 1.x 需重置安全并重新下载 DNS 服务
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`e5b010e`](https://github.com/msm9527/msm/commit/e5b010e8c1e25153642612e7678ebaa18ef67345)
-- **提交信息**: 0.x版本升级到1.x必须 重装或者升级后重置安全重新下载dns服务，切记很重要，dns服务都变了
-- **提交作者**: msm
-- **提交时间**: 2026-04-13 21:44:54 CST
+- **源提交**: [`19f3cc3`](https://github.com/msm9527/msm/commit/19f3cc303961bf86525e83d665b95b85862bff2c)
+- **提交信息**: chore: sync version to 1.0.24
+- **提交作者**: github-actions[bot]
+- **提交时间**: 2026-04-13 22:31:39 CST
 :::
 
 ---
