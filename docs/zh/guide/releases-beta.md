@@ -6,42 +6,23 @@
 
 ## 🧪 最新 Beta 版本
 
-> 当前 Beta 版本：`beta-1.0.26`  
-> 发布时间：2026-04-16 12:35:02 CST  
-> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.26>  
+> 当前 Beta 版本：`beta-1.0.27`  
+> 发布时间：2026-04-16 14:28:10 CST  
+> - 发布页：<https://github.com/msm9527/msm-wiki/releases/tag/beta-1.0.27>  
 > - 下载方式：同一发布页内提供各平台二进制、安装包、派网 APX 与 SHA256 校验清单
 
-### ✨ 新增（Added）
-- 支持规则集文件编辑功能
-- 日志页面迁移至浮动窗口
-- 更新配置桌面端右栏常驻
-- 合并安装与重启按钮操作
-- 优化日志窗口交互体验
-
-### 🔧 变更（Changed）
-- 默认关闭运行时代理网络自愈
-- MosDNS 恢复原始重试策略
-- 合并 Mihomo 配置接口加速
-- SSE 数据迁移至 Zustand 优化
-
 ### 🐛 修复（Fixed）
-- 修复嵌入式前端黑屏问题
-- 修复更新模块 UI 及下载逻辑
-- 修复本地服务 HTTP 请求代理
-- 修复轮播模式及相关设置 Bug
-- 修复日志页循环请求与性能
-- 修复 Inline 规则集序列化错误
-- 修复 MosDNS 配置恢复超时
+- 修复更新重启死循环，清理构建备份
 
 ### 📝 备注（Notes）
-- 0.x 升级 1.x 需重置 DNS 服务，否则失效
+- 0.x 升级至 1.x 需重装或重置，DNS 服务已变更
 
 ::: details 📋 构建信息
 - **发布通道**: beta（Beta 版）
-- **源提交**: [`306d595`](https://github.com/msm9527/msm/commit/306d5951f4055bfe4a526acf0dfc443a4e779531)
-- **提交信息**: chore: sync version to 1.0.26
-- **提交作者**: github-actions[bot]
-- **提交时间**: 2026-04-16 12:35:02 CST
+- **源提交**: [`a08d09d`](https://github.com/msm9527/msm/commit/a08d09d25c939b325fc33b83635bff03ca27cad9)
+- **提交信息**: Merge pull request #41 from msm9527/dev
+- **提交作者**: msm
+- **提交时间**: 2026-04-16 14:28:10 CST
 :::
 
 ---
